@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+
+
 @main
 struct MindfulnessAIApp: App {
     var body: some Scene {
         WindowGroup {
-
-            ContentView()
+            FirstView()
         }
     }
 }

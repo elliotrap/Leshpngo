@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */; };
 		214F2BE829A541D600B370AF /* soundWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F2BE729A541D600B370AF /* soundWave.swift */; };
 		214F2BEE29A58D2800B370AF /* alien.black.png in Resources */ = {isa = PBXBuildFile; fileRef = 214F2BED29A58D2800B370AF /* alien.black.png */; };
 		2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2173D9EE29AE7CB70090883B /* mainMeditation.swift */; };
 		2173D9F229B69D550090883B /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2173D9F129B69D550090883B /* Algorithms */; };
 		2173D9F529B6A7D30090883B /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2173D9F429B6A7D30090883B /* OpenAISwift */; };
+		217B6B5C29F70FBC0018B584 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B6B5B29F70FBC0018B584 /* fonts.swift */; };
+		218B60192A0C056D00EC1DAE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B60182A0C056C00EC1DAE /* File.swift */; };
 		21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */; };
-		21E373A7299F156C008B57D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A6299F156C008B57D5 /* ContentView.swift */; };
+		21E373A7299F156C008B57D5 /* MeditationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A6299F156C008B57D5 /* MeditationGenerator.swift */; };
 		21E373A9299F156D008B57D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E373A8299F156D008B57D5 /* Assets.xcassets */; };
 		21E373AC299F156D008B57D5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E373AB299F156D008B57D5 /* Preview Assets.xcassets */; };
 		21E373B6299F156D008B57D5 /* MindfulnessAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373B5299F156D008B57D5 /* MindfulnessAITests.swift */; };
@@ -41,12 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTfirstWindow.swift; sourceTree = "<group>"; };
 		214F2BE729A541D600B370AF /* soundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = soundWave.swift; sourceTree = "<group>"; };
 		214F2BED29A58D2800B370AF /* alien.black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien.black.png; sourceTree = "<group>"; };
 		2173D9EE29AE7CB70090883B /* mainMeditation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainMeditation.swift; sourceTree = "<group>"; };
+		217B6B5B29F70FBC0018B584 /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
+		218B60182A0C056C00EC1DAE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		21E373A1299F156C008B57D5 /* MindfulnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindfulnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIApp.swift; sourceTree = "<group>"; };
-		21E373A6299F156C008B57D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		21E373A6299F156C008B57D5 /* MeditationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationGenerator.swift; sourceTree = "<group>"; };
 		21E373A8299F156D008B57D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21E373AB299F156D008B57D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21E373B1299F156D008B57D5 /* MindfulnessAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindfulnessAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +102,7 @@
 		21E37398299F156C008B57D5 = {
 			isa = PBXGroup;
 			children = (
+				217B6B5B29F70FBC0018B584 /* fonts.swift */,
 				21E373A3299F156C008B57D5 /* MindfulnessAI */,
 				21E373B4299F156D008B57D5 /* MindfulnessAITests */,
 				21E373BE299F156D008B57D5 /* MindfulnessAIUITests */,
@@ -118,7 +125,9 @@
 			children = (
 				214F2BEC29A58D0B00B370AF /* icons */,
 				21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */,
-				21E373A6299F156C008B57D5 /* ContentView.swift */,
+				218B60182A0C056C00EC1DAE /* File.swift */,
+				21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */,
+				21E373A6299F156C008B57D5 /* MeditationGenerator.swift */,
 				214F2BE729A541D600B370AF /* soundWave.swift */,
 				2173D9EE29AE7CB70090883B /* mainMeditation.swift */,
 				21E373CE299F16AA008B57D5 /* MAIviewModel.swift */,
@@ -293,11 +302,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				217B6B5C29F70FBC0018B584 /* fonts.swift in Sources */,
 				21E373CF299F16AA008B57D5 /* MAIviewModel.swift in Sources */,
-				21E373A7299F156C008B57D5 /* ContentView.swift in Sources */,
+				21E373A7299F156C008B57D5 /* MeditationGenerator.swift in Sources */,
+				21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */,
 				21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */,
 				214F2BE829A541D600B370AF /* soundWave.swift in Sources */,
 				2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */,
+				218B60192A0C056D00EC1DAE /* File.swift in Sources */,
 				21E373D1299F16EB008B57D5 /* MAIcolors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,6 +380,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -385,6 +398,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -428,6 +444,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -439,6 +456,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone[sdk=*]" = "";
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -465,7 +486,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait font";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone[sdk=*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,7 +518,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait font";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -535,6 +559,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SDVM3QJL8X;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
