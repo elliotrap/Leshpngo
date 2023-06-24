@@ -34,33 +34,6 @@ class ColorViewModel: ObservableObject {
     func colorSetup() {
         color = Color(red: colorHex1 / 255, green: colorHex2 / 255, blue: colorHex2 / 255)
     }
-    
-//    func run() {
-//       
-//        DispatchQueue.global(qos: .background).async {
-//            while true {
-//                self.colorHex1 += 5
-//                if self.colorHex1 >= 125 {
-//                    self.colorHex1 -= 5
-//                    self.colorHex2 += 5
-//                    if self.colorHex2 >= 125{
-//                        self.colorHex2 -= 5
-//                        self.colorHex3 += 5
-//                        if self.colorHex3 >= 125 {
-//                            self.colorHex3 += 5
-//                            self.colorHex3 -= 5
-//                        }
-//                    }
-//                }
-//                DispatchQueue.main.async {
-//                    self.colorSetup()
-//                }
-//                Thread.sleep(forTimeInterval: 0.1)
-//                
-//            }
-//        }
-//        }
-
 }
 
 let contentView1 = ColorViewModel()

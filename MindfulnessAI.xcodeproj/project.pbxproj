@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */; };
-		214F2BE829A541D600B370AF /* soundWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F2BE729A541D600B370AF /* soundWave.swift */; };
 		214F2BEE29A58D2800B370AF /* alien.black.png in Resources */ = {isa = PBXBuildFile; fileRef = 214F2BED29A58D2800B370AF /* alien.black.png */; };
 		2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2173D9EE29AE7CB70090883B /* mainMeditation.swift */; };
-		2173D9F229B69D550090883B /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2173D9F129B69D550090883B /* Algorithms */; };
-		2173D9F529B6A7D30090883B /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2173D9F429B6A7D30090883B /* OpenAISwift */; };
 		217B6B5C29F70FBC0018B584 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B6B5B29F70FBC0018B584 /* fonts.swift */; };
 		218B60192A0C056D00EC1DAE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B60182A0C056C00EC1DAE /* File.swift */; };
+		219901382A4238F200260F17 /* chatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219901372A4238F200260F17 /* chatViewModel.swift */; };
+		2199013A2A423AA100260F17 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219901392A423AA100260F17 /* Constants.swift */; };
+		2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199013B2A423ACB00260F17 /* OpenAIService.swift */; };
+		2199015A2A423B1B00260F17 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 219901592A423B1B00260F17 /* Alamofire */; };
+		21AB40E02A45D86200D72FCC /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 21AB40DF2A45D86200D72FCC /* OpenAISwift */; };
 		21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */; };
 		21E373A7299F156C008B57D5 /* MeditationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A6299F156C008B57D5 /* MeditationGenerator.swift */; };
 		21E373A9299F156D008B57D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E373A8299F156D008B57D5 /* Assets.xcassets */; };
@@ -27,6 +29,62 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		21AB40CB2A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+		21AB40CD2A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS Tests";
+		};
+		21AB40CF2A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire macOS";
+		};
+		21AB40D12A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
+			remoteInfo = "Alamofire macOS Tests";
+		};
+		21AB40D32A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626EF1BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS";
+		};
+		21AB40D52A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626F81BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS Tests";
+		};
+		21AB40D72A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4202FE01B667AA100C997FB;
+			remoteInfo = "Alamofire watchOS";
+		};
+		21AB40D92A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 31293065263E17D600473CEA;
+			remoteInfo = "Alamofire watchOS Tests";
+		};
 		21E373B2299F156D008B57D5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21E37399299F156C008B57D5 /* Project object */;
@@ -45,11 +103,14 @@
 
 /* Begin PBXFileReference section */
 		21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTfirstWindow.swift; sourceTree = "<group>"; };
-		214F2BE729A541D600B370AF /* soundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = soundWave.swift; sourceTree = "<group>"; };
 		214F2BED29A58D2800B370AF /* alien.black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien.black.png; sourceTree = "<group>"; };
 		2173D9EE29AE7CB70090883B /* mainMeditation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainMeditation.swift; sourceTree = "<group>"; };
 		217B6B5B29F70FBC0018B584 /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		218B60182A0C056C00EC1DAE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		219901372A4238F200260F17 /* chatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewModel.swift; sourceTree = "<group>"; };
+		219901392A423AA100260F17 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2199013B2A423ACB00260F17 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
+		21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../../../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		21E373A1299F156C008B57D5 /* MindfulnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindfulnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIApp.swift; sourceTree = "<group>"; };
 		21E373A6299F156C008B57D5 /* MeditationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationGenerator.swift; sourceTree = "<group>"; };
@@ -69,8 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2173D9F529B6A7D30090883B /* OpenAISwift in Frameworks */,
-				2173D9F229B69D550090883B /* Algorithms in Frameworks */,
+				21AB40E02A45D86200D72FCC /* OpenAISwift in Frameworks */,
+				2199015A2A423B1B00260F17 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +160,28 @@
 			path = icons;
 			sourceTree = "<group>";
 		};
+		21AB40C12A45D3AC00D72FCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				21AB40CC2A45D3AC00D72FCC /* Alamofire.framework */,
+				21AB40CE2A45D3AC00D72FCC /* Alamofire iOS Tests.xctest */,
+				21AB40D02A45D3AC00D72FCC /* Alamofire.framework */,
+				21AB40D22A45D3AC00D72FCC /* Alamofire macOS Tests.xctest */,
+				21AB40D42A45D3AC00D72FCC /* Alamofire.framework */,
+				21AB40D62A45D3AC00D72FCC /* Alamofire tvOS Tests.xctest */,
+				21AB40D82A45D3AC00D72FCC /* Alamofire.framework */,
+				21AB40DA2A45D3AC00D72FCC /* Alamofire watchOS Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		21AB40DC2A45D85700D72FCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		21E37398299F156C008B57D5 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +190,7 @@
 				21E373B4299F156D008B57D5 /* MindfulnessAITests */,
 				21E373BE299F156D008B57D5 /* MindfulnessAIUITests */,
 				21E373A2299F156C008B57D5 /* Products */,
+				21AB40DC2A45D85700D72FCC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,10 +212,13 @@
 				218B60182A0C056C00EC1DAE /* File.swift */,
 				21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */,
 				21E373A6299F156C008B57D5 /* MeditationGenerator.swift */,
-				214F2BE729A541D600B370AF /* soundWave.swift */,
 				2173D9EE29AE7CB70090883B /* mainMeditation.swift */,
 				21E373CE299F16AA008B57D5 /* MAIviewModel.swift */,
 				21E373D0299F16EB008B57D5 /* MAIcolors.swift */,
+				219901372A4238F200260F17 /* chatViewModel.swift */,
+				219901392A423AA100260F17 /* Constants.swift */,
+				2199013B2A423ACB00260F17 /* OpenAIService.swift */,
+				21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */,
 				21E373A8299F156D008B57D5 /* Assets.xcassets */,
 				21E373AA299F156D008B57D5 /* Preview Content */,
 			);
@@ -180,8 +267,8 @@
 			);
 			name = MindfulnessAI;
 			packageProductDependencies = (
-				2173D9F129B69D550090883B /* Algorithms */,
-				2173D9F429B6A7D30090883B /* OpenAISwift */,
+				219901592A423B1B00260F17 /* Alamofire */,
+				21AB40DF2A45D86200D72FCC /* OpenAISwift */,
 			);
 			productName = MindfulnessAI;
 			productReference = 21E373A1299F156C008B57D5 /* MindfulnessAI.app */;
@@ -231,7 +318,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					21E373A0299F156C008B57D5 = {
 						CreatedOnToolsVersion = 14.2;
@@ -258,9 +345,16 @@
 			packageReferences = (
 				2173D9F029B69D550090883B /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				2173D9F329B6A7D30090883B /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+				219901582A423B1B00260F17 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 21E373A2299F156C008B57D5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 21AB40C12A45D3AC00D72FCC /* Products */;
+					ProjectRef = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				21E373A0299F156C008B57D5 /* MindfulnessAI */,
@@ -269,6 +363,65 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		21AB40CC2A45D3AC00D72FCC /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 21AB40CB2A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21AB40CE2A45D3AC00D72FCC /* Alamofire iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire iOS Tests.xctest";
+			remoteRef = 21AB40CD2A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21AB40D02A45D3AC00D72FCC /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 21AB40CF2A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21AB40D22A45D3AC00D72FCC /* Alamofire macOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire macOS Tests.xctest";
+			remoteRef = 21AB40D12A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21AB40D42A45D3AC00D72FCC /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 21AB40D32A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21AB40D62A45D3AC00D72FCC /* Alamofire tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire tvOS Tests.xctest";
+			remoteRef = 21AB40D52A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21AB40D82A45D3AC00D72FCC /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 21AB40D72A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		21AB40DA2A45D3AC00D72FCC /* Alamofire watchOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire watchOS Tests.xctest";
+			remoteRef = 21AB40D92A45D3AC00D72FCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		21E3739F299F156C008B57D5 /* Resources */ = {
@@ -303,14 +456,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				217B6B5C29F70FBC0018B584 /* fonts.swift in Sources */,
+				2199013A2A423AA100260F17 /* Constants.swift in Sources */,
 				21E373CF299F16AA008B57D5 /* MAIviewModel.swift in Sources */,
 				21E373A7299F156C008B57D5 /* MeditationGenerator.swift in Sources */,
 				21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */,
+				219901382A4238F200260F17 /* chatViewModel.swift in Sources */,
 				21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */,
-				214F2BE829A541D600B370AF /* soundWave.swift in Sources */,
 				2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */,
 				218B60192A0C056D00EC1DAE /* File.swift in Sources */,
 				21E373D1299F16EB008B57D5 /* MAIcolors.swift in Sources */,
+				2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +539,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -448,6 +604,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -664,15 +821,23 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		219901582A423B1B00260F17 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2173D9F129B69D550090883B /* Algorithms */ = {
+		219901592A423B1B00260F17 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2173D9F029B69D550090883B /* XCRemoteSwiftPackageReference "swift-algorithms" */;
-			productName = Algorithms;
+			package = 219901582A423B1B00260F17 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
-		2173D9F429B6A7D30090883B /* OpenAISwift */ = {
+		21AB40DF2A45D86200D72FCC /* OpenAISwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2173D9F329B6A7D30090883B /* XCRemoteSwiftPackageReference "OpenAISwift" */;
 			productName = OpenAISwift;

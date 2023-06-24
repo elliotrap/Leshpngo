@@ -18,6 +18,9 @@ class ViewModel: ObservableObject {
     }
     
     
+    @Published var startLessonPrompt = true
+    @Published var startMeditationPrompt = true
+
     
     @Published var vipassanaButtonPressed = false
     @Published var expand: Bool = false
@@ -35,30 +38,35 @@ class ViewModel: ObservableObject {
     @Published var chiefButton: Bool = false
     @Published var chiefButtonSize: CGFloat = 120
     @Published var chiefButtonIconSize: CGFloat = 15
-    @Published var chiefButtonBackgroundSize: CGFloat = 140
+    @Published var chiefButtonBackgroundSize: CGFloat = 150
     @Published var chiefButtonCornerSize: CGFloat = 30
     
     @Published var lunaButtonPressed: Bool = false
     @Published var lunaButton: Bool = false
     @Published var lunaButtonSize: CGFloat = 120
     @Published var lunaButtonIconSize: CGFloat = 15
-    @Published var lunaButtonBackgroundSize: CGFloat = 140
+    @Published var lunaButtonBackgroundSize: CGFloat = 150
     @Published var lunaButtonCornerSize: CGFloat = 30
     
     @Published var zeppelinButtonPressed: Bool = false
     @Published var zeppelinButton: Bool = false
     @Published var zeppelinButtonSize: CGFloat = 120
     @Published var zeppelinButtonIconSize: CGFloat = 15
-    @Published var zeppelinButtonBackgroundSize: CGFloat = 140
+    @Published var zeppelinButtonBackgroundSize: CGFloat = 150
     @Published var zeppelinButtonCornerSize: CGFloat = 30
     
     @Published var maddieButtonPressed: Bool = false
     @Published var maddieButton: Bool = false
     @Published var maddieButtonSize: CGFloat = 120
     @Published var maddieButtonIconSize: CGFloat = 15
-    @Published var maddieButtonBackgroundSize: CGFloat = 140
+    @Published var maddieButtonBackgroundSize: CGFloat = 150
     @Published var maddieButtonCornerSize: CGFloat = 30
-    
+
+    @Published var tenMinuetButton = false
+    @Published var twentyMinuetButton = false
+    @Published var thirtyMinuetButton = false
+
+
     @Published private var client: OpenAISwift?
     @Published var prompt =
     """
@@ -175,6 +183,11 @@ point p = {x, y}; color c = RED;
     @Published var sliderProgress: CGFloat = 0
     @Published var sliderHeight: CGFloat = 0
     @Published var lastDragValue: CGFloat = 0
+    
+    @Published var lessonMaxHeight: CGFloat = UIScreen.main.bounds.height / 3.50
+    @Published var lessonSliderProgress: CGFloat = 0
+    @Published var lessonSliderHeight: CGFloat = 0
+    @Published var lessonLastDragValue: CGFloat = 0
     
     // API key
     func setup() {

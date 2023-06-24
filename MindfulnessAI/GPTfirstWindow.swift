@@ -12,14 +12,15 @@ extension UINavigationController {
 
     // Remove back button text
     open override func viewWillLayoutSubviews() {
-
         navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = UIColor(red: 107 / 255, green: 214 / 255, blue: 110 / 255, alpha: 1.0)
        navigationItem.hidesBackButton = true
     }
 }
 
-struct FirstView: View {
+struct ChatView: View {
+    
+    @ObservedObject var viewModel = ChatViewModel()
     
     @ObservedObject var vm = ViewModel()
     
@@ -28,25 +29,21 @@ struct FirstView: View {
     @ObservedObject var shapeVm = Shapes()
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                
-                VStack {
-                    
-                    VStack {
-                        
-                        ZStack {
+            NavigationView {
+                    ScrollView {
+                            VStack {
+                                    VStack {
+                                            ZStack {
                             Spacer()
                             // leshpngo background for the logo
                             Text(vm.onesAndZeros[vm.onesAndZerosIndex])
                                 .frame(width: 360, height: 120)
                                 .cornerRadius(60)
                                 .font(.system(size:14.3))
-                            //  .font(.system(size:13.35))
+                               // .font(.system(size:13.35))
                                 .lineLimit(nil)
                                 .shadow(color: Color.green, radius: 10,  y: 10)
                                 .foregroundColor(cvm.homeBrew)
-                            
                             // the progression of the 1's and 0's that iterate the index to make an animation
                                 .onAppear {
                                     Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
@@ -64,23 +61,18 @@ struct FirstView: View {
                                 .font(.caption)
                                 .foregroundColor(cvm.offBlue)
                                 .zIndex(5)
-                            
                         }
                     }
                     .padding(20)
                     .scaleEffect(1)
                     
                     ZStack {
-                        
                         RoundedRectangle(cornerRadius: 20)
                             .foregroundColor(cvm.offBlack)
-                            .frame(width: 350, height: 350)
+                            .frame(width: 350, height: vm.expand || vm.expandTwo ? 435 : 350)
                             .modifier(Shapes.NeumorphicPopedOutBox())
-                        
-                        VStack(spacing: 10) {
-                            
+                        VStack(spacing: 20) {
                             HStack(content:  {
-                                
                             })
                             // the label to pick a meditation
                             Text("Chose a meditation").padding()
@@ -92,11 +84,10 @@ struct FirstView: View {
                                 .modifier(Shapes.NeumorphicBox())
                             
                             ZStack {
-                                
                                 // background for the vipassana button
-                                RoundedRectangle(cornerRadius: 25)
+                                RoundedRectangle(cornerRadius: 30)
                                     .stroke()
-                                    .frame(width: vm.expand ? 300 : 290, height: vm.expand ? 180 : 95)  .foregroundColor(vm.vipassanaButtonPressed ? Color.gray : cvm.homeBrew)
+                                    .frame(width: vm.expand ? 300 : 305, height: vm.expand ? 180 : 95)  .foregroundColor(vm.vipassanaButtonPressed ? Color.gray : cvm.homeBrew)
                                     .zIndex(5)
                                 if vm.vipassanaButtonPressed == false {
                                     // vipassana meditation link with a description of what meta is
@@ -116,11 +107,10 @@ struct FirstView: View {
                                     .buttonStyle(.borderless)
                                     .frame(width: vm.expand ? 290 : 275, height: vm.expand ? 150 : 65)
                                     .modifier(Shapes.NeumorphicRectangle())
-                                    
+                                    .disabled(vm.expand)
                                     // the description of the meditation, so the AI will know what type of meditation to do.
                                     .overlay(
                                         ZStack {
-                                            
                                             // Vipassana extra info icon that shows what type of meditation it is
                                             Button(action: {
                                                 
@@ -167,7 +157,6 @@ struct FirstView: View {
                                                         .foregroundColor(Color.gray)
                                                 })
                                                 .buttonStyle(.borderless)
-                                                
                                             }
                                                 .padding(.leading, 210)
                                         )
@@ -176,12 +165,11 @@ struct FirstView: View {
                             }
                             ZStack {
                                 // background for the meta button
-                                RoundedRectangle(cornerRadius: 25)
+                                RoundedRectangle(cornerRadius: 30)
                                     .stroke()
-                                    .frame(width: vm.expandTwo ? 300 : 290, height: vm.expandTwo ? 180 : 95)
+                                    .frame(width: vm.expandTwo ? 300 : 305, height: vm.expandTwo ? 180 : 95)
                                     .foregroundColor(vm.metaButtonPressed ? Color.gray : cvm.homeBrew)
                                     .zIndex(5)
-                                
                                 // meta meditation link with a description of what meta is
                                 if vm.metaButtonPressed == false {
                                     Button(action: {
@@ -206,6 +194,7 @@ struct FirstView: View {
                                     .cornerRadius(20)
                                     .shadow(color: cvm.shadowBlack, radius: 20, x: 20, y: 20)
                                     .shadow(color: cvm.offBlue, radius: 20, x: -20, y: -20)
+                                    .disabled(vm.expandTwo)
                                     .overlay(
                                         ZStack {
                                             // meta extra info icon that shows what type of meditation it is
@@ -265,39 +254,46 @@ struct FirstView: View {
                     .scaleEffect(0.9)
                     
                     ZStack {
-                      
-                        
                         VStack {
-                            
-                            Spacer(minLength: 30)
-                            
+                            Spacer(minLength: 40)
                             RoundedRectangle(cornerRadius: 30)
-                                .frame(width: 350, height: vm.meditationTimeBoxExpand ? 350 : 170)
+                                .frame(width: 350, height: vm.meditationTimeBoxExpand ? 400 : 170)
                                 .foregroundColor(cvm.offBlack)
                                 .modifier(Shapes.NeumorphicPopedOutBox())
                                 .overlay(
                                     Button(action: {
-                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
-                                            vm.meditationTimeBoxExpand.toggle()
-                                        }
+                               
                                     }, label: {
-                                        Image(systemName: "i.circle").resizable() .frame(width: 20, height: 20)
-                                            .foregroundColor(cvm.homeBrew)
-                                            .padding(.top, vm.meditationTimeBoxExpand ? 303 : 100)
-                                            .padding(.leading, vm.meditationTimeBoxExpand ? 290 : 270)
+                                        HStack(spacing: vm.meditationTimeBoxExpand ? 40 : 150) {
+                                            Image(systemName: "line.3.horizontal.decrease").resizable() .frame(width: vm.meditationTimeBoxExpand ? 120 : 40, height: 20)
+                                                .foregroundColor(cvm.offBlue)
+                                                .padding(.top, vm.meditationTimeBoxExpand ? 310 : 100)
+                                                .onTapGesture {
+                                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
+                                                        vm.meditationTimeBoxExpand.toggle()
+                                                    }
+                                                }
+                                            Image(systemName: "line.3.horizontal.decrease").resizable() .frame(width: vm.meditationTimeBoxExpand ? 120 : 40, height: 20)
+                                                .foregroundColor(cvm.offBlue)
+                                                .padding(.top, vm.meditationTimeBoxExpand ? 310 : 100)
+                                                .onTapGesture {
+                                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
+                                                        vm.meditationTimeBoxExpand.toggle()
+                                                    }
+                                                }
+                                        }
                                     })
-                                    
+                                    .buttonStyle(.borderless)
+
                             )
                                 .overlay(
                                     VStack {
-                                       
                                         HStack(spacing: 0) {
                                             VStack {
                                                 Text("DAYS:")
                                                     .scaleEffect(vm.meditationTimeBoxExpand ? 1 : 0)
                                                     .foregroundColor(cvm.homeBrew)
                                                     .padding(.top, 150)
-
                                                 Rectangle()
                                                     .foregroundColor(cvm.offBlack)
                                                     .frame(width: vm.meditationTimeBoxExpand ? 155 : 0, height: vm.meditationTimeBoxExpand ? 100 : 0)
@@ -322,16 +318,13 @@ struct FirstView: View {
                                                     Text("999")
                                                         .scaleEffect(vm.meditationTimeBoxExpand ? 1 : 0)
                                                         .foregroundColor(cvm.homeBrew)
-                                                    )
-                                                
+                                                )
+
                                             }
-                                            
-                             
-                                            
-                                            
                                         }
                                     })
-                        }
+                                }
+
                         VStack {
                             HStack(spacing: 0) {
                                 VStack {
@@ -350,19 +343,15 @@ struct FirstView: View {
                                         .frame(width: 600, height: 1)
                                         .foregroundColor(cvm.homeBrew)
                                         .padding(.bottom, 80)
-                                    
                                 }
-                                
                                 VStack {
-                                    
                                     Spacer()
-                                    
                                     VStack {
                                         ZStack {
                                             
                                             Circle()
                                                 .stroke()
-                                                .frame(width: 100, height: 100)
+                                                .frame(width: 110, height: 110)
                                                 .foregroundColor(cvm.homeBrew)
                                                 .padding(.bottom, 30)
                                                 .zIndex(3)
@@ -376,7 +365,6 @@ struct FirstView: View {
                                             .frame(width: 80, height: 80)
                                             .modifier(Shapes.NeumorphicCircle())
                                             .padding(.bottom, 30)
-                                            
                                         }
                                     }
                                 }
@@ -389,34 +377,27 @@ struct FirstView: View {
                                             .frame(height: 80)
                                             .foregroundColor(cvm.homeBrew)
                                             .modifier(Shapes.NeumorphicBox())
-                                        
                                         Spacer()
                                     }
-                                    
                                     Rectangle()
                                         .frame(width: 600, height: 1)
                                         .foregroundColor(cvm.homeBrew)
                                         .padding(.bottom, 80)
-                                    
                                 }
-                                
                             }
-                            Spacer(minLength: vm.meditationTimeBoxExpand ? 150 : 0)
+                            Spacer(minLength: vm.meditationTimeBoxExpand ? 200 : 0)
                         }
-                        
                     }
                 }
                 .scaleEffect(0.9)
-                
                 ZStack {
                     RoundedRectangle(cornerRadius: 30)
-                        .frame(width:350, height: 400)
+                        .frame(width:350, height: 420)
                         .foregroundColor(cvm.offBlack)
                         .modifier(Shapes.NeumorphicPopedOutBox())
-                        .padding(.top, 50)
+                        .padding(.top, 0)
                     
                     VStack(spacing: 10) {
-                        Spacer(minLength: 10)
                         ZStack {
                             HStack(content:  {
                                 
@@ -425,13 +406,11 @@ struct FirstView: View {
                                     .underline(false)
                                     .buttonStyle(.borderless)
                                     .foregroundColor(cvm.homeBrew)
-                                
                             })
                             .frame(width: 250, height: 70)
                             .cornerRadius(40)
                             .modifier(Shapes.NeumorphicBox())
                             .zIndex(7)
-                            
                         }
                         HStack {
                             Grid(horizontalSpacing: vm.gridSpacing) {
@@ -464,18 +443,14 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                         .foregroundColor(cvm.homeBrew)
                                                         .font(.system(size: vm.chiefButton ? 16 : 16))
                                                         .frame(width: vm.chiefButton ? 200 : 60, height: vm.chiefButton ? 200 : 20)
-                                                    
-                                                    
                                                 })
                                                 .disabled(vm.chiefButton)
                                                 .buttonStyle(.borderless)
                                                 .frame(width:  vm.chiefButtonSize, height: vm.chiefButtonSize)
-                                                
                                                 // nuemorphic design
                                                 .modifier(Shapes.NeumorphicPopedOutBox())
                                                 .overlay(
                                                     ZStack {
-                                                        
                                                         // Chief extra info icon that shows what type of meditation this instructor does
                                                         Button(action: {
                                                         }, label: {
@@ -486,10 +461,7 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                                         vm.lunaButtonPressed = false
                                                                         vm.zeppelinButtonPressed = false
                                                                         vm.maddieButtonPressed = false
-                                                                        
-                                                                        
                                                                         vm.chiefButton.toggle()
-                                                                        
                                                                         if vm.chiefButton {
                                                                             vm.gridSpacing = 0
                                                                             
@@ -516,36 +488,32 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                                             
                                                                             vm.zeppelinButtonSize = 120
                                                                             vm.zeppelinButtonIconSize = 15
-                                                                            vm.zeppelinButtonBackgroundSize = 140
+                                                                            vm.zeppelinButtonBackgroundSize = 150
                                                                             vm.zeppelinButtonCornerSize = 30
                                                                             
                                                                             vm.chiefButtonSize = 120
                                                                             vm.chiefButtonIconSize = 15
-                                                                            vm.chiefButtonBackgroundSize = 140
+                                                                            vm.chiefButtonBackgroundSize = 150
                                                                             vm.chiefButtonCornerSize = 30
                                                                             
                                                                             vm.lunaButtonSize = 120
                                                                             vm.lunaButtonIconSize = 15
-                                                                            vm.lunaButtonBackgroundSize = 140
+                                                                            vm.lunaButtonBackgroundSize = 150
                                                                             vm.lunaButtonCornerSize = 30
                                                                             
                                                                             vm.maddieButtonSize = 120
                                                                             vm.maddieButtonIconSize = 15
-                                                                            vm.maddieButtonBackgroundSize = 140
+                                                                            vm.maddieButtonBackgroundSize = 150
                                                                             vm.maddieButtonCornerSize = 30
                                                                         }
                                                                     }
                                                                 }
                                                         })
-                                                        
                                                         .contentShape(Circle()
                                                             .inset(by: -10))
                                                         .buttonStyle(.borderless)
                                                         .padding( .top, vm.chiefButton ? 200 : 70)
-                                                        
-                                                        
                                                     })
-                                                
                                             } else if vm.chiefButtonPressed  {
                                                 ZStack {
                                                     Button(action: {
@@ -557,15 +525,12 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                             .font(.system(size: 13))
                                                             .underline(false)
                                                             .foregroundColor(Color.gray)
-                                                        
-                                                        
                                                     })
                                                     .buttonStyle(.borderless)
                                                     .frame(width: 140, height: 140)
                                                     .modifier(Shapes.NeumorphicBox())
                                                     .overlay(
                                                         ZStack {
-                                                            
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
                                                             Button(action: {
                                                                 vm.chiefButtonPressed.toggle()
@@ -575,26 +540,15 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .padding(.top, 70)
-                                                            
-                                                            
-                                                        }
-                                                    )}
-                                                
+                                                    }
+                                                )}
                                             }
                                         }
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
                                         ZStack {
                                             RoundedRectangle(cornerRadius: vm.lunaButtonCornerSize)
                                                 .stroke()
                                                 .frame(width: vm.lunaButtonBackgroundSize, height: vm.lunaButtonBackgroundSize)
-                                                .foregroundColor(vm.lunaButtonPressed ? Color.gray : cvm.homeBrew )                                                .zIndex(6)
-                                            
-                                            
+                                                .foregroundColor(vm.lunaButtonPressed ? Color.gray : cvm.homeBrew ) .zIndex(6)
                                             if vm.lunaButtonPressed == false {
                                                 // Luna meditation instructor link with a description of how Luna will guid a meditation.
                                                 Button(action: {
@@ -604,7 +558,6 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                         vm.maddieButtonPressed = false
                                                         vm.lunaButtonPressed.toggle()
                                                     }
-                                                    
                                                     vm.prompt = """
 You are a fully enlighten vipassana meditation trainer training people through an app. Please create a non metaphysical meditation for experiencing nature; guide the person with all the moments of nature around them . Provide three dots: "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
 """
@@ -622,10 +575,6 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 .disabled(vm.lunaButton)
                                                 .buttonStyle(.borderless)
                                                 .frame(width: vm.lunaButtonSize, height: vm.lunaButtonSize)
-                                                
-                                                
-                                                
-                                                
                                                 .modifier(Shapes.NeumorphicPopedOutBox())
                                                 .overlay(
                                                     ZStack {
@@ -669,23 +618,23 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                             
                                                                             vm.lunaButtonSize = 120
                                                                             vm.lunaButtonIconSize = 15
-                                                                            vm.lunaButtonBackgroundSize = 140
+                                                                            vm.lunaButtonBackgroundSize = 150
                                                                             vm.lunaButtonCornerSize = 30
                                                                             
                                                                             vm.zeppelinButtonSize = 120
                                                                             vm.zeppelinButtonIconSize = 15
-                                                                            vm.zeppelinButtonBackgroundSize = 140
+                                                                            vm.zeppelinButtonBackgroundSize = 150
                                                                             vm.zeppelinButtonCornerSize = 30
                                                                             
                                                                             vm.chiefButtonSize = 120
                                                                             vm.chiefButtonIconSize = 15
-                                                                            vm.chiefButtonBackgroundSize = 140
+                                                                            vm.chiefButtonBackgroundSize = 150
                                                                             vm.chiefButtonCornerSize = 30
                                                                             
                                                                             
                                                                             vm.maddieButtonSize = 120
                                                                             vm.maddieButtonIconSize = 15
-                                                                            vm.maddieButtonBackgroundSize = 140
+                                                                            vm.maddieButtonBackgroundSize = 150
                                                                             vm.maddieButtonCornerSize = 30
                                                                         }
                                                                     }
@@ -707,15 +656,12 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             .font(.system(size: 13))
                                                             .underline(false)
                                                             .foregroundColor(Color.gray)
-                                                        
-                                                        
                                                     })
                                                     .buttonStyle(.borderless)
                                                     .frame(width: 140, height: 140)
                                                     .modifier(Shapes.NeumorphicBox())
                                                     .overlay(
                                                         ZStack {
-                                                            
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
                                                             Button(action: {
                                                                 vm.lunaButtonPressed.toggle()
@@ -725,8 +671,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .padding(.top, 70)
-                                                        }
-                                                    )}
+                                                    }
+                                                )}
                                             }
                                         }
                                     }
@@ -758,8 +704,6 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             .foregroundColor(cvm.homeBrew)
                                                             .font(.system(size: vm.zeppelinButton ? 20 : 15))
                                                             .frame(width: vm.zeppelinButton ? 200 : 60, height: vm.zeppelinButton ? 200 : 20)
-                                                        
-                                                        
                                                     })
                                                     .disabled(vm.zeppelinButton)
                                                     .buttonStyle(.borderless)
@@ -767,7 +711,6 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     .modifier(Shapes.NeumorphicPopedOutBox())
                                                     .overlay(
                                                         ZStack {
-                                                            
                                                             // Zeppelin extra info icon that shows what type of meditation this instructor does
                                                             Button(action: {
                                                             }, label: {
@@ -807,22 +750,22 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                                 
                                                                                 vm.zeppelinButtonSize = 120
                                                                                 vm.zeppelinButtonIconSize = 15
-                                                                                vm.zeppelinButtonBackgroundSize = 140
+                                                                                vm.zeppelinButtonBackgroundSize = 150
                                                                                 vm.zeppelinButtonCornerSize = 30
                                                                                 
                                                                                 vm.chiefButtonSize = 120
                                                                                 vm.chiefButtonIconSize = 15
-                                                                                vm.chiefButtonBackgroundSize = 140
+                                                                                vm.chiefButtonBackgroundSize = 150
                                                                                 vm.chiefButtonCornerSize = 30
                                                                                 
                                                                                 vm.lunaButtonSize = 120
                                                                                 vm.lunaButtonIconSize = 15
-                                                                                vm.lunaButtonBackgroundSize = 140
+                                                                                vm.lunaButtonBackgroundSize = 150
                                                                                 vm.lunaButtonCornerSize = 30
                                                                                 
                                                                                 vm.maddieButtonSize = 120
                                                                                 vm.maddieButtonIconSize = 15
-                                                                                vm.maddieButtonBackgroundSize = 140
+                                                                                vm.maddieButtonBackgroundSize = 150
                                                                                 vm.maddieButtonCornerSize = 30
                                                                             }
                                                                         }
@@ -860,8 +803,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 })
                                                                 .buttonStyle(.borderless)
                                                                 .padding(.top, 70)
-                                                            }
-                                                        )}
+                                                        }
+                                                    )}
                                                 }
                                             }
                                             ZStack {
@@ -869,8 +812,6 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     .stroke()
                                                     .frame(width: vm.maddieButtonBackgroundSize, height: vm.maddieButtonBackgroundSize)
                                                     .foregroundColor(vm.maddieButtonPressed ? Color.gray : cvm.homeBrew )                                                    .zIndex(6)
-                                                
-                                                
                                                 if vm.maddieButtonPressed == false {
                                                     // Maddie meditation instructor link with a description of how Maddie will guid a meditation.
                                                     Button(action: {
@@ -895,12 +836,10 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     .disabled(vm.maddieButton)
                                                     .buttonStyle(.borderless)
                                                     .frame(width: vm.maddieButtonSize, height: vm.maddieButtonSize)
-                                                    
                                                     // nuemorphic design
                                                     .modifier(Shapes.NeumorphicPopedOutBox())
                                                     .overlay(
                                                         ZStack {
-                                                            
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
                                                             Button(action: {
                                                             }, label: {
@@ -957,16 +896,15 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                                 vm.lunaButtonIconSize = 15
                                                                                 vm.lunaButtonBackgroundSize = 140
                                                                                 vm.lunaButtonCornerSize = 30
-                                                                            }
                                                                         }
                                                                     }
+                                                                }
                                                             })
                                                             .contentShape(Circle()
                                                                 .inset(by: -10))
                                                             .buttonStyle(.borderless)
                                                             .padding( .top, vm.maddieButton ? 200 : 70)
                                                         })
-                                                    
                                                 } else {
                                                     ZStack {
                                                         Button(action: {
@@ -978,8 +916,6 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 .font(.system(size: 13))
                                                                 .underline(false)
                                                                 .foregroundColor(Color.gray)
-                                                            
-                                                            
                                                         })
                                                         .buttonStyle(.borderless)
                                                         .frame(width: 140, height: 140)
@@ -995,8 +931,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 })
                                                                 .buttonStyle(.borderless)
                                                                 .padding(.top, 70)
-                                                            }
-                                                        )}
+                                                        }
+                                                    )}
                                                 }
                                             }
                                         }
@@ -1005,14 +941,9 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             }
                         }
                     }
-                    .padding(.bottom, 20)
                 }
                 .scaleEffect(0.9)
-                
-                
-                
-                
-                
+                        Spacer(minLength: 30)
                 ZStack(alignment: .bottom) {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 350, height: 450)
@@ -1034,11 +965,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .cornerRadius(40)
                             .modifier(Shapes.NeumorphicBox())
                             .zIndex(7)
-                            
-                           
                         }
                         Spacer(minLength: 100)
-
                     }
                     ZStack {
                         // green background for the text box
@@ -1050,20 +978,32 @@ You are a fully enlighten vipassana meditation trainer training people through a
                         ZStack {
                             VStack {
                                 ScrollView {
+                                    if vm.startMeditationPrompt {
+                                                    Image(systemName: "arrow.2.squarepath")
+                                                            .position(x: 67, y: 67)
+                                           // .position(x: 167, y: 77)
+                                            HStack {
+                                                
+                                                Text("Generate a lesson by pressing the         button.")
+                                                    .frame(width: 280, height: 60)
+                                                Spacer(minLength: 20)
+                                            }
+                                        }
                                     // The text that is generated for the lesions
-                                    Text(vm.models.first ?? "")
-                                        .position(x:140, y: 170)
-                                        .frame(width: 280, height: 400)
+                                    ForEach(viewModel.messages.filter({$0.role != .system}),
+                                         id: \.id) { message in
+                                        messageView(message: message)
+                                    }
+                                        .position(x:140, y: 270)
+                                        .frame(width: 280, height: 500)
                                 }
                             }
-                            
                             .onAppear {
                                 vm.setup()
                             }
                             .foregroundColor(cvm.homeBrew)
                             .frame(width: 290, height: 370)
                             .zIndex(5)
-                            
                             // the progression of the 1's and 0's that iterate the index to make an animation
                             if vm.isLoading == true {
                                 Text(vm.prompts[vm.promptIndex])
@@ -1078,84 +1018,76 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 vm.promptIndex = 0
                                             } else {
                                                 vm.promptIndex += 1
-                                            }
                                         }
                                     }
+                                }
                             }
-                            
                             if vm.isLoading {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: cvm.homeBrew))
                                     .position(x: 415, y: 365)
                                     .zIndex(5)
-                                
                             }
-                            
                             // the box that holds the text for the lesion
                             RoundedRectangle(cornerRadius: 50)
                                 .fill(Color.clear)
                                 .frame(width: 350, height: 400)
                                 .modifier(Shapes.NeumorphicBox())
                                 .zIndex(3)
-                            
                         }
                     }
                     .scaleEffect(0.9)
-                    
                 }
                     // status bar for audio
                     ZStack {
-                        ZStack(content: {
+                        ZStack(alignment: .leading, content: {
                             // slider itself make the slider have neumorphism
-                            
                             Circle()
                                 .foregroundColor(Color.clear)
-                                .frame(width: vm.sliderHeight, height: 13)
+                                .frame(width: vm.lessonSliderHeight, height: 13)
                                 .modifier(Shapes.NeumorphicSider())
-                            
                                 .zIndex(6)
-                            
                             // Slider body
                             RoundedRectangle(cornerRadius: 100)
                                 .foregroundColor(cvm.offBlack)
                                 .modifier(Shapes.NeumorphicBox())
                                 .frame(width: 330, height: 60)
-                            
                             // green background
                             RoundedRectangle(cornerRadius: 100)
                                 .stroke(lineWidth: 1.5)
                                 .frame(width: 344, height: 62)
                                 .foregroundColor(cvm.homeBrew)
                         })
-                        .frame(width: vm.maxHeight)
-                        
+                        .frame(width: vm.lessonMaxHeight)
                         // the logic for the slider
                         .gesture(DragGesture(minimumDistance:
                                                 0).onChanged({ (value) in
                             
-                            let translation = value.translation
+                            let lessonTranslation = value.translation
                             
-                            vm.sliderHeight = -translation.width + vm.lastDragValue
+                            vm.lessonSliderHeight = lessonTranslation.width + vm.lessonLastDragValue
                             
-                            vm.sliderHeight = vm.sliderHeight > vm.maxHeight ? vm.maxHeight : vm.sliderHeight
+                            vm.lessonSliderHeight = vm.lessonSliderHeight > vm.lessonMaxHeight ? vm.lessonMaxHeight : vm.lessonSliderHeight
                             
-                            vm.sliderHeight = vm.sliderHeight >= 0 ?
-                            vm.sliderHeight : 0
+                            vm.lessonSliderHeight = vm.lessonSliderHeight >= 0 ?
+                            vm.lessonSliderHeight : 0
+                            
+                            vm.lessonSliderProgress += 5
                             
                         }) .onEnded({ (value) in
                             
-                            vm.sliderHeight = vm.sliderHeight > vm.maxHeight ? vm.maxHeight : vm.sliderHeight
+                            vm.lessonSliderHeight = vm.lessonSliderHeight > vm.lessonMaxHeight ? vm.lessonMaxHeight : vm.lessonSliderHeight
                             
-                            vm.sliderHeight = vm.sliderHeight >= 0 ?
-                            vm.sliderHeight : 0
+                            vm.lessonSliderHeight = vm.lessonSliderHeight >= 0 ?
+                            vm.lessonSliderHeight : 0
                             
-                            vm.lastDragValue = vm.sliderHeight
+                            vm.lessonLastDragValue = vm.lessonSliderHeight
+                            vm.lessonSliderHeight = vm.lessonSliderHeight
                         }))
                     }
                     .scaleEffect(0.9)
-                    
                     .padding(10)
-                
+
                     VStack {
                         Spacer(minLength: 30)
                         
@@ -1170,27 +1102,24 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             })
                             .buttonStyle(.borderless)
                             .frame(width: 150, height: 150)
-                            
                             // nuemorphic design
                             .modifier(Shapes.NeumorphicCircle())
                             .zIndex(4)
                             // generate lesion button
                             Button(action: {
-                                vm.prompt = "Teach me about vipassana meditation without waking me through a meditation."
-                                vm.generatePrompt()
+                                viewModel.currentInput = "Teach me about vipassana meditation without waking me through a meditation."
+                                viewModel.sendMessage()
+                                vm.startLessonPrompt = false
                             } ,
                                    label: {
                                 // button icon for making a new meditation
                                 Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
                                     .foregroundColor(cvm.homeBrew)
                             })
-                            
                             .scaleEffect(0.9)
-                            
                             .buttonStyle(.borderless)
                             .frame(width: 150, height: 150)
                             .modifier(Shapes.NeumorphicPopedOutBox())
-                            
                             .zIndex(4)
                         }
                     }
@@ -1201,13 +1130,19 @@ You are a fully enlighten vipassana meditation trainer training people through a
                     gradient: Gradient(colors: [cvm.offBlue, cvm.backgroundAppColor]),
                     startPoint: .top,
                     endPoint: .bottom))
-                
+
             }
         }
+    func messageView(message: Message) -> some View {
+        HStack {
+            Text(message.content)
+            if message.role == .assistant {Spacer()}
+        }
     }
+}
 
 struct ContentView_Previews3: PreviewProvider {
     static var previews: some View {
-        FirstView()
+        ChatView()
     }
 }
