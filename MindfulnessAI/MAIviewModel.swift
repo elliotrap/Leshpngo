@@ -17,7 +17,7 @@ class ViewModel: ObservableObject {
         
     }
     
-    
+    @Published var loginUsernameText: String = ""
     @Published var startLessonPrompt = true
     @Published var startMeditationPrompt = true
 
@@ -179,12 +179,12 @@ point p = {x, y}; color c = RED;
     
     @Published var synthesizer = AVSpeechSynthesizer()
     
-    @Published var maxHeight: CGFloat = UIScreen.main.bounds.height / 3.50
+    @Published var maxHeight: CGFloat = UIScreen.main.bounds.height / 3.30
     @Published var sliderProgress: CGFloat = 0
     @Published var sliderHeight: CGFloat = 0
     @Published var lastDragValue: CGFloat = 0
     
-    @Published var lessonMaxHeight: CGFloat = UIScreen.main.bounds.height / 3.50
+    @Published var lessonMaxHeight: CGFloat = UIScreen.main.bounds.height / 3.30
     @Published var lessonSliderProgress: CGFloat = 0
     @Published var lessonSliderHeight: CGFloat = 0
     @Published var lessonLastDragValue: CGFloat = 0
@@ -194,8 +194,6 @@ point p = {x, y}; color c = RED;
         client = OpenAISwift(authToken: "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")
         
     }
-    
-
     // pariameters for the API call
         func send(text: String, completion: @escaping (String) -> Void) {
             client?.sendCompletion(with: text, maxTokens: 200, completionHandler: { result in // parameters

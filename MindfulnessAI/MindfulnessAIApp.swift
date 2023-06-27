@@ -13,7 +13,7 @@ import SwiftUI
 struct MindfulnessAIApp: App {
     var body: some Scene {
         WindowGroup {
-            ChatView()
+            LoginView()
         }
     }
 }

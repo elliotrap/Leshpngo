@@ -24,7 +24,7 @@ You are vipassana meditation expert training people through an app. give me a no
             private let openAIService = OpenAIService()
             
             func sendMessage() {
-                let newMessage = Message(id: UUID(), role: .user, content: currentInput, createAt: Date())
+                var meditationMessage = Message(id: UUID(), role: .user, content: currentInput, createAt: Date())
                 currentInput = ""
                 
                 Task {
@@ -56,7 +56,7 @@ You are vipassana meditation expert training people through an app. give me a no
         private let openAIService = OpenAIService()
         
         func sendMediationMessage() {
-            let newMeditationMessage = Message(id: UUID(), role: .user, content: currentMeditationInput, createAt: Date())
+            var lessonMessage = Message(id: UUID(), role: .user, content: currentMeditationInput, createAt: Date())
             currentMeditationInput = ""
             
             Task {

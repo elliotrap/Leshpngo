@@ -30,17 +30,16 @@ struct ChatView: View {
     
     var body: some View {
             NavigationView {
-                    ScrollView {
+                ScrollView(showsIndicators: false) {
                             VStack {
                                     VStack {
                                             ZStack {
-                            Spacer()
                             // leshpngo background for the logo
                             Text(vm.onesAndZeros[vm.onesAndZerosIndex])
-                                .frame(width: 360, height: 120)
-                                .cornerRadius(60)
-                                .font(.system(size:14.3))
-                               // .font(.system(size:13.35))
+                                .frame(width: 310, height: 80)
+                                .cornerRadius(100)
+                                //.font(.system(size:14.3))
+                                .font(.system(size:13.35))
                                 .lineLimit(nil)
                                 .shadow(color: Color.green, radius: 10,  y: 10)
                                 .foregroundColor(cvm.homeBrew)
@@ -56,14 +55,16 @@ struct ChatView: View {
                                 }
                                 .zIndex(5)
                             // name of the app
-                            Text("Léshpngo")
-                                .font(.system(size: 70))
-                                .font(.caption)
-                                .foregroundColor(cvm.offBlue)
-                                .zIndex(5)
+                                                
+                        Text("Léshpngo")
+                            .font(.system(size: 50))
+                            .font(.caption)
+                            .foregroundColor(cvm.offBlue)
+                            .zIndex(5)
+              
                         }
                     }
-                    .padding(20)
+                    .padding(10)
                     .scaleEffect(1)
                     
                     ZStack {
@@ -255,7 +256,7 @@ struct ChatView: View {
                     
                     ZStack {
                         VStack {
-                            Spacer(minLength: 40)
+                            Spacer(minLength: 20)
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(width: 350, height: vm.meditationTimeBoxExpand ? 400 : 170)
                                 .foregroundColor(cvm.offBlack)
@@ -331,9 +332,11 @@ struct ChatView: View {
                                     Spacer()
                                     HStack {
                                         Spacer()
+                                            
                                         Text(vm.chosenMeditation)
-                                            .padding(.leading, 40)
-                                            .padding(.trailing, 40)
+                                            .font(.system(size: 15))
+                                            .padding(.leading, 33)
+                                            .padding(.trailing, 33)
                                             .frame(height: 80)
                                         
                                             .foregroundColor(cvm.homeBrew)
@@ -372,8 +375,9 @@ struct ChatView: View {
                                     Spacer()
                                     HStack {
                                         Text(vm.chosenInstructor)
-                                            .padding(.leading, 40)
-                                            .padding(.trailing, 40)
+                                            .font(.system(size: 15))
+                                            .padding(.leading, 33)
+                                            .padding(.trailing, 33)
                                             .frame(height: 80)
                                             .foregroundColor(cvm.homeBrew)
                                             .modifier(Shapes.NeumorphicBox())
@@ -385,11 +389,16 @@ struct ChatView: View {
                                         .padding(.bottom, 80)
                                 }
                             }
-                            Spacer(minLength: vm.meditationTimeBoxExpand ? 200 : 0)
+                            Spacer()
+                                .frame(height: vm.meditationTimeBoxExpand ? 200 : 0)
                         }
                     }
+                    .scaleEffect(0.9)
                 }
-                .scaleEffect(0.9)
+                Spacer()
+                    .frame(height: 20)
+               
+                    
                 ZStack {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width:350, height: 420)
@@ -397,7 +406,7 @@ struct ChatView: View {
                         .modifier(Shapes.NeumorphicPopedOutBox())
                         .padding(.top, 0)
                     
-                    VStack(spacing: 10) {
+                    VStack(spacing: 15) {
                         ZStack {
                             HStack(content:  {
                                 
@@ -943,7 +952,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                     }
                 }
                 .scaleEffect(0.9)
-                        Spacer(minLength: 30)
+                        Spacer()
+                            .frame(height: 15)
                 ZStack(alignment: .bottom) {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 350, height: 450)
@@ -966,7 +976,9 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .modifier(Shapes.NeumorphicBox())
                             .zIndex(7)
                         }
+
                         Spacer(minLength: 100)
+
                     }
                     ZStack {
                         // green background for the text box
@@ -974,14 +986,16 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .stroke()
                             .frame(width: 355, height: 400)
                             .foregroundColor(cvm.homeBrew)
+                            .scaleEffect(0.9)
+
                             .zIndex(2)
                         ZStack {
                             VStack {
                                 ScrollView {
-                                    if vm.startMeditationPrompt {
+                                    if vm.startLessonPrompt {
                                                     Image(systemName: "arrow.2.squarepath")
-                                                            .position(x: 67, y: 67)
-                                           // .position(x: 167, y: 77)
+                                                           // .position(x: 67, y: 67)
+                                            .position(x: 167, y: 77)
                                             HStack {
                                                 
                                                 Text("Generate a lesson by pressing the         button.")
@@ -991,8 +1005,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                         }
                                     // The text that is generated for the lesions
                                     ForEach(viewModel.messages.filter({$0.role != .system}),
-                                         id: \.id) { message in
-                                        messageView(message: message)
+                                         id: \.id) { meditationMessage in
+                                        messageView(message: meditationMessage)
                                     }
                                         .position(x:140, y: 270)
                                         .frame(width: 280, height: 500)
@@ -1035,28 +1049,44 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 .modifier(Shapes.NeumorphicBox())
                                 .zIndex(3)
                         }
+                        .scaleEffect(0.9)
+
                     }
-                    .scaleEffect(0.9)
+
                 }
+                .scaleEffect(0.9)
+
                     // status bar for audio
                     ZStack {
+                     
+                
+                        // green background
+                        RoundedRectangle(cornerRadius: 100)
+                            .stroke(lineWidth: 1.5)
+                            .frame(width: 334, height: 62)
+                            .foregroundColor(cvm.homeBrew)
+                        // Slider body
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(cvm.offBlack)
+                            .modifier(Shapes.NeumorphicBox())
+                            .frame(width: 330, height: 60)
+                        
                         ZStack(alignment: .leading, content: {
                             // slider itself make the slider have neumorphism
-                            Circle()
+                            HStack {
+                                Spacer()
+                                    .frame(width: 35)
+                                Circle()
+                                    .foregroundColor(Color.clear)
+                                    .frame(width: vm.lessonSliderHeight, height: 13)
+                                    .modifier(Shapes.NeumorphicSider())
+                                    .zIndex(6)
+                            }
+                            RoundedRectangle(cornerRadius: 100)
                                 .foregroundColor(Color.clear)
-                                .frame(width: vm.lessonSliderHeight, height: 13)
-                                .modifier(Shapes.NeumorphicSider())
-                                .zIndex(6)
-                            // Slider body
-                            RoundedRectangle(cornerRadius: 100)
-                                .foregroundColor(cvm.offBlack)
-                                .modifier(Shapes.NeumorphicBox())
                                 .frame(width: 330, height: 60)
-                            // green background
-                            RoundedRectangle(cornerRadius: 100)
-                                .stroke(lineWidth: 1.5)
-                                .frame(width: 344, height: 62)
-                                .foregroundColor(cvm.homeBrew)
+                    
+            
                         })
                         .frame(width: vm.lessonMaxHeight)
                         // the logic for the slider
@@ -1123,13 +1153,15 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .zIndex(4)
                         }
                     }
+                    .scaleEffect(0.9)
+
                 }
                 .frame(minWidth: 900, maxWidth: 1000, minHeight: 700, maxHeight: 2500)
                 .background(LinearGradient (
                     
                     gradient: Gradient(colors: [cvm.offBlue, cvm.backgroundAppColor]),
-                    startPoint: .top,
-                    endPoint: .bottom))
+                    startPoint: .bottom,
+                    endPoint: .top))
 
             }
         }

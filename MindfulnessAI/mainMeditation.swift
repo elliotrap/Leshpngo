@@ -16,108 +16,160 @@ struct MainMeditation: View {
     @ObservedObject var cvm = ColorViewModel()
     
     var body: some View {
-        VStack {
-            Spacer(minLength: 300)
-            
-            Text("Leshpngo")
-                .frame(width: 220, height: 85)
-                .foregroundColor(cvm.homeBrew)
-                .font(.system(size: 30))
-                .modifier(Shapes.NeumorphicBox())
-                
-                
-            
-            ZStack {
-                ZStack(alignment: .leading) {
-                    
-                    ScrollView {
-                        // text layout
-                        Text(vm.models.first ?? "")
-                            .zIndex(1)
-                            .frame(width: 280, height: 500, alignment: .leading)
+        NavigationView {
+            ScrollView(showsIndicators: false) {
+                HStack {
+                    NavigationLink(destination: ChatView(vm: vm), label:  {
+                        Image(systemName: "arrow.backward")
                             .foregroundColor(cvm.homeBrew)
-                            .background(cvm.offBlack)
-                            .onAppear{
-                                vm.aiVoices(vm.models.first ?? "", withPause: 10)
-                            }
-                    }
+                        
+                    })
+                    .buttonStyle(.borderless)
+                    .frame(width: 60, height: 40)
+                    .modifier(Shapes.NeumorphicPopedOutBox())
+                    .padding(.trailing, 280)
                 }
                 
-                
-                // clear overlay
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .frame(width:500, height: 390)
-                .foregroundColor(cvm.homeBrew)
-                .frame(width: 290, height: 350)
-                .zIndex(5)
-                
-                // text container
-                RoundedRectangle(cornerRadius: 50)
-                    .fill(cvm.offBlack)
-                    .frame(width: 350, height: 450)
-                    .modifier(Shapes.NeumorphicBox())
-                    .zIndex(3)
-                
-                // text container background
-                RoundedRectangle(cornerRadius: 40)
-                    .foregroundColor(cvm.homeBrew)
-                    .frame(width: 352, height: 452)
-                
-            }
-            .padding(0)
-            
-            
-            
-            ZStack {
-                ZStack(content: {
-                    // slider itself make the slider have neumorphism
-                    
-                    Circle()
-                        .foregroundColor(Color.clear)
-                        .frame(width: vm.sliderHeight, height: 13)
-                        .modifier(Shapes.NeumorphicSider())
-                    
-                        .zIndex(6)
-                    
-                    // Slider body
-                    RoundedRectangle(cornerRadius: 100)
+                ZStack(alignment: .bottom) {
+                    RoundedRectangle(cornerRadius: 30)
+                        .frame(width: 350, height: 460)
                         .foregroundColor(cvm.offBlack)
-                        .modifier(Shapes.NeumorphicBox())
-                        .frame(width: 330, height: 60)
+                        .modifier(Shapes.NeumorphicPopedOutBox())
                     
+                    VStack {
+                        Text("Léshpngo")
+                            .foregroundColor(cvm.homeBrew)
+                            .frame(width: 160, height: 70)
+                            .modifier(Shapes.NeumorphicBox())
+                        
+                        
+                        ZStack {
+                            // green text container background
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke()
+                                .frame(width: 355, height: 400)
+                                .foregroundColor(cvm.homeBrew)
+                                .zIndex(3)
+                            
+                            // layout
+                            ZStack {
+                                VStack {
+                                    Spacer()
+                                        .frame(height: 70)
+                                    ScrollView {
+                         
+                                        
+                                        
+                                    }
+                                    .position(x:140, y: 170)
+                                    .frame(width: 280, height: 400)
+                                }
+                            }
+                            .foregroundColor(cvm.homeBrew)
+                            .frame(width: 290, height: 370)
+                            .zIndex(5)
+                            
+                            // the progression of the 1's and 0's that iterate the index to make an animation
+                            if vm.isLoading == true {
+                                Text(vm.prompts[vm.promptIndex])
+                                    .position(x:180, y: 200)
+                                    .frame(width: 355, height: 400)
+                                    .font(.system(size:15))
+                                    .foregroundColor(cvm.homeBrew)
+                                    .zIndex(4)
+                                    .onAppear {
+                                        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                                            if vm.promptIndex == vm.prompts.count - 1 {
+                                                vm.promptIndex = 0
+                                            } else {
+                                                vm.promptIndex += 1
+                                            }
+                                        }
+                                    }
+                            }
+                            
+                            if vm.isLoading {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: cvm.homeBrew))
+                                    .position(x: 415, y: 365)
+                                    .zIndex(5)
+                                
+                            }
+                            
+                            
+                            
+                            RoundedRectangle(cornerRadius: 50)
+                                .fill(cvm.offBlack)
+                                .frame(width: 350, height: 400)
+                                .modifier(Shapes.NeumorphicBox())
+                        }
+                    }
+                    .scaleEffect(0.9)
+
+                }
+                .zIndex(6)
+                
+                Spacer()
+                    .frame(height: 25)
+                ZStack {
                     // green background
                     RoundedRectangle(cornerRadius: 100)
                         .stroke(lineWidth: 1.5)
                         .frame(width: 344, height: 62)
                         .foregroundColor(cvm.homeBrew)
-                })
-                
-                .frame(width: vm.maxHeight)
-                // the logic for the slider
-                .gesture(DragGesture(minimumDistance:
-                                        0).onChanged({ (value) in
                     
-                    let translation = value.translation
+                    RoundedRectangle(cornerRadius: 100)
+                        .foregroundColor(cvm.offBlack)
+                        .modifier(Shapes.NeumorphicBox())
+                        .frame(width: 330, height: 60)
                     
-                    vm.sliderHeight = -translation.width + vm.lastDragValue
-                    
-                    vm.sliderHeight = vm.sliderHeight > vm.maxHeight ? vm.maxHeight : vm.sliderHeight
-                    
-                    vm.sliderHeight = vm.sliderHeight >= 0 ?
-                    vm.sliderHeight : 0
-                    
-                }) .onEnded({ (value) in
-                    
-                    vm.sliderHeight = vm.sliderHeight > vm.maxHeight ? vm.maxHeight : vm.sliderHeight
-                    
-                    vm.sliderHeight = vm.sliderHeight >= 0 ?
-                    vm.sliderHeight : 0
-                    
-                    vm.lastDragValue = vm.sliderHeight
-                }))
-            }
-            .padding(10)
-        
+                    ZStack(alignment: .leading, content: {
+                        // slider itself make the slider have neumorphism
+                        HStack {
+                            Spacer()
+                                .frame(width: 35)
+                            Circle()
+                                .foregroundColor(Color.clear)
+                                .frame(width: vm.sliderHeight, height: 13)
+                                .modifier(Shapes.NeumorphicSider())
+                                .zIndex(6)
+                        }
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color.clear)
+                            .frame(width: 330, height: 60)
+                        
+                        
+                    })
+                    .frame(width: vm.maxHeight)
+                    // the logic for the slider
+                    .gesture(DragGesture(minimumDistance:
+                                            0).onChanged({ (value) in
+                        
+                        let translation = value.translation
+                        
+                        vm.sliderHeight = translation.width + vm.lastDragValue
+                        
+                        vm.sliderHeight = vm.sliderHeight > vm.maxHeight ? vm.maxHeight : vm.sliderHeight
+                        
+                        vm.sliderHeight = vm.sliderHeight >= 0 ?
+                        vm.sliderHeight : 0
+                        vm.sliderProgress += 5
+                        
+                        
+                    }) .onEnded({ (value) in
+                        
+                        vm.sliderHeight = vm.sliderHeight > vm.maxHeight ? vm.maxHeight : vm.sliderHeight
+                        
+                        vm.sliderHeight = vm.sliderHeight >= 0 ?
+                        vm.sliderHeight : 0
+                        
+                        vm.lastDragValue = vm.sliderHeight
+                        vm.lessonSliderHeight = vm.lessonSliderHeight
+                        
+                    }))
+                }
+                .scaleEffect(0.9)
+
                 Spacer()
                 HStack(spacing: 40) {
                     
@@ -159,20 +211,26 @@ struct MainMeditation: View {
                     .frame(width: 80, height: 80)
                     .modifier(Shapes.NeumorphicCircle())
                 }
-                .padding(30)
-
-            
-
-            VStack {
-                Spacer(minLength: 350)
+                .padding(20)
+                .scaleEffect(0.9)
                 
+                
+                
+                VStack {
+                    Spacer(minLength: 350)
+                    
+                }
+                .frame(minWidth: 600, maxWidth: 600, minHeight: 0, maxHeight: 0)
+
             }
+            .background(LinearGradient (
+                
+                gradient: Gradient(colors: [cvm.offBlue, cvm.backgroundAppColor]),
+                startPoint: .top,
+                endPoint: .bottom))
         }
-        .frame(minWidth: 500, maxWidth: .infinity, minHeight: 50)
-        .background(cvm.offBlack.edgesIgnoringSafeArea(.all))
     }
 }
-
 struct ContentView_Previews2: PreviewProvider {
     static var previews: some View {
         MainMeditation()

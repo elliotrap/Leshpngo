@@ -22,7 +22,7 @@ struct MeditationGenerator: View {
     var body: some View {
 
     NavigationView {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             HStack {
                 NavigationLink(destination: ChatView(vm: vm), label:  {
                     Image(systemName: "arrow.backward")
@@ -32,9 +32,9 @@ struct MeditationGenerator: View {
                 .buttonStyle(.borderless)
                 .frame(width: 60, height: 40)
                 .modifier(Shapes.NeumorphicPopedOutBox())
-                .padding(.trailing, 320)
+                .padding(.trailing, 280)
             }
-            
+    
             ZStack(alignment: .bottom) {
                 RoundedRectangle(cornerRadius: 30)
                     .frame(width: 350, height: 460)
@@ -49,7 +49,7 @@ struct MeditationGenerator: View {
                     
                     
                     ZStack {
-                        // text container background
+                        // green text container background
                         RoundedRectangle(cornerRadius: 30)
                             .stroke()
                             .frame(width: 355, height: 400)
@@ -62,8 +62,8 @@ struct MeditationGenerator: View {
                                 ScrollView {
                                     if vm.startMeditationPrompt {
                                         Image(systemName: "arrow.2.squarepath")
-                                .position(x: 67, y: 65)
-                                //.position(x: 167, y: 77)
+                               // .position(x: 67, y: 65)
+                                .position(x: 167, y: 77)
 
                                 HStack {
                                     
@@ -74,8 +74,8 @@ struct MeditationGenerator: View {
                                     }
                                     // The text that is generated for the lesions
                                     ForEach(viewModel.meditationInit.filter({$0.role != .system}),
-                                            id: \.id) { meditationInit in
-                                        messageView(message: meditationInit)
+                                            id: \.id) { lessonMessage in
+                                        messageView(message: lessonMessage)
                                         
                                     }
                                             .position(x:140, y: 170)
@@ -113,9 +113,7 @@ struct MeditationGenerator: View {
                                 
                             }
                             
-                            VStack {
-                                Spacer(minLength: 50)
-                            }
+    
                             
                             RoundedRectangle(cornerRadius: 50)
                                 .fill(cvm.offBlack)
@@ -125,9 +123,11 @@ struct MeditationGenerator: View {
                     }
                 }
                 .scaleEffect(0.9)
+
             }
+            .scaleEffect(0.9)
             .zIndex(6)
-            Spacer(minLength: 30)
+       
                 .onAppear {
                     vm.setup()
                 }
@@ -164,8 +164,7 @@ struct MeditationGenerator: View {
             }
             .scaleEffect(0.9)
             
-            Spacer(minLength: 10)
-            
+
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
                     .stroke()
