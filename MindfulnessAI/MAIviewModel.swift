@@ -34,6 +34,8 @@ class ViewModel: ObservableObject {
     
     @Published var gridSpacing: CGFloat = 10
     
+
+    
     @Published var chiefButtonPressed: Bool = false
     @Published var chiefButton: Bool = false
     @Published var chiefButtonSize: CGFloat = 120

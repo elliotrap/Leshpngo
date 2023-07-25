@@ -24,6 +24,14 @@ class ColorViewModel: ObservableObject {
     @Published var homeBrew = Color(red: 107 / 255, green: 214 / 255, blue: 110 / 255)
     @Published var offBlack = Color(red: 23 / 255, green: 23 / 255, blue: 29 / 255)
    @Published var shadowBlack = Color(red: 10 / 255, green: 10 / 255, blue: 18 / 255)
+    
+    @Published var circleShadowBlack = Color(red: 60 / 255, green: 60 / 255, blue: 73 / 255)
+   
+    @Published var mainCircleShadowBlack = Color(red: 60 / 255, green: 60 / 255, blue: 73 / 255)
+    @Published var upperCircleShadowBlack = Color(red: 20 / 255, green: 20 / 255, blue: 33 / 255)
+    @Published var lowerCircleShadowWhite = Color(red: 30 / 255, green: 30 / 255, blue: 33 / 255)
+
+    
     @Published var offBlue = Color(red: 32 / 255, green: 32 / 255, blue: 42 / 255)
     @Published var blackScreen = Color(red: 12 / 255, green: 12 / 255, blue: 18 / 255)
     @Published var deepGray = Color(red: 19 / 255, green: 45 / 255, blue: 39 / 255)

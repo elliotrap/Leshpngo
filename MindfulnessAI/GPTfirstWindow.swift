@@ -28,6 +28,8 @@ struct ChatView: View {
     
     @ObservedObject var shapeVm = Shapes()
     
+    @State var playing = false
+    
     var body: some View {
             NavigationView {
                 ScrollView(showsIndicators: false) {
@@ -1120,21 +1122,40 @@ You are a fully enlighten vipassana meditation trainer training people through a
 
                     VStack {
                         Spacer(minLength: 30)
-                        
                         HStack(spacing: 40) {
-                            // lession play button
-                            NavigationLink(destination: MainMeditation(vm: vm), label: {
-                                Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
-                                    .foregroundColor(cvm.homeBrew)
-                                    .onTapGesture {
-                                        vm.aiVoices(vm.models.first ?? "", withPause: 0.00)
-                                    }
-                            })
-                            .buttonStyle(.borderless)
-                            .frame(width: 150, height: 150)
-                            // nuemorphic design
-                            .modifier(Shapes.NeumorphicCircle())
-                            .zIndex(4)
+                            
+                            if shapeVm.flipShadow {
+                                
+                                // lession play button
+                                Button(action: {
+                                    shapeVm.flipShadow.toggle()
+                                    playing.toggle()
+                                }, label: {
+                                    Image(systemName: playing ? "pause.circle" : "play.circle").resizable().frame(width:60, height: 60) // play button
+                                        .foregroundColor(cvm.homeBrew)
+                                })
+                                .buttonStyle(.borderless)
+                                .frame(width: 150, height: 150)
+                                // nuemorphic design
+                                .modifier(Shapes.NeumorphicCircle())
+                                .zIndex(4)
+                                
+                            } else {
+                                // lession play button
+                                Button(action: {
+                                    shapeVm.flipShadow.toggle()
+                                    playing.toggle()
+                                }, label: {
+                                    Image(systemName: playing ? "pause.circle" : "play.circle").resizable().frame(width: playing ? 50 : 60, height: playing ? 50 : 60) // play button
+                                        .foregroundColor(cvm.homeBrew)
+                                })
+                                .buttonStyle(.borderless)
+                                .frame(width: 150, height: 150)
+                                // nuemorphic design
+                                .modifier(Shapes.NeumorphicCirclePushedIn())
+                                .zIndex(4)
+                            }
+                            
                             // generate lesion button
                             Button(action: {
                                 viewModel.currentInput = "Teach me about vipassana meditation without waking me through a meditation."
@@ -1151,7 +1172,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .frame(width: 150, height: 150)
                             .modifier(Shapes.NeumorphicPopedOutBox())
                             .zIndex(4)
-                        }
+                            }
+                        
                     }
                     .scaleEffect(0.9)
 

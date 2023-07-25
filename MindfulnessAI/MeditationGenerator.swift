@@ -18,6 +18,10 @@ struct MeditationGenerator: View {
     @ObservedObject var vm = ViewModel()
     
     @ObservedObject var cvm = ColorViewModel()
+    
+    @ObservedObject var shapeVm = Shapes()
+
+    @State var playingMain = false
 
     var body: some View {
 
@@ -134,16 +138,38 @@ struct MeditationGenerator: View {
             
             HStack(spacing: 40) {
                 // meditation play link
-                NavigationLink(destination: MainMeditation(vm: vm), label: {
-                    Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
+                if shapeVm.flipShadow {
                     
-                        .foregroundColor(cvm.homeBrew)
-                })
-                .buttonStyle(.borderless)
-                .frame(width: 150, height: 150)
-                // nuemorphic design
-                .modifier(Shapes.NeumorphicCircle())
-                .zIndex(1)
+                    // lession play button
+                    Button(action: {
+                        shapeVm.flipShadow.toggle()
+                        playingMain.toggle()
+                    }, label: {
+                        Image(systemName: playingMain ? "pause.circle" : "play.circle").resizable().frame(width:60, height: 60) // play button
+                            .foregroundColor(cvm.homeBrew)
+                    })
+                    .buttonStyle(.borderless)
+                    .frame(width: 150, height: 150)
+                    // nuemorphic design
+                    .modifier(Shapes.NeumorphicCircle())
+                    .zIndex(4)
+                    
+                } else {
+                    // lession play button
+                    Button(action: {
+                        shapeVm.flipShadow.toggle()
+                        playingMain.toggle()
+                    }, label: {
+                        Image(systemName: playingMain ? "pause.circle" : "play.circle").resizable().frame(width: playingMain ? 50 : 60, height: playingMain ? 50 : 60) // play button
+                            .foregroundColor(cvm.homeBrew)
+                    })
+                    .buttonStyle(.borderless)
+                    .frame(width: 150, height: 150)
+                    // nuemorphic design
+                    .modifier(Shapes.NeumorphicCirclePushedInMain())
+                    .zIndex(4)
+                }
+                    
                 
                 // generate meditation button
                 Button(action: {
@@ -273,8 +299,8 @@ struct MeditationGenerator: View {
         .background(LinearGradient (
             
             gradient: Gradient(colors: [cvm.offBlue, cvm.backgroundAppColor]),
-            startPoint: .top,
-            endPoint: .bottom))
+            startPoint: .topLeading,
+            endPoint: .bottomLeading))
 
             
         }
