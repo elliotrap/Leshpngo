@@ -21,8 +21,9 @@ struct MeditationGenerator: View {
     
     @ObservedObject var shapeVm = Shapes()
 
-    @State var playingMain = false
-
+    @State var playingMain = true
+    @State var pressedResetMain = true
+    
     var body: some View {
 
     NavigationView {
@@ -46,10 +47,14 @@ struct MeditationGenerator: View {
                     .modifier(Shapes.NeumorphicPopedOutBox())
                 
                 VStack {
-                    Text("generate a meditation")
-                        .foregroundColor(cvm.homeBrew)
-                        .frame(width: 250, height: 70)
-                        .modifier(Shapes.NeumorphicBox())
+                        RoundedRectangle(cornerRadius: 30)
+                        .frame(width: 210, height: 60)
+                        .modifier(Shapes.NeumorphicClickedBox())
+                        .overlay(
+                            Text("Choose a Meditation")
+                                .foregroundColor(cvm.homeBrew)
+                        )
+                        
                     
                     
                     ZStack {
@@ -66,8 +71,8 @@ struct MeditationGenerator: View {
                                 ScrollView {
                                     if vm.startMeditationPrompt {
                                         Image(systemName: "arrow.2.squarepath")
-                               // .position(x: 67, y: 65)
-                                .position(x: 167, y: 77)
+                               .position(x: 67, y: 65)
+                               // .position(x: 167, y: 77)
 
                                 HStack {
                                     
@@ -138,14 +143,13 @@ struct MeditationGenerator: View {
             
             HStack(spacing: 40) {
                 // meditation play link
-                if shapeVm.flipShadow {
+                if playingMain {
                     
                     // lession play button
                     Button(action: {
-                        shapeVm.flipShadow.toggle()
                         playingMain.toggle()
                     }, label: {
-                        Image(systemName: playingMain ? "pause.circle" : "play.circle").resizable().frame(width:60, height: 60) // play button
+                        Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
                             .foregroundColor(cvm.homeBrew)
                     })
                     .buttonStyle(.borderless)
@@ -160,33 +164,56 @@ struct MeditationGenerator: View {
                         shapeVm.flipShadow.toggle()
                         playingMain.toggle()
                     }, label: {
-                        Image(systemName: playingMain ? "pause.circle" : "play.circle").resizable().frame(width: playingMain ? 50 : 60, height: playingMain ? 50 : 60) // play button
-                            .foregroundColor(cvm.homeBrew)
+                        Image(systemName: "pause.circle").resizable().frame(width: 50, height: 50) // play button
+                            .foregroundColor(cvm.pauseRed)
                     })
                     .buttonStyle(.borderless)
                     .frame(width: 150, height: 150)
                     // nuemorphic design
-                    .modifier(Shapes.NeumorphicCirclePushedInMain())
+                    .modifier(Shapes.NeumorphicCirclePushedIn())
                     .zIndex(4)
                 }
-                    
                 
-                // generate meditation button
-                Button(action: {
-                    viewModel.sendMediationMessage()
-                    vm.startMeditationPrompt = false
-                } ,
-                       label: {
-                    
-                    Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
-                        .foregroundColor(cvm.homeBrew)
-                    
-                })
-                .buttonStyle(.borderless)
-                .frame(width: 150, height: 150)
-                
-                // nuemorphic design
-                .modifier(Shapes.NeumorphicPopedOutBox())
+                if pressedResetMain {
+                    // generate meditation button
+                    Button(action: {
+                        // viewModel.sendMediationMessage()
+                        vm.startMeditationPrompt = false
+                        pressedResetMain = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            pressedResetMain = true
+                        }
+                    },
+                           label: {
+                        
+                        Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
+                            .foregroundColor(cvm.homeBrew)
+                        
+                    })
+                    .buttonStyle(.borderless)
+                    .frame(width: 150, height: 150)
+                    // nuemorphic design
+                    .modifier(Shapes.NeumorphicPopedOutBox())
+                } else {
+                    Button(action: {
+                       // viewModel.sendMediationMessage()
+                        vm.startMeditationPrompt = false
+                    } ,
+                           label: {
+                        
+
+                        
+                    })
+                    .cornerRadius(30)
+                    .buttonStyle(.borderless)
+                    .frame(width: 150, height: 150)
+                    // nuemorphic design
+                    .modifier(Shapes.NeumorphicClickedBox())
+                    .overlay(
+                        Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
+                            .foregroundColor(Color.gray)
+                        )
+                }
             }
             .scaleEffect(0.9)
             
@@ -194,25 +221,13 @@ struct MeditationGenerator: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
                     .stroke()
-                    .frame(width: 240, height: 70)
+                    .frame(width: 300, height: 70)
                     .foregroundColor(cvm.homeBrew)
                     .zIndex(6)
                 
-            RoundedRectangle(cornerRadius: 30)
-                    .frame(width: 260, height: 80)
-                    .modifier(Shapes.NeumorphicPopedOutBox())
-                    .foregroundColor(cvm.offBlack)
+        
                 HStack {
-                    if vm.twentyMinuetButton { //000000
-                        Spacer()
-                            .frame(width: 15)
-                    } else {
-                        
-                        Spacer()
-                            .frame(width: 1)
-                    }
-
-
+        
                     if vm.tenMinuetButton == false {
                     Button(action: {
                         vm.tenMinuetButton = true
@@ -225,33 +240,31 @@ struct MeditationGenerator: View {
                         
                     })
                     .buttonStyle(.borderless)
-                    .frame(width:90, height: 50)
+                    .frame(width: 130, height: 50)
                     .modifier(Shapes.NeumorphicPopedOutBox())
                     .zIndex(vm.tenMinuetButton ? 1 : 2)
                     
                } else {
                    Button(action: {
-                       vm.tenMinuetButton = false
                    }, label: {
-                       Text("10 min")
-                           .foregroundColor(Color.gray)
-                           .underline(false)
-                           .foregroundStyle(cvm.homeBrew)
+              
 
                    })
                    .buttonStyle(.borderless)
-                   .frame(width: 115, height: 70)
-                   .modifier(Shapes.NeumorphicBox())
+                   .frame(width: 130, height: 50)
+                   .modifier(Shapes.NeumorphicClickedBox())
+                   .zIndex(vm.tenMinuetButton ? 2 : 1)
+           
+                   .overlay(
+                       Text("10 min")
+                       .foregroundColor(Color.gray)
+                       .underline(false)
+                       .foregroundStyle(cvm.homeBrew)
+                   )
+                  
 
                }
-                    if vm.tenMinuetButton || vm.twentyMinuetButton || vm.thirtyMinuetButton {
-                        Spacer()
-                            .frame(width: 9)
-                    } else {
-                        
-                        Spacer()
-                            .frame(width: 20)
-                    }
+  
 
                 if vm.twentyMinuetButton == false {
                     Button(action: {
@@ -265,32 +278,27 @@ struct MeditationGenerator: View {
                         
                     })
                     .buttonStyle(.borderless)
-                    .frame(width:90, height: 50)
+                    .frame(width:130, height: 50)
                     .modifier(Shapes.NeumorphicPopedOutBox())
                 } else {
                     Button(action: {
-                        vm.twentyMinuetButton = false
                     }, label: {
-                        Text("20 min")
-                            .foregroundColor(Color.gray)
-                            .underline(false)
-                            .foregroundStyle(cvm.homeBrew)
+               
 
                     })
                     .buttonStyle(.borderless)
-                    .frame(width: 115, height: 70)
-                    .modifier(Shapes.NeumorphicBox())
+                    .frame(width: 130, height: 50)
+                    .modifier(Shapes.NeumorphicClickedBox())
                     .zIndex(vm.tenMinuetButton ? 2 : 1)
+                    .overlay(
+                        Text("20 min")
+                        .foregroundColor(Color.gray)
+                        .underline(false)
+                        .foregroundStyle(cvm.homeBrew)
+                    )
 
                 }
-                    if vm.tenMinuetButton { //000000
-                        Spacer()
-                            .frame(width: 15)
-                    } else {
-                        
-                        Spacer()
-                            .frame(width: 1)
-                }
+       
             }
         }
                 .frame(minWidth: 600, maxWidth: 600, minHeight: 100, maxHeight: 200)

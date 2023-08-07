@@ -15,6 +15,12 @@ struct MainMeditation: View {
     
     @ObservedObject var cvm = ColorViewModel()
     
+    @State var playPause = true
+    
+    @State var goBackward = true
+    
+    @State var goForward = true
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -171,49 +177,107 @@ struct MainMeditation: View {
                 .scaleEffect(0.9)
 
                 Spacer()
-                HStack(spacing: 40) {
+                    .frame(height: 30)
+                HStack(spacing: 30) {
                     
                     // move backward 15 seconds button
-                    Button(action: {
-                    }, label: {
-                        Image(systemName: "gobackward.15") .resizable() .frame(width: 40, height: 40)
-                            .foregroundColor(cvm.homeBrew)
+                    if goBackward {
+                        // play button
+                        Button(action: {
+                            goBackward = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                goBackward = true
+                            }
+                            
+                        }, label: {
+                            Image(systemName: "gobackward.15") .resizable() .frame(width: 40, height: 40)
+                                .foregroundColor(cvm.homeBrew)
+                            
+                        })
+                        .buttonStyle(.borderless)
+                        .frame(width: 80, height: 80)
                         
-                    })
-                    .buttonStyle(.borderless)
-                    .frame(width: 80, height: 80)
-                    // nuemorphic design
-                    .modifier(Shapes.NeumorphicCircle())
-                    
-                    // play button
-                    Button(action: {
-                    }, label: {
-                        Image(systemName: "play.fill") .resizable() .frame(width: 40, height: 40)
-                            .foregroundColor(cvm.homeBrew)
+                        // nuemorphic design
+                        .modifier(Shapes.NeumorphicCircle())
+                    } else {
+                        Button(action: {
+                            
+                        }, label: {
+                            Image(systemName: "gobackward.15") .resizable() .frame(width: 40, height: 40)
+                                .foregroundColor(Color.gray)
+
+                        })
+                        .buttonStyle(.borderless)
+                        .frame(width: 80, height: 80)
                         
-                    })
-                    .buttonStyle(.borderless)
-                    .frame(width: 100, height: 100)
+                        // nuemorphic design
+                        .modifier(Shapes.NeumorphicCirclePushedInMain())
+                    }
                     
-                    // nuemorphic design
-                    .modifier(Shapes.NeumorphicCircle())
-                    
+                    if playPause {
+                        // play button
+                        Button(action: {
+                            playPause = false
+                        }, label: {
+                            Image(systemName: "play.fill") .resizable() .frame(width: 40, height: 40)
+                                .foregroundColor(cvm.homeBrew)
+                            
+                        })
+                        .buttonStyle(.borderless)
+                        .frame(width: 100, height: 100)
+                        
+                        // nuemorphic design
+                        .modifier(Shapes.NeumorphicCircle())
+                    } else {
+                        Button(action: {
+                            playPause = true
+                        }, label: {
+                            Image(systemName: "pause.fill") .resizable() .frame(width: 40, height: 40)
+                                .foregroundColor(cvm.homeBrew)
+                            
+                        })
+                        .buttonStyle(.borderless)
+                        .frame(width: 100, height: 100)
+                        
+                        // nuemorphic design
+                        .modifier(Shapes.NeumorphicCirclePushedInMain())
+                    }
                     
                     
                     // move forward 15 seconds button
-                    Button(action: {
+                    if goForward {
+                        // play button
+                        Button(action: {
+                            goForward = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                goForward = true
+                            }
+                            
+                        }, label: {
+                            Image(systemName: "gobackward.15") .resizable() .frame(width: 40, height: 40)
+                                .foregroundColor(cvm.homeBrew)
+                            
+                        })
+                        .buttonStyle(.borderless)
+                        .frame(width: 80, height: 80)
                         
-                    }, label: {
-                        Image(systemName: "goforward.15") .resizable() .frame(width: 40, height:  40)
-                            .foregroundColor(cvm.homeBrew)
-                    })
-                    .buttonStyle(.borderless)
-                    .frame(width: 80, height: 80)
-                    .modifier(Shapes.NeumorphicCircle())
+                        // nuemorphic design
+                        .modifier(Shapes.NeumorphicCircle())
+                    } else {
+                        Button(action: {
+                            
+                        }, label: {
+                            Image(systemName: "gobackward.15") .resizable() .frame(width: 40, height: 40)
+                                .foregroundColor(Color.gray)
+                            
+                        })
+                        .buttonStyle(.borderless)
+                        .frame(width: 80, height: 80)
+                        
+                        // nuemorphic design
+                        .modifier(Shapes.NeumorphicCirclePushedInMain())
+                    }
                 }
-                .padding(20)
-                .scaleEffect(0.9)
-                
                 
                 
                 VStack {

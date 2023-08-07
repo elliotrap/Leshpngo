@@ -28,20 +28,19 @@ class Shapes: ObservableObject {
         
         func body(content: Content) -> some View {
             content
+        
                 .overlay (
-                    RoundedRectangle(cornerRadius: radius)
-                        .stroke(cvm.offBlack, lineWidth: 30)
-                        .shadow(color: cvm.blackScreen, radius: 3, x: 10, y: 10)
-                        .clipShape(RoundedRectangle(cornerRadius: radius))
-                        .shadow(color: cvm.offBlue, radius: 3, x: -5, y: -5)
-                        .clipShape(RoundedRectangle(cornerRadius: radius))
-                        .zIndex(9)
+            
+                        RoundedRectangle(cornerRadius: radius)
+                            .stroke(cvm.offBlack, lineWidth: 30)
+                            .shadow(color: cvm.blackScreen, radius: 3, x: 10, y: 10)
+                            .clipShape(RoundedRectangle(cornerRadius: radius))
+                            .shadow(color: cvm.offBlue, radius: 3, x: -5, y: -5)
+                            .clipShape(RoundedRectangle(cornerRadius: radius))
                     
                 )
-                
+            
         }
-        
-        
     }
     
 
@@ -79,6 +78,8 @@ class Shapes: ObservableObject {
                     .cornerRadius(100)
                     .shadow(color: cvm.shadowBlack, radius: 20, x: 20, y: 20)
                     .shadow(color: cvm.offBlue, radius: 20, x: -20, y: -20)
+
+
         }
         
     }
@@ -185,6 +186,42 @@ class Shapes: ObservableObject {
                 .shadow(color: cvm.offBlue, radius: 20, x: -20, y: -20)
         }
     }
+    
+    // nuemorphic design template for the boxes of buttons
+    struct NeumorphicClickedBox: ViewModifier {
+        
+        @ObservedObject var cvm = ColorViewModel()
+        
+        func body(content: Content) -> some View {
+            content
+                .overlay( ZStack {
+                    
+                    Group {
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(LinearGradient(colors: [cvm.lowerCircleShadowWhite, cvm.upperCircleShadowBlack], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(Color.black, lineWidth: 12)
+                                    .blur(radius: 5)
+                                    .offset(x: 4, y: 4)
+                                    .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color.black, Color.clear)))
+                                
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(cvm.circleShadowBlack, lineWidth: 6)
+                                    .blur(radius: 5)
+                                    .offset(x: -4, y: -4)
+                                    .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(cvm.circleShadowBlack, Color.black))))
+                        
+                    }
+                }
+                
+            )
+        }
+    }
+    
+
     // nuemorphic design template for the rectangle buttons
     struct NeumorphicRectangle: ViewModifier {
         

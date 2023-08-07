@@ -22,53 +22,15 @@ class ViewModel: ObservableObject {
     @Published var startMeditationPrompt = true
 
     
-    @Published var vipassanaButtonPressed = false
-    @Published var expand: Bool = false
-    @Published var promptToggle: Bool = false
-    
-   @Published var metaButtonPressed = false
-    @Published var expandTwo: Bool = false
-    @Published var promptToggleTwo: Bool = false
-
-    @Published var meditationTimeBoxExpand = false
-    
-    @Published var gridSpacing: CGFloat = 10
+   
     
 
-    
-    @Published var chiefButtonPressed: Bool = false
-    @Published var chiefButton: Bool = false
-    @Published var chiefButtonSize: CGFloat = 120
-    @Published var chiefButtonIconSize: CGFloat = 15
-    @Published var chiefButtonBackgroundSize: CGFloat = 150
-    @Published var chiefButtonCornerSize: CGFloat = 30
-    
-    @Published var lunaButtonPressed: Bool = false
-    @Published var lunaButton: Bool = false
-    @Published var lunaButtonSize: CGFloat = 120
-    @Published var lunaButtonIconSize: CGFloat = 15
-    @Published var lunaButtonBackgroundSize: CGFloat = 150
-    @Published var lunaButtonCornerSize: CGFloat = 30
-    
-    @Published var zeppelinButtonPressed: Bool = false
-    @Published var zeppelinButton: Bool = false
-    @Published var zeppelinButtonSize: CGFloat = 120
-    @Published var zeppelinButtonIconSize: CGFloat = 15
-    @Published var zeppelinButtonBackgroundSize: CGFloat = 150
-    @Published var zeppelinButtonCornerSize: CGFloat = 30
-    
-    @Published var maddieButtonPressed: Bool = false
-    @Published var maddieButton: Bool = false
-    @Published var maddieButtonSize: CGFloat = 120
-    @Published var maddieButtonIconSize: CGFloat = 15
-    @Published var maddieButtonBackgroundSize: CGFloat = 150
-    @Published var maddieButtonCornerSize: CGFloat = 30
-
-    @Published var tenMinuetButton = false
+    @Published var tenMinuetButton = true
     @Published var twentyMinuetButton = false
     @Published var thirtyMinuetButton = false
 
-
+    @Published var minutes = 0
+    
     @Published private var client: OpenAISwift?
     @Published var prompt =
     """
@@ -81,8 +43,7 @@ You are vipassana meditation expert training people through an app. give me a no
     
     @Published var isLoading: Bool = false
     
-    @Published var chosenMeditation = "Vipas"
-  @Published var chosenInstructor = "Chief"
+
     @Published var promptIndex = 0
     @Published var prompts = [
         """
@@ -191,6 +152,10 @@ point p = {x, y}; color c = RED;
     @Published var lessonSliderHeight: CGFloat = 0
     @Published var lessonLastDragValue: CGFloat = 0
     
+    @Published var minuteMaxHeight: CGFloat = UIScreen.main.bounds.height / 4.45
+    @Published var minuteSliderProgress: CGFloat = 1
+    @Published var minuteSliderHeight: CGFloat = 0
+    @Published var minuteLastDragValue: CGFloat = 0
     // API key
     func setup() {
         client = OpenAISwift(authToken: "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")

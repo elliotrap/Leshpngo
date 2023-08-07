@@ -10,15 +10,14 @@
 		21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */; };
 		214F2BEE29A58D2800B370AF /* alien.black.png in Resources */ = {isa = PBXBuildFile; fileRef = 214F2BED29A58D2800B370AF /* alien.black.png */; };
 		2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2173D9EE29AE7CB70090883B /* mainMeditation.swift */; };
-		217B6B5C29F70FBC0018B584 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B6B5B29F70FBC0018B584 /* fonts.swift */; };
-		218B60192A0C056D00EC1DAE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B60182A0C056C00EC1DAE /* File.swift */; };
+		218B60192A0C056D00EC1DAE /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B60182A0C056C00EC1DAE /* Shapes.swift */; };
 		219901382A4238F200260F17 /* chatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219901372A4238F200260F17 /* chatViewModel.swift */; };
 		2199013A2A423AA100260F17 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219901392A423AA100260F17 /* Constants.swift */; };
 		2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199013B2A423ACB00260F17 /* OpenAIService.swift */; };
 		2199015A2A423B1B00260F17 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 219901592A423B1B00260F17 /* Alamofire */; };
 		21AB40E02A45D86200D72FCC /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 21AB40DF2A45D86200D72FCC /* OpenAISwift */; };
-		21AB41002A4B552300D72FCC /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB40FF2A4B552300D72FCC /* DataBase.swift */; };
 		21AB41382A4B725100D72FCC /* DatabaseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB41372A4B725100D72FCC /* DatabaseLogin.swift */; };
+		21E2F9072A81892700FB6E8D /* Realm in Resources */ = {isa = PBXBuildFile; fileRef = 21E2F9062A81892700FB6E8D /* Realm */; };
 		21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */; };
 		21E373A7299F156C008B57D5 /* MeditationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A6299F156C008B57D5 /* MeditationGenerator.swift */; };
 		21E373A9299F156D008B57D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E373A8299F156D008B57D5 /* Assets.xcassets */; };
@@ -107,14 +106,13 @@
 		21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTfirstWindow.swift; sourceTree = "<group>"; };
 		214F2BED29A58D2800B370AF /* alien.black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien.black.png; sourceTree = "<group>"; };
 		2173D9EE29AE7CB70090883B /* mainMeditation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainMeditation.swift; sourceTree = "<group>"; };
-		217B6B5B29F70FBC0018B584 /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
-		218B60182A0C056C00EC1DAE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		218B60182A0C056C00EC1DAE /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
 		219901372A4238F200260F17 /* chatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewModel.swift; sourceTree = "<group>"; };
 		219901392A423AA100260F17 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2199013B2A423ACB00260F17 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../../../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		21AB40FF2A4B552300D72FCC /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		21AB41372A4B725100D72FCC /* DatabaseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseLogin.swift; sourceTree = "<group>"; };
+		21E2F9062A81892700FB6E8D /* Realm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Realm; path = ../../../Downloads/Realm; sourceTree = "<group>"; };
 		21E373A1299F156C008B57D5 /* MindfulnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindfulnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIApp.swift; sourceTree = "<group>"; };
 		21E373A6299F156C008B57D5 /* MeditationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationGenerator.swift; sourceTree = "<group>"; };
@@ -186,10 +184,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		21E2F9082A818AE400FB6E8D /* windows */ = {
+			isa = PBXGroup;
+			children = (
+				21AB41372A4B725100D72FCC /* DatabaseLogin.swift */,
+				21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */,
+				21E373A6299F156C008B57D5 /* MeditationGenerator.swift */,
+				2173D9EE29AE7CB70090883B /* mainMeditation.swift */,
+				21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */,
+			);
+			path = windows;
+			sourceTree = "<group>";
+		};
+		21E2F9092A818B5200FB6E8D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				218B60182A0C056C00EC1DAE /* Shapes.swift */,
+				21E373D0299F16EB008B57D5 /* MAIcolors.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		21E2F90A2A818B8800FB6E8D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				2199013B2A423ACB00260F17 /* OpenAIService.swift */,
+				219901392A423AA100260F17 /* Constants.swift */,
+				219901372A4238F200260F17 /* chatViewModel.swift */,
+				21E373CE299F16AA008B57D5 /* MAIviewModel.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		21E37398299F156C008B57D5 = {
 			isa = PBXGroup;
 			children = (
-				217B6B5B29F70FBC0018B584 /* fonts.swift */,
 				21E373A3299F156C008B57D5 /* MindfulnessAI */,
 				21E373B4299F156D008B57D5 /* MindfulnessAITests */,
 				21E373BE299F156D008B57D5 /* MindfulnessAIUITests */,
@@ -212,18 +241,10 @@
 			isa = PBXGroup;
 			children = (
 				214F2BEC29A58D0B00B370AF /* icons */,
-				21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */,
-				21AB41372A4B725100D72FCC /* DatabaseLogin.swift */,
-				218B60182A0C056C00EC1DAE /* File.swift */,
-				21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */,
-				21E373A6299F156C008B57D5 /* MeditationGenerator.swift */,
-				2173D9EE29AE7CB70090883B /* mainMeditation.swift */,
-				21E373CE299F16AA008B57D5 /* MAIviewModel.swift */,
-				21E373D0299F16EB008B57D5 /* MAIcolors.swift */,
-				21AB40FF2A4B552300D72FCC /* DataBase.swift */,
-				219901372A4238F200260F17 /* chatViewModel.swift */,
-				219901392A423AA100260F17 /* Constants.swift */,
-				2199013B2A423ACB00260F17 /* OpenAIService.swift */,
+				21E2F9082A818AE400FB6E8D /* windows */,
+				21E2F9092A818B5200FB6E8D /* UI */,
+				21E2F90A2A818B8800FB6E8D /* API */,
+				21E2F9062A81892700FB6E8D /* Realm */,
 				21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */,
 				21E373A8299F156D008B57D5 /* Assets.xcassets */,
 				21E373AA299F156D008B57D5 /* Preview Content */,
@@ -436,6 +457,7 @@
 			files = (
 				21E373AC299F156D008B57D5 /* Preview Assets.xcassets in Resources */,
 				214F2BEE29A58D2800B370AF /* alien.black.png in Resources */,
+				21E2F9072A81892700FB6E8D /* Realm in Resources */,
 				21E373A9299F156D008B57D5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,16 +483,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				217B6B5C29F70FBC0018B584 /* fonts.swift in Sources */,
 				2199013A2A423AA100260F17 /* Constants.swift in Sources */,
-				21AB41002A4B552300D72FCC /* DataBase.swift in Sources */,
 				21E373CF299F16AA008B57D5 /* MAIviewModel.swift in Sources */,
 				21E373A7299F156C008B57D5 /* MeditationGenerator.swift in Sources */,
 				21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */,
 				219901382A4238F200260F17 /* chatViewModel.swift in Sources */,
 				21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */,
 				2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */,
-				218B60192A0C056D00EC1DAE /* File.swift in Sources */,
+				218B60192A0C056D00EC1DAE /* Shapes.swift in Sources */,
 				21E373D1299F16EB008B57D5 /* MAIcolors.swift in Sources */,
 				21AB41382A4B725100D72FCC /* DatabaseLogin.swift in Sources */,
 				2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */,
