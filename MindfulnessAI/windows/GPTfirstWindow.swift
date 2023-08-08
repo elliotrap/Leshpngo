@@ -1414,8 +1414,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 ScrollView {
                                     if vm.startLessonPrompt {
                                                     Image(systemName: "arrow.2.squarepath")
-                                                           .position(x: 67, y: 67)
-                                            // .position(x: 167, y: 77)
+                                                          // .position(x: 67, y: 67)
+                                            .position(x: 167, y: 77)
                                             HStack {
                                                 
                                                 Text("Generate a lesson by pressing the         button.")
@@ -1575,7 +1575,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             if pressedReset {
                                 // generate meditation button
                                 Button(action: {
-                                    // viewModel.sendMediationMessage()
+                                viewModel.sendMessage()
                                 viewModel.currentInput = "Teach me about vipassana meditation without waking me through a meditation."
                                     viewModel.sendMessage()
                                     vm.startLessonPrompt = false

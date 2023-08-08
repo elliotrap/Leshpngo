@@ -177,7 +177,7 @@ struct MeditationGenerator: View {
                 if pressedResetMain {
                     // generate meditation button
                     Button(action: {
-                        // viewModel.sendMediationMessage()
+                        viewModel.sendMediationMessage()
                         vm.startMeditationPrompt = false
                         pressedResetMain = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -196,7 +196,7 @@ struct MeditationGenerator: View {
                     .modifier(Shapes.NeumorphicPopedOutBox())
                 } else {
                     Button(action: {
-                       // viewModel.sendMediationMessage()
+                        viewModel.sendMediationMessage()
                         vm.startMeditationPrompt = false
                     } ,
                            label: {

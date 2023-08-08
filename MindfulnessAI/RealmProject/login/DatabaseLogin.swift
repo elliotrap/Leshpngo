@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 
-struct LoginView: View {
+struct DatabaseLoginView: View {
     
     @ObservedObject var vm = ViewModel()
     
@@ -18,14 +18,11 @@ struct LoginView: View {
     
     @ObservedObject var shapeVm = Shapes()
     
+    @ObservedObject var realm = LoginLogout()
 
     @State var haveAnAccount = false
     
-    @State var createName = ""
-    
-    @State var loginPasswordText = ""
-    
-    @State var loginReenterPasswordText = ""
+
     
     var body: some View {
         NavigationView {
@@ -105,7 +102,7 @@ struct LoginView: View {
                                     Spacer()
                                         .frame(height: 0)
                                     
-                                    TextField( "name:", text: $createName)
+                                    TextField( "name:", text: $realm.email)
                                         .padding(.leading, 40)
                                         .padding(.top, 4)
                                         .foregroundColor(cvm.homeBrew)
@@ -119,7 +116,7 @@ struct LoginView: View {
                                     VStack {
                                         Spacer()
                                             .frame(height: 0)
-                                        TextField("password:", text: $loginPasswordText)
+                                        TextField("password:", text: $realm.password)
                                             .padding(.leading, 40)
                                             .padding(.top, 4)
 
@@ -132,7 +129,7 @@ struct LoginView: View {
                                         Text("reenter a passwoard")                            .foregroundColor(cvm.homeBrew)
                                         Spacer()
                                             .frame(height: 0)
-                                        TextField("password:", text: $loginReenterPasswordText)
+                                        TextField("password:", text: $realm.password)
                                             .padding(.leading, 40)
                                             .padding(.top, 4)
 
@@ -142,7 +139,9 @@ struct LoginView: View {
                                         Spacer()
                                             .frame(height: 15)
                                         
-                                        NavigationLink(destination: ChatView(vm: vm), label: { Text("Create account")
+                                        Button(action: {
+                                            realm.signup()
+                                        }, label: { Text("Create account")
                                                 .frame(width: 100)
                                                 .underline(false)
                                         })
@@ -171,12 +170,13 @@ struct LoginView: View {
                                 }
                             } else if haveAnAccount == true {
                                 VStack {
-                                    Text("Enter your username")                            .foregroundColor(cvm.homeBrew)
+                                    Text("Enter your username")
+                                        .foregroundColor(cvm.homeBrew)
                                     
                                     Spacer()
                                         .frame(height: 0)
                                     
-                                    TextField("name:", text: $vm.loginUsernameText)
+                                    TextField("name:", text: $realm.email)
                                         .padding(.leading, 40)
                                         .padding(.top, 4)
                                         .foregroundColor(cvm.homeBrew)
@@ -184,11 +184,12 @@ struct LoginView: View {
                                         .modifier(Shapes.NeumorphicBox())
                                     Spacer()
                                         .frame(height: 10)
-                                    Text("Enter your password")                            .foregroundColor(cvm.homeBrew)
+                                    Text("Enter your password")
+                                        .foregroundColor(cvm.homeBrew)
                                     VStack {
                                         Spacer()
                                             .frame(height: 0)
-                                        TextField("password:", text: $vm.loginUsernameText)
+                                        TextField("password:", text: $realm.password)
                                             .padding(.leading, 40)
                                             .padding(.top, 4)
                                             .foregroundColor(cvm.homeBrew)
@@ -197,7 +198,11 @@ struct LoginView: View {
                                         
                                         Spacer()
                                             .frame(height: 30)
-                                        NavigationLink(destination: ChatView(vm: vm), label: { Text("Login")
+                                        Button(action: {
+
+                                            realm.login()
+                                            
+                                        }, label: { Text("Login")
                                                 .underline(false)
 
                                         })
@@ -213,12 +218,13 @@ struct LoginView: View {
                                             }
                                         }, label:{
                                             Text("don't have an account?")
+                                                .modifier(Shapes.NeumorphicPopedOutBox())
+                                                .foregroundColor(cvm.homeBrew)
                                                 .frame(width: 125)
                                                 .underline(false)
 
                                         })
                                         .buttonStyle(.borderless)
-                                        .foregroundColor(cvm.homeBrew)
                                         .frame(width: 200, height: 70)
                                         .modifier(Shapes.NeumorphicPopedOutBox())
                                     }
@@ -236,6 +242,6 @@ struct LoginView: View {
 
 struct ContentView_Previews1: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        DatabaseLoginView()
     }
 }
