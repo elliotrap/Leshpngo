@@ -18,8 +18,8 @@ struct DatabaseLoginView: View {
     
     @ObservedObject var shapeVm = Shapes()
     
-    @ObservedObject var realm = LoginLogout()
-
+    @StateObject var realm = LoginLogout()
+    
     @State var haveAnAccount = false
     
 

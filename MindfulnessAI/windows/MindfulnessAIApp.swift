@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import RealmSwift
 
+let app = App(id: "application-0-kibhk")
 
 
 @main
-struct MindfulnessAIApp: App {
+struct RealmProjectApp: SwiftUI.App{
     
     var body: some Scene {
         WindowGroup {
-            ChatView()
+            ContentView(app: app)
         }
     }
 }

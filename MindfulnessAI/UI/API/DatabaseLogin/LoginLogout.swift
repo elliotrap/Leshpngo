@@ -29,25 +29,25 @@ class LoginLogout: ObservableObject {
     @Published private var currentView: AnyView = AnyView(EmptyView())
     
     func login() {
-        // Create a credentials object with the email and password
+        
+        isLoading = true
+        
         let credentials = Credentials.emailPassword(email: email, password: password)
         
-        // Log in to the Realm app with the credentials
-        app.login(credentials: credentials) { result in
-            switch result {
-            case .success(let user):
-                // Login was successful, show the next view
-                self.showNextWindow(user: user)
-            case .failure(let error):
-                // Login failed, show an error message
-                self.errorMessage = "Login failed: \(error.localizedDescription)"
+        app.login(credentials: credentials) { [weak self]  result in
+            DispatchQueue.main.async {
+                switch result {
+                    case .failure(let error): self?.errorMessage = "login failed: \(error.localizedDescription)"
+                    case .success(_): print("login success")
+                }
+                self?.isLoading = false
             }
         }
-  
     }
     func showNextWindow(user: User) {
-        // Assign the ChatView instance to the currentView property
-        currentView = AnyView(ChatView())
+
+            currentView = AnyView(ChatView())
+        
     }
     
     func signup() {
@@ -70,4 +70,23 @@ class LoginLogout: ObservableObject {
               
           }
       }
+    
+    func logout() {
+        // Get the current user
+        guard let user = app.currentUser else {
+            // No user is logged in, nothing to do
+            return
+        }
+
+        // Log out the current user
+        user.logOut { error in
+            if let error = error {
+                // Handle the error
+                print("Error logging out: \(error.localizedDescription)")
+            } else {
+                // Log out was successful
+                print("Logged out successfully")
+            }
+        }
+    }
 }

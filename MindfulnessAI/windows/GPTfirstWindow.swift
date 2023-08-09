@@ -21,12 +21,11 @@ extension UINavigationController {
 struct ChatView: View {
     
     @ObservedObject var viewModel = ChatViewModel()
-    
     @ObservedObject var vm = ViewModel()
-    
     @ObservedObject var cvm = ColorViewModel()
-    
     @ObservedObject var shapeVm = Shapes()
+    @StateObject var realm = LoginLogout()
+
     
     @State var playing = true
     
@@ -523,7 +522,7 @@ struct ChatView: View {
                                         }, label: {
                                     
                                                 HStack(spacing: meditationTimeBoxExpand || menuPopUp ? 40 : 150) {
-                                                    Image(systemName:"plus").resizable()       .frame(width: meditationTimeBoxExpand || menuPopUp ? 0 : 30, height: meditationTimeBoxExpand || menuPopUp ? 0 : 20)
+                                                    Image(systemName:"plus").resizable()       .frame(width: meditationTimeBoxExpand || menuPopUp ? 0 : 30, height: meditationTimeBoxExpand || menuPopUp ? 0 : 30)
                                                         .foregroundColor(cvm.homeBrew)
                                                         .padding(.top, meditationTimeBoxExpand || menuPopUp ? 310 : 100)
                                                         .onTapGesture {
@@ -577,7 +576,7 @@ struct ChatView: View {
                                         HStack(spacing: 50) {
                                             if profileButtonPressed == false {
                                             Button(action: {
-                                                
+                                                realm.logout()
                                             }, label: {
                                                 Text("Logout")
                                                     .foregroundColor(cvm.homeBrew)
@@ -1423,13 +1422,19 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 Spacer(minLength: 20)
                                             }
                                         }
-                                    // The text that is generated for the lesions
-                                    ForEach(viewModel.messages.filter({$0.role != .system}),
-                                         id: \.id) { meditationMessage in
-                                        messageView(message: meditationMessage)
+//                                    // The text that is generated for the lesions
+//                                    ForEach(viewModel.messages.filter({$0.role != .system}),
+//                                            id: \.id) { meditationMessage in
+//                                        messageView(message: meditationMessage)
+                                    if let firstMessage = viewModel.messages.first(where: { $0.role != .system }) {
+                                        // Create a Text view with the content of the first message
+                                        Text(firstMessage.content)
+                                            .position(x:140, y: 270)
+                                            .frame(width: 280, height: 500)
+                                    
+                                        
+                                        
                                     }
-                                        .position(x:140, y: 270)
-                                        .frame(width: 280, height: 500)
                                 }
                             }
                             .onAppear {
@@ -1575,9 +1580,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             if pressedReset {
                                 // generate meditation button
                                 Button(action: {
-                                viewModel.sendMessage()
-                                viewModel.currentInput = "Teach me about vipassana meditation without waking me through a meditation."
-                                    viewModel.sendMessage()
+                                    viewModel.currentInput = "Teach me about vipassana meditation without waking me through a meditation."
                                     vm.startLessonPrompt = false
                                     vm.startMeditationPrompt = false
                                     pressedReset = false
@@ -1613,6 +1616,10 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                     Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
                                         .foregroundColor(Color.gray)
                                 )
+                                .onAppear {
+                                    viewModel.sendMeditationMessage()
+
+                                }
                             }
                             
      

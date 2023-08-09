@@ -13,7 +13,7 @@ import AVFoundation
 
 struct MeditationGenerator: View {
     
-    @ObservedObject var viewModel = MeditationViewModel()
+//    @ObservedObject var viewModel = MeditationViewModel()
 
     @ObservedObject var vm = ViewModel()
     
@@ -21,6 +21,8 @@ struct MeditationGenerator: View {
     
     @ObservedObject var shapeVm = Shapes()
 
+    @ObservedObject var viewModel = ChatViewModel()
+    
     @State var playingMain = true
     @State var pressedResetMain = true
     
@@ -71,8 +73,8 @@ struct MeditationGenerator: View {
                                 ScrollView {
                                     if vm.startMeditationPrompt {
                                         Image(systemName: "arrow.2.squarepath")
-                               .position(x: 67, y: 65)
-                               // .position(x: 167, y: 77)
+                               // .position(x: 67, y: 65)
+                               .position(x: 167, y: 77)
 
                                 HStack {
                                     
@@ -82,13 +84,13 @@ struct MeditationGenerator: View {
                                 }
                                     }
                                     // The text that is generated for the lesions
-                                    ForEach(viewModel.meditationInit.filter({$0.role != .system}),
-                                            id: \.id) { lessonMessage in
-                                        messageView(message: lessonMessage)
-                                        
-                                    }
-                                            .position(x:140, y: 170)
-                                            .frame(width: 280, height: 400)
+//                                    ForEach(viewModel.meditationInit.filter({$0.role != .system}),
+//                                            id: \.id) { lessonMessage in
+//                                        messageView(message: lessonMessage)
+//                                        
+//                                    }
+//                                            .position(x:140, y: 170)
+//                                            .frame(width: 280, height: 400)
                                 }
                             }
                             .foregroundColor(cvm.homeBrew)
@@ -177,7 +179,7 @@ struct MeditationGenerator: View {
                 if pressedResetMain {
                     // generate meditation button
                     Button(action: {
-                        viewModel.sendMediationMessage()
+                        viewModel.sendMeditationMessage()
                         vm.startMeditationPrompt = false
                         pressedResetMain = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -196,7 +198,7 @@ struct MeditationGenerator: View {
                     .modifier(Shapes.NeumorphicPopedOutBox())
                 } else {
                     Button(action: {
-                        viewModel.sendMediationMessage()
+                        viewModel.sendMeditationMessage()
                         vm.startMeditationPrompt = false
                     } ,
                            label: {

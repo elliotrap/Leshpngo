@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2115E21E2A84186B002BBF53 /* SwitchWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115E21D2A84186B002BBF53 /* SwitchWindow.swift */; };
+		2115E2212A841D3F002BBF53 /* WindowCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115E2202A841D3F002BBF53 /* WindowCase.swift */; };
+		2115E2232A84249A002BBF53 /* TimeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115E2222A84249A002BBF53 /* TimeCounter.swift */; };
 		21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */; };
 		213A38812A82B93F00DABB31 /* LoginLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A38802A82B93F00DABB31 /* LoginLogout.swift */; };
 		2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2173D9EE29AE7CB70090883B /* mainMeditation.swift */; };
@@ -103,6 +106,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2115E21D2A84186B002BBF53 /* SwitchWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchWindow.swift; sourceTree = "<group>"; };
+		2115E2202A841D3F002BBF53 /* WindowCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCase.swift; sourceTree = "<group>"; };
+		2115E2222A84249A002BBF53 /* TimeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCounter.swift; sourceTree = "<group>"; };
 		21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTfirstWindow.swift; sourceTree = "<group>"; };
 		213A38802A82B93F00DABB31 /* LoginLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLogout.swift; sourceTree = "<group>"; };
 		2173D9EE29AE7CB70090883B /* mainMeditation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainMeditation.swift; sourceTree = "<group>"; };
@@ -158,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				213A38802A82B93F00DABB31 /* LoginLogout.swift */,
+				2115E2222A84249A002BBF53 /* TimeCounter.swift */,
 			);
 			path = DatabaseLogin;
 			sourceTree = "<group>";
@@ -198,6 +205,8 @@
 				21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */,
 				21E373A6299F156C008B57D5 /* MeditationGenerator.swift */,
 				2173D9EE29AE7CB70090883B /* mainMeditation.swift */,
+				2115E2202A841D3F002BBF53 /* WindowCase.swift */,
+				2115E21D2A84186B002BBF53 /* SwitchWindow.swift */,
 				21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */,
 			);
 			path = windows;
@@ -492,6 +501,8 @@
 			files = (
 				2199013A2A423AA100260F17 /* Constants.swift in Sources */,
 				21E373CF299F16AA008B57D5 /* MAIviewModel.swift in Sources */,
+				2115E21E2A84186B002BBF53 /* SwitchWindow.swift in Sources */,
+				2115E2232A84249A002BBF53 /* TimeCounter.swift in Sources */,
 				21E373A7299F156C008B57D5 /* MeditationGenerator.swift in Sources */,
 				213A38812A82B93F00DABB31 /* LoginLogout.swift in Sources */,
 				21E2F97E2A827CA900FB6E8D /* DatabaseLogin.swift in Sources */,
@@ -500,6 +511,7 @@
 				21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */,
 				2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */,
 				218B60192A0C056D00EC1DAE /* Shapes.swift in Sources */,
+				2115E2212A841D3F002BBF53 /* WindowCase.swift in Sources */,
 				21E373D1299F16EB008B57D5 /* MAIcolors.swift in Sources */,
 				2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */,
 			);
@@ -593,7 +605,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -653,7 +665,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				"INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone[sdk=*]" = "";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

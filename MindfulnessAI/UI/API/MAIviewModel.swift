@@ -9,7 +9,7 @@ import OpenAISwift
 import Foundation
 import SwiftUI
 import AVFoundation
-
+import RealmSwift
 // the api goes here
 class ViewModel: ObservableObject {
     init() {
@@ -141,6 +141,7 @@ point p = {x, y}; color c = RED;
     
     
     @Published var synthesizer = AVSpeechSynthesizer()
+    let realm = try! Realm()
     
     @Published var maxHeight: CGFloat = UIScreen.main.bounds.height / 3.30
     @Published var sliderProgress: CGFloat = 0
@@ -233,5 +234,16 @@ point p = {x, y}; color c = RED;
                 }
             }
         }
+    
+
+
+    func startNewCounter() {
+        let counter = Counter()
+        counter.start()
+
+        try! realm.write {
+            realm.add(counter)
+        }
+    }
     }
 
