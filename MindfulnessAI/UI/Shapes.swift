@@ -11,12 +11,13 @@ import Foundation
 
 extension LinearGradient {
     init(_ colors: Color...) {
-        self.init(gradient: Gradient(colors: [Color("white1"), Color("black1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+        self.init(gradient: Gradient(colors: [Color.white, Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing)
     }
 }
 
 class Shapes: ObservableObject {
     
+    @Published var changeMode: Bool = true
     
     // nuemorphic design template for the text
     struct NeumorphicBox: ViewModifier {
@@ -183,26 +184,84 @@ class Shapes: ObservableObject {
     struct NeumorphicClickedBox: ViewModifier {
         
         
+        @ObservedObject var mode: Shapes
+        
+        func body(content: Content) -> some View {
+            content
+                .overlay( ZStack {
+                    if mode.changeMode {
+                        Group {
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(LinearGradient(colors: [Color("leftCircleShadowWhite"), Color("rightCircleShadowBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color("circleShadowBlack"), lineWidth: 12)
+                                        .blur(radius: 5)
+                                        .offset(x: 4, y: 4)
+                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color.black, Color.clear)))
+                                    
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color("circleShadowLower"), lineWidth: 6)
+                                        .blur(radius: 5)
+                                        .offset(x: -4, y: -4)
+                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowBlack"), Color.black))))
+                            
+                        }
+                    } else {
+                        Group {
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(LinearGradient(colors: [Color("leftCircleShadowWhite"), Color("rightCircleShadowBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color("circleShadowBlack"), lineWidth: 12)
+                                        .blur(radius: 5)
+                                        .offset(x: -4, y: -4)
+                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color.black, Color.clear)))
+                                    
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color("circleShadowLower"), lineWidth: 6)
+                                        .blur(radius: 5)
+                                        .offset(x: 4, y:  4)
+                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowBlack"), Color.black))))
+                            
+                        }
+
+                    }
+                }
+                
+            )
+        }
+    }
+    
+    struct NeumorphicClickedBoxLight: ViewModifier {
+        
+        
+        @ObservedObject var mode = Shapes()
+        
         func body(content: Content) -> some View {
             content
                 .overlay( ZStack {
                     
                     Group {
                         RoundedRectangle(cornerRadius: 30)
-                            .fill(LinearGradient(colors: [Color("lowerCircleShadowWhite"), Color("upperCircleShadowBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .fill(LinearGradient(colors: [Color("leftCircleShadowWhite"), Color("rightCircleShadowBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke(Color("circleShadowBlack"), lineWidth: 12)
                                     .blur(radius: 5)
-                                    .offset(x: 4, y: 4)
+                                    .offset(x: -4, y: -4)
                                     .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color.black, Color.clear)))
                                 
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 30)
-                                    .stroke(Color("circleShadowBlack"), lineWidth: 6)
+                                    .stroke(Color("circleShadowLower"), lineWidth: 6)
                                     .blur(radius: 5)
-                                    .offset(x: -4, y: -4)
+                                    .offset(x:  -40, y: mode.changeMode ? 4 : -4)
                                     .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowBlack"), Color.black))))
                         
                     }
@@ -212,7 +271,6 @@ class Shapes: ObservableObject {
         }
     }
     
-
     // nuemorphic design template for the rectangle buttons
     struct NeumorphicRectangle: ViewModifier {
         

@@ -29,7 +29,6 @@
 		21E373C0299F156D008B57D5 /* MindfulnessAIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373BF299F156D008B57D5 /* MindfulnessAIUITests.swift */; };
 		21E373C2299F156D008B57D5 /* MindfulnessAIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373C1299F156D008B57D5 /* MindfulnessAIUITestsLaunchTests.swift */; };
 		21E373CF299F16AA008B57D5 /* MAIviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373CE299F16AA008B57D5 /* MAIviewModel.swift */; };
-		21E373D1299F16EB008B57D5 /* MAIcolors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373D0299F16EB008B57D5 /* MAIcolors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +128,6 @@
 		21E373BF299F156D008B57D5 /* MindfulnessAIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIUITests.swift; sourceTree = "<group>"; };
 		21E373C1299F156D008B57D5 /* MindfulnessAIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		21E373CE299F16AA008B57D5 /* MAIviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAIviewModel.swift; sourceTree = "<group>"; };
-		21E373D0299F16EB008B57D5 /* MAIcolors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAIcolors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,13 +165,6 @@
 				2115E2222A84249A002BBF53 /* TimeCounter.swift */,
 			);
 			path = DatabaseLogin;
-			sourceTree = "<group>";
-		};
-		214F2BEC29A58D0B00B370AF /* icons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = icons;
 			sourceTree = "<group>";
 		};
 		21AB40C12A45D3AC00D72FCC /* Products */ = {
@@ -216,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				218B60182A0C056C00EC1DAE /* Shapes.swift */,
-				21E373D0299F16EB008B57D5 /* MAIcolors.swift */,
 				21E373A8299F156D008B57D5 /* Assets.xcassets */,
 				21E2F90A2A818B8800FB6E8D /* API */,
 			);
@@ -259,7 +249,6 @@
 		21E373A3299F156C008B57D5 /* MindfulnessAI */ = {
 			isa = PBXGroup;
 			children = (
-				214F2BEC29A58D0B00B370AF /* icons */,
 				21E2F9082A818AE400FB6E8D /* windows */,
 				21E2F9092A818B5200FB6E8D /* UI */,
 				21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */,
@@ -512,7 +501,6 @@
 				2173D9EF29AE7CB70090883B /* mainMeditation.swift in Sources */,
 				218B60192A0C056D00EC1DAE /* Shapes.swift in Sources */,
 				2115E2212A841D3F002BBF53 /* WindowCase.swift in Sources */,
-				21E373D1299F16EB008B57D5 /* MAIcolors.swift in Sources */,
 				2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -693,7 +681,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait font";
 				"INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone[sdk=*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -724,7 +712,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait font";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

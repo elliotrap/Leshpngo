@@ -20,6 +20,7 @@ extension UINavigationController {
 
 struct ChatView: View {
     
+    @ObservedObject var mode: Shapes
     @ObservedObject var viewModel = ChatViewModel()
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes()
@@ -138,7 +139,7 @@ struct ChatView: View {
                                 .buttonStyle(.borderless)
                                 .frame(width: 220, height: 50)
                                 .cornerRadius(40)
-                                .modifier(Shapes.NeumorphicClickedBox())
+                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                 .overlay(
                                 Text("Choose a meditation")
                                     .foregroundColor(Color("homeBrew"))
@@ -210,7 +211,7 @@ struct ChatView: View {
                                         })
                                         .buttonStyle(.borderless)
                                         .frame(width: 270, height: 75)
-                                        .modifier(Shapes.NeumorphicClickedBox())
+                                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                 
                                         .overlay(
                                             ZStack {
@@ -307,7 +308,7 @@ struct ChatView: View {
                                     })
                                     .buttonStyle(.borderless)
                                     .frame(width: 270, height: 75)
-                                    .modifier(Shapes.NeumorphicClickedBox())
+                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                     .overlay(
                                         ZStack {
                                             HStack {
@@ -477,7 +478,7 @@ struct ChatView: View {
                                         })
                                         .buttonStyle(.borderless)
                                         .frame(width: 270, height: 75)
-                                        .modifier(Shapes.NeumorphicClickedBox())
+                                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                         
                                         .overlay(
                                             ZStack {
@@ -638,6 +639,7 @@ struct ChatView: View {
                                                             
                                                             Button(action: {
                                                              darkmode = false
+                                                                mode.changeMode = false
                                                             }, label: {
                                                                 HStack {
                                                                     Text("Darkmode")
@@ -654,6 +656,7 @@ struct ChatView: View {
                                                             .modifier(Shapes.NeumorphicPopedOutBox())
                                                             .padding(.top, 20)
                                                             .scaleEffect(menuPopUp ? 1 : 0)
+                                          
                                                         } else {
                                                             Button(action: {
                                                             }, label: {
@@ -662,11 +665,12 @@ struct ChatView: View {
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .frame(width: 120, height: 70)
-                                                            .modifier(Shapes.NeumorphicClickedBox())
+                                                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                             .padding(.top, 20)
                                                             .scaleEffect(menuPopUp ? 1 : 0)
                                                             .onTapGesture {
                                                                 darkmode = true
+                                                                mode.changeMode = true
 
                                                             }
                                                             .overlay(
@@ -684,6 +688,8 @@ struct ChatView: View {
 
                                                             }
                                                         )
+                                                            .scaleEffect(menuPopUp ? 1 : 0)
+
                                                         }
                                                         
                                                     }
@@ -706,7 +712,7 @@ struct ChatView: View {
                                                             Text(vm.loginUsernameText)
                                                         })
                                                         .frame(width: 200, height: 40)
-                                                        .modifier(Shapes.NeumorphicClickedBox())
+                                                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                         
                                                         Text("Password")
                                                             .font(.system(size: 12))
@@ -718,7 +724,7 @@ struct ChatView: View {
                                                             
                                                         })
                                                         .frame(width: 200, height: 40)
-                                                        .modifier(Shapes.NeumorphicClickedBox())
+                                                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                     }
                                                
                                                     
@@ -740,7 +746,7 @@ struct ChatView: View {
                                                     .padding(.top, 100)
                                                 Rectangle()
                                                     .foregroundColor(Color("offBlack"))
-                                                    .modifier(Shapes.NeumorphicClickedBox())
+                                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                     .frame(width: meditationTimeBoxAnimation ? 140 : 0, height: meditationTimeBoxAnimation ? 75 : 0)
                                                     .overlay(
                                                         Text("999")
@@ -756,7 +762,7 @@ struct ChatView: View {
                                                         Rectangle()
                                                             .foregroundColor(Color("offBlack"))
                                                             .frame(width: meditationTimeBoxAnimation ? 140 : 0, height: meditationTimeBoxAnimation ? 75 : 0)
-                                                            .modifier(Shapes.NeumorphicClickedBox())
+                                                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                             .overlay(
                                                                 Text("999")
                                                                     .scaleEffect(meditationTimeBoxAnimation ? 1.5 : 0)
@@ -778,7 +784,7 @@ struct ChatView: View {
                                             .frame(width: 150)
                                         VStack {
                                             RoundedRectangle(cornerRadius: 30)
-                                                .modifier(Shapes.NeumorphicClickedBox())
+                                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                 .font(.system(size: 15))
                                                 .padding(.leading, 0)
                                                 .padding(.trailing, 0)
@@ -815,7 +821,7 @@ struct ChatView: View {
                                                 .zIndex(3)
 
                                                 // lession play button
-                                                NavigationLink(destination: MeditationGenerator(vm: vm), label: {
+                                            NavigationLink(destination: MeditationGenerator(vm: vm, mode: Shapes()), label: {
                                                     Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
                                                         .underline(false)
                                                         .foregroundColor(Color("homeBrew"))
@@ -836,7 +842,7 @@ struct ChatView: View {
                                     HStack {
                                         VStack {
                                             RoundedRectangle(cornerRadius: 30)
-                                                .modifier(Shapes.NeumorphicClickedBox())
+                                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                 .font(.system(size: 15))
                                                 .padding(.leading, 0)
                                                 .padding(.trailing, 0)
@@ -897,7 +903,7 @@ struct ChatView: View {
                             })
                             .frame(width: 200, height: 50)
                             .cornerRadius(40)
-                            .modifier(Shapes.NeumorphicClickedBox())
+                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                             .overlay(
                             Text("pick an instructer")
                                 .underline(false)
@@ -1018,7 +1024,7 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                     })
                                                     .buttonStyle(.borderless)
                                                     .frame(width: 130, height: 130)
-                                                    .modifier(Shapes.NeumorphicClickedBox())
+                                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                     .overlay(
                                                         ZStack {
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
@@ -1152,7 +1158,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     })
                                                     .buttonStyle(.borderless)
                                                     .frame(width: 130, height: 130)
-                                                    .modifier(Shapes.NeumorphicClickedBox())
+                                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                     .overlay(
                                                         ZStack {
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
@@ -1285,7 +1291,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                         })
                                                         .buttonStyle(.borderless)
                                                         .frame(width: 130, height: 130)
-                                                        .modifier(Shapes.NeumorphicClickedBox())
+                                                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                         .overlay(
                                                             ZStack {
                                                                 
@@ -1416,7 +1422,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                         })
                                                         .buttonStyle(.borderless)
                                                         .frame(width: 130, height: 130)
-                                                        .modifier(Shapes.NeumorphicClickedBox())
+                                                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                           
                                                         .overlay(
                                                             ZStack {
@@ -1476,7 +1482,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             })
                             .frame(width: 130, height: 50)
                             .cornerRadius(40)
-                            .modifier(Shapes.NeumorphicClickedBox())
+                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                             .overlay(
                                 // the label for describing the lesions section
                                 Text("lessions").padding()
@@ -1703,7 +1709,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 .buttonStyle(.borderless)
                                 .frame(width: 150, height: 150)
                                 // nuemorphic design
-                                .modifier(Shapes.NeumorphicClickedBox())
+                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                 .overlay(
                                     Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
                                         .foregroundColor(Color("grayBlack"))
@@ -1741,7 +1747,9 @@ You are a fully enlighten vipassana meditation trainer training people through a
 }
 
 struct ContentView_Previews3: PreviewProvider {
+    @ObservedObject var mode: Shapes
+
     static var previews: some View {
-        ChatView()
+        ChatView(mode: Shapes())
     }
 }

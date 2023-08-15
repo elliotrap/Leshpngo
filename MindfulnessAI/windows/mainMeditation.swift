@@ -24,7 +24,7 @@ struct MainMeditation: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 HStack {
-                    NavigationLink(destination: ChatView(vm: vm), label:  {
+                    NavigationLink(destination: ChatView(mode: Shapes(),vm: vm), label:  {
                         Image(systemName: "arrow.backward")
                             .foregroundColor(Color("homeBrew"))
                         

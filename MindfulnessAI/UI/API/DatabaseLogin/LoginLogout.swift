@@ -46,7 +46,7 @@ class LoginLogout: ObservableObject {
     }
     func showNextWindow(user: User) {
 
-            currentView = AnyView(ChatView())
+        currentView = AnyView(ChatView(mode: Shapes()))
         
     }
     

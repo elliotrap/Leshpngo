@@ -16,10 +16,8 @@ struct MeditationGenerator: View {
 //    @ObservedObject var viewModel = MeditationViewModel()
 
     @ObservedObject var vm = ViewModel()
-    
-    
+    @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes()
-
     @ObservedObject var viewModel = ChatViewModel()
     
     @State var playingMain = true
@@ -30,7 +28,7 @@ struct MeditationGenerator: View {
     NavigationView {
         ScrollView(showsIndicators: false) {
             HStack {
-                NavigationLink(destination: ChatView(vm: vm), label:  {
+                NavigationLink(destination: ChatView(mode: Shapes(), vm: vm), label:  {
                     Image(systemName: "arrow.backward")
                         .foregroundColor(Color("homeBrew"))
                     
@@ -50,7 +48,7 @@ struct MeditationGenerator: View {
                 VStack {
                         RoundedRectangle(cornerRadius: 30)
                         .frame(width: 210, height: 60)
-                        .modifier(Shapes.NeumorphicClickedBox())
+                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                         .overlay(
                             Text("Choose a Meditation")
                                 .foregroundColor(Color("homeBrew"))
@@ -208,7 +206,7 @@ struct MeditationGenerator: View {
                     .buttonStyle(.borderless)
                     .frame(width: 150, height: 150)
                     // nuemorphic design
-                    .modifier(Shapes.NeumorphicClickedBox())
+                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                     .overlay(
                         Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
                             .foregroundColor(Color.gray)
@@ -252,7 +250,7 @@ struct MeditationGenerator: View {
                    })
                    .buttonStyle(.borderless)
                    .frame(width: 130, height: 50)
-                   .modifier(Shapes.NeumorphicClickedBox())
+                   .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                    .zIndex(vm.tenMinuetButton ? 2 : 1)
            
                    .overlay(
@@ -288,7 +286,7 @@ struct MeditationGenerator: View {
                     })
                     .buttonStyle(.borderless)
                     .frame(width: 130, height: 50)
-                    .modifier(Shapes.NeumorphicClickedBox())
+                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                     .zIndex(vm.tenMinuetButton ? 2 : 1)
                     .overlay(
                         Text("20 min")
@@ -326,6 +324,6 @@ struct MeditationGenerator: View {
 struct ContentView_Previews: PreviewProvider {
 
     static var previews: some View {
-        MeditationGenerator()        
+        MeditationGenerator(mode: Shapes())
     }
 }

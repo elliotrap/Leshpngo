@@ -16,7 +16,7 @@ struct ContentView: View {
     
     var body: some View {
         if let user = app.currentUser {
-            ChatView()
+            ChatView(mode: Shapes())
                 .environment(\.partitionValue, user.id)
            
         }
