@@ -17,6 +17,10 @@ class ViewModel: ObservableObject {
         
     }
     
+    @ObservedObject var counter = Counter()
+    
+    @ObservedObject var voice = ChatViewModel()
+    
     @Published var loginUsernameText: String = ""
     @Published var startLessonPrompt = true
     @Published var startMeditationPrompt = true
@@ -201,14 +205,29 @@ point p = {x, y}; color c = RED;
             }
         }
         
+    func testVoice() {
+        counter.start()
+        let utterance = AVSpeechUtterance(string:     """
+You are vipassana meditation expert training people through an app. give me a non metaphysical meditation for an experienced meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
+""")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-AU")
+        utterance.rate = 0.01
+        let synthesize = AVSpeechSynthesizer()
+        
+        synthesizer.speak(utterance)
+        counter.stop()
+    }
+    
     func aiVoices(_ script: String, withPause pause: TimeInterval) {
-            let segments = script.components(separatedBy: "+")
+            let segments = script.components(separatedBy: "...")
             let synthesizer = AVSpeechSynthesizer()
             
             var segmentIndex = 0
             
             func speakNextSegment() {
                 
+                
+                counter.start()
                 
                 guard segmentIndex < segments.count else { return }
                 
@@ -220,6 +239,7 @@ point p = {x, y}; color c = RED;
                 
                 segmentIndex += 1
                 
+                counter.stop()
             }
             
             speakNextSegment()

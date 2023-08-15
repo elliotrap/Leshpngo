@@ -14,6 +14,9 @@ class Counter: Object {
     @Persisted var startTime: Date?
     @Persisted var endTime: Date?
     
+
+    
+    
     var elapsedTime: TimeInterval? {
         guard let startTime = startTime, let endTime = endTime else {
             return nil

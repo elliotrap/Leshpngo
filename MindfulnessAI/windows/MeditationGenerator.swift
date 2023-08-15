@@ -17,7 +17,6 @@ struct MeditationGenerator: View {
 
     @ObservedObject var vm = ViewModel()
     
-    @ObservedObject var cvm = ColorViewModel()
     
     @ObservedObject var shapeVm = Shapes()
 
@@ -33,7 +32,7 @@ struct MeditationGenerator: View {
             HStack {
                 NavigationLink(destination: ChatView(vm: vm), label:  {
                     Image(systemName: "arrow.backward")
-                        .foregroundColor(cvm.homeBrew)
+                        .foregroundColor(Color("homeBrew"))
                     
                 })
                 .buttonStyle(.borderless)
@@ -45,7 +44,7 @@ struct MeditationGenerator: View {
             ZStack(alignment: .bottom) {
                 RoundedRectangle(cornerRadius: 30)
                     .frame(width: 350, height: 460)
-                    .foregroundColor(cvm.offBlack)
+                    .foregroundColor(Color("offBlack"))
                     .modifier(Shapes.NeumorphicPopedOutBox())
                 
                 VStack {
@@ -54,7 +53,7 @@ struct MeditationGenerator: View {
                         .modifier(Shapes.NeumorphicClickedBox())
                         .overlay(
                             Text("Choose a Meditation")
-                                .foregroundColor(cvm.homeBrew)
+                                .foregroundColor(Color("homeBrew"))
                         )
                         
                     
@@ -64,7 +63,7 @@ struct MeditationGenerator: View {
                         RoundedRectangle(cornerRadius: 30)
                             .stroke()
                             .frame(width: 355, height: 400)
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                             .zIndex(3)
                         
                         // layout
@@ -93,7 +92,7 @@ struct MeditationGenerator: View {
 //                                            .frame(width: 280, height: 400)
                                 }
                             }
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                             .frame(width: 290, height: 370)
                             .zIndex(5)
                             
@@ -103,7 +102,7 @@ struct MeditationGenerator: View {
                                     .position(x:180, y: 200)
                                     .frame(width: 355, height: 400)
                                     .font(.system(size:15))
-                                    .foregroundColor(cvm.homeBrew)
+                                    .foregroundColor(Color("homeBrew"))
                                     .zIndex(4)
                                     .onAppear {
                                         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
@@ -118,7 +117,7 @@ struct MeditationGenerator: View {
                             
                             if vm.isLoading {
                                 ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: cvm.homeBrew))
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color("homeBrew")))
                                     .position(x: 415, y: 365)
                                     .zIndex(5)
                                 
@@ -127,7 +126,7 @@ struct MeditationGenerator: View {
     
                             
                             RoundedRectangle(cornerRadius: 50)
-                                .fill(cvm.offBlack)
+                                .fill(Color("offBlack"))
                                 .frame(width: 350, height: 400)
                                 .modifier(Shapes.NeumorphicBox())
                         }
@@ -152,7 +151,7 @@ struct MeditationGenerator: View {
                         playingMain.toggle()
                     }, label: {
                         Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                     })
                     .buttonStyle(.borderless)
                     .frame(width: 150, height: 150)
@@ -163,11 +162,10 @@ struct MeditationGenerator: View {
                 } else {
                     // lession play button
                     Button(action: {
-                        shapeVm.flipShadow.toggle()
                         playingMain.toggle()
                     }, label: {
                         Image(systemName: "pause.circle").resizable().frame(width: 50, height: 50) // play button
-                            .foregroundColor(cvm.pauseRed)
+                            .foregroundColor(Color("pauseRed"))
                     })
                     .buttonStyle(.borderless)
                     .frame(width: 150, height: 150)
@@ -189,7 +187,7 @@ struct MeditationGenerator: View {
                            label: {
                         
                         Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                         
                     })
                     .buttonStyle(.borderless)
@@ -224,7 +222,7 @@ struct MeditationGenerator: View {
                 RoundedRectangle(cornerRadius: 30)
                     .stroke()
                     .frame(width: 300, height: 70)
-                    .foregroundColor(cvm.homeBrew)
+                    .foregroundColor(Color("homeBrew"))
                     .zIndex(6)
                 
         
@@ -238,7 +236,7 @@ struct MeditationGenerator: View {
                            label: {
                         Text("10 min")
                             .underline(false)
-                            .foregroundStyle(cvm.homeBrew)
+                            .foregroundStyle(Color("homeBrew"))
                         
                     })
                     .buttonStyle(.borderless)
@@ -261,7 +259,7 @@ struct MeditationGenerator: View {
                        Text("10 min")
                        .foregroundColor(Color.gray)
                        .underline(false)
-                       .foregroundStyle(cvm.homeBrew)
+                       .foregroundStyle(Color("homeBrew"))
                    )
                   
 
@@ -276,7 +274,7 @@ struct MeditationGenerator: View {
                            label: {
                         Text("20 min")
                             .underline(false)
-                            .foregroundStyle(cvm.homeBrew)
+                            .foregroundStyle(Color("homeBrew"))
                         
                     })
                     .buttonStyle(.borderless)
@@ -296,7 +294,7 @@ struct MeditationGenerator: View {
                         Text("20 min")
                         .foregroundColor(Color.gray)
                         .underline(false)
-                        .foregroundStyle(cvm.homeBrew)
+                        .foregroundStyle(Color("homeBrew"))
                     )
 
                 }
@@ -308,7 +306,7 @@ struct MeditationGenerator: View {
             }
         .background(LinearGradient (
             
-            gradient: Gradient(colors: [cvm.offBlue, cvm.backgroundAppColor]),
+            gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
             startPoint: .topLeading,
             endPoint: .bottomLeading))
 

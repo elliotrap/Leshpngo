@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import AVFoundation
 extension UINavigationController {
 
     // Remove back button text
@@ -22,10 +22,10 @@ struct ChatView: View {
     
     @ObservedObject var viewModel = ChatViewModel()
     @ObservedObject var vm = ViewModel()
-    @ObservedObject var cvm = ColorViewModel()
     @ObservedObject var shapeVm = Shapes()
     @StateObject var realm = LoginLogout()
 
+    @State var darkmode = true
     
     @State var playing = true
     
@@ -35,6 +35,7 @@ struct ChatView: View {
     
     @State var gridSpacing: CGFloat = 10
 
+    
     @State var vipassanaButtonPressed = true
     @State var expand: Bool = false
     @State var promptToggle: Bool = false
@@ -97,9 +98,8 @@ struct ChatView: View {
                                 //.font(.system(size:14.3))
                                 .font(.system(size:13.35))
                                 .lineLimit(nil)
-                                .shadow(color: Color.green, radius: 10,  y: 10)
-                                .foregroundColor(cvm.homeBrew)
-                            // the progression of the 1's and 0's that iterate the index to make an animation
+                               // .shadow(color: Color("homeBrew"), radius: 10,  y: 10)
+                                .foregroundColor(Color("homeBrew"))                            // the progression of the 1's and 0's that iterate the index to make an animation
                                 .onAppear {
                                     Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
                                         if vm.onesAndZerosIndex == vm.onesAndZeros.count - 1 {
@@ -115,7 +115,7 @@ struct ChatView: View {
                         Text("Léshpngo")
                             .font(.system(size: 50))
                             .font(.caption)
-                            .foregroundColor(cvm.offBlue)
+                            .foregroundColor(Color("offBlue"))
                             .zIndex(5)
               
                         }
@@ -125,7 +125,7 @@ struct ChatView: View {
                     
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(cvm.offBlack)
+                            .foregroundColor(Color("offBlack"))
                             .frame(width: 350, height: expand || expandTwo || expandThree ? 535 : 450)
                             .modifier(Shapes.NeumorphicPopedOutBox())
                             
@@ -136,20 +136,21 @@ struct ChatView: View {
                             Text("Chose a meditation").padding()
                                 .underline(false)
                                 .buttonStyle(.borderless)
-                                .foregroundColor(cvm.homeBrew)
                                 .frame(width: 220, height: 50)
                                 .cornerRadius(40)
                                 .modifier(Shapes.NeumorphicClickedBox())
                                 .overlay(
                                 Text("Choose a meditation")
-                                    .foregroundColor(cvm.homeBrew)
+                                    .foregroundColor(Color("homeBrew"))
+
                                 )
+                            
                             
                             ZStack {
                                 // background for the vipassana button
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke()
-                                    .frame(width: expand ? 300 : 305, height: expand ? 180 : 95)  .foregroundColor(vipassanaButtonPressed ? Color.gray : cvm.homeBrew)
+                                    .frame(width: expand ? 300 : 305, height: expand ? 180 : 95)  .foregroundColor(vipassanaButtonPressed ? Color("grayBlack") : Color("homeBrew"))
                                     .zIndex(5)
                                 if vipassanaButtonPressed == false {
                                     // vipassana meditation link with a description of what meta is
@@ -161,7 +162,7 @@ struct ChatView: View {
                                         chiefButtonPressed = true
                                     }, label: {
                                         Text(promptToggle ? "Vipassanā is a way of self-transformation through self-observation by paying attention to the physical sensations that form the life of the body and the mind." : "Vipassanā")
-                                            .foregroundColor(cvm.homeBrew)
+                                            .foregroundColor(Color("homeBrew"))
                                             .font(.system(size: promptToggle ? 14 : 30))
                                             .underline(false)
                                             .lineLimit(6)
@@ -180,8 +181,7 @@ struct ChatView: View {
                                                 
                                             }, label: {
                                                 Image(systemName: expand ? "minus.circle" : "i.circle").resizable().frame(width: 20, height: 20)
-                                                    .foregroundColor(cvm.homeBrew)
-                                                
+                                                    .foregroundColor(Color("homeBrew"))
                                                     .onTapGesture {
                                                         withAnimation(.spring(response: 0.2, dampingFraction: 0.65)) {
                                                             expand.toggle()
@@ -218,13 +218,13 @@ struct ChatView: View {
                                                         Text("Vipassanā")
                                                             .font(.system(size: 25))
                                                             .underline(false)
-                                                            .foregroundColor(Color.gray)
+                                                            .foregroundColor(Color("grayBlack"))
                                                      
                                                         Spacer()
                                                             .frame(width: 40)
                                                         
                                                         Image(systemName: "i.circle").resizable().frame(width: 17, height: 17)
-                                                            .foregroundColor(Color.gray)
+                                                            .foregroundColor(Color("grayBlack"))
                                                     }
                                         
                                                 .buttonStyle(.borderless)
@@ -239,7 +239,7 @@ struct ChatView: View {
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke()
                                     .frame(width: expandTwo ? 300 : 305, height: expandTwo ? 180 : 95)
-                                    .foregroundColor(metaButtonPressed ? Color.gray : cvm.homeBrew)
+                                    .foregroundColor(metaButtonPressed ? Color("grayBlack") : Color("homeBrew"))
                                     .zIndex(5)
                                 // meta meditation link with a description of what meta is
                                 if metaButtonPressed == false {
@@ -258,7 +258,7 @@ struct ChatView: View {
 """
                                     }, label: {
                                         Text(promptToggleTwo ? "Meta meditation is a meditation that cultivates compassion for oneself and others by reciting positive phrases and wishes." : "Maitrī")
-                                            .foregroundColor(metaButtonPressed ? Color.gray : cvm.homeBrew)
+                                            .foregroundColor(metaButtonPressed ? Color("grayBlack") : Color("homeBrew"))
                                             .font(.system(size: promptToggleTwo ? 14 : 30))
                                             .underline(false)
                                             .lineLimit(6)
@@ -269,8 +269,8 @@ struct ChatView: View {
                                     .frame(width: expandTwo ? 290 : 275, height: expandTwo ? 150 : 65)
                                     .modifier(Shapes.NeumorphicRectangle())
                                     .cornerRadius(30)
-                                    .shadow(color: cvm.shadowBlack, radius: 20, x: 20, y: 20)
-                                    .shadow(color: cvm.offBlue, radius: 20, x: -20, y: -20)
+                                    .shadow(color: Color("shadowBlack"), radius: 20, x: 20, y: 20)
+                                    .shadow(color: Color("offBlue"), radius: 20, x: -20, y: -20)
                                     .disabled(expandTwo)
                                     .overlay(
                                         ZStack {
@@ -278,8 +278,7 @@ struct ChatView: View {
                                             Button(action: {
                                             }, label: {
                                                 Image(systemName: expandTwo ? "minus.circle" : "i.circle").resizable().frame(width: 20, height: 20)
-                                                    .foregroundColor(cvm.homeBrew)
-                                                    .onTapGesture {
+                                                    .foregroundColor(Color("homeBrew"))                                                    .onTapGesture {
                                                         withAnimation(.spring(response: 0.2, dampingFraction: 0.65)) {
                                                             expandTwo.toggle()
                                                             
@@ -315,13 +314,13 @@ struct ChatView: View {
                                                 Text("Maitrī")
                                                     .font(.system(size: 25))
                                                     .underline(false)
-                                                    .foregroundColor(Color.gray)
+                                                    .foregroundColor(Color("grayBlack"))
                                                 Spacer()
                                                     .frame(width: 60)
                                                 
                                                 
                                                     Image(systemName: "i.circle").resizable().frame(width: 17, height: 17)
-                                                        .foregroundColor(Color.gray)
+                                                        .foregroundColor(Color("grayBlack"))
                                                         .buttonStyle(.borderless)
                                                 
                                                 
@@ -337,7 +336,7 @@ struct ChatView: View {
                                 // background for the vipassana button
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke()
-                                    .frame(width: expandThree ? 300 : 305, height: expandThree ? 180 : 95)  .foregroundColor(                                        timerButtonPressed ? Color.gray : cvm.homeBrew)
+                                    .frame(width: expandThree ? 300 : 305, height: expandThree ? 180 : 95)  .foregroundColor(                                        timerButtonPressed ? Color("grayBlack") : Color("homeBrew"))
                                     .zIndex(5)
                                 if timerButtonPressed == false {
                                     // vipassana meditation link with a description of what meta is
@@ -349,7 +348,7 @@ struct ChatView: View {
                                         chiefButtonPressed = true
                                     }, label: {
                                         Text(expandThree ? "" : "Self Timer")
-                                            .foregroundColor(cvm.homeBrew)
+                                            .foregroundColor(Color("homeBrew"))
                                             .font(.system(size: promptToggle ? 14 : 30))
                                             .underline(false)
                                             .lineLimit(6)
@@ -370,12 +369,12 @@ struct ChatView: View {
                                                 if expandThree {
                                                     VStack(spacing: 5) {
                                                         Text("minutes")
-                                                            .foregroundColor(cvm.homeBrew)
+                                                            .foregroundColor(Color("homeBrew"))
                                                             .font(.system(size: 25))
                                                         Text(
                                                             String(format:"%.0f", vm.minuteSliderProgress)
                                                             )
-                                                        .foregroundColor(cvm.homeBrew)
+                                                        .foregroundColor(Color("homeBrew"))
                                                         .font(.system(size: 25))
                                                         
                                                         ZStack {
@@ -383,10 +382,10 @@ struct ChatView: View {
                                                             RoundedRectangle(cornerRadius: 100)
                                                                 .stroke(lineWidth: 1.5)
                                                                 .frame(width: 254, height: 52)
-                                                                .foregroundColor(cvm.homeBrew)
+                                                                .foregroundColor(Color("homeBrew"))
                                                             // Slider body
                                                             RoundedRectangle(cornerRadius: 100)
-                                                                .foregroundColor(cvm.offBlack)
+                                                                .foregroundColor(Color("offBlack"))
                                                                 .modifier(Shapes.NeumorphicBox())
                                                                 .frame(width: 250, height: 50)
                                                             
@@ -446,7 +445,7 @@ struct ChatView: View {
                                                 
                                             }, label: {
                                                 Image(systemName: expandThree ? "minus.circle" : "clock").resizable().frame(width: 20, height: 20)
-                                                    .foregroundColor(cvm.homeBrew)
+                                                    .foregroundColor(Color("homeBrew"))
                                                 
                                                     .onTapGesture {
                                                         withAnimation(.spring(response: 0.2, dampingFraction: 0.65)) {
@@ -486,13 +485,13 @@ struct ChatView: View {
                                                     Text("Self Timer")
                                                         .font(.system(size: 25))
                                                         .underline(false)
-                                                        .foregroundColor(Color.gray)
+                                                        .foregroundColor(Color("grayBlack"))
                                                     
                                                     Spacer()
                                                         .frame(width: 40)
                                                     
                                                     Image(systemName: "i.circle").resizable().frame(width: 17, height: 17)
-                                                        .foregroundColor(Color.gray)
+                                                        .foregroundColor(Color("grayBlack"))
                                                 }
                                                 
                                                 .buttonStyle(.borderless)
@@ -513,7 +512,7 @@ struct ChatView: View {
                             Spacer(minLength: 20)
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(width: 350, height: meditationTimeBoxAnimation || menuAnimationSizeChange ? 400 : 170)
-                                .foregroundColor(cvm.offBlack)
+                                .foregroundColor(Color("offBlack"))
                                 .modifier(Shapes.NeumorphicPopedOutBox())
                                 .overlay(
                                     HStack {
@@ -523,7 +522,7 @@ struct ChatView: View {
                                     
                                                 HStack(spacing: meditationTimeBoxExpand || menuPopUp ? 40 : 150) {
                                                     Image(systemName:"plus").resizable()       .frame(width: meditationTimeBoxExpand || menuPopUp ? 0 : 30, height: meditationTimeBoxExpand || menuPopUp ? 0 : 30)
-                                                        .foregroundColor(cvm.homeBrew)
+                                                        .foregroundColor(Color("homeBrew"))
                                                         .padding(.top, meditationTimeBoxExpand || menuPopUp ? 310 : 100)
                                                         .onTapGesture {
                                                             meditationTimeBoxExpand.toggle()
@@ -538,7 +537,7 @@ struct ChatView: View {
                                                         Image(systemName: "chevron.up").resizable()
                                                             .frame(width: 100, height: 20)
                                                         
-                                                            .foregroundColor(cvm.homeBrew)
+                                                            .foregroundColor(Color("homeBrew"))
                                                             .padding(.top, meditationTimeBoxExpand || menuPopUp ? 340 : 100)
                                                             .onTapGesture {
                                                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
@@ -555,7 +554,7 @@ struct ChatView: View {
                                                     Image(systemName: "line.3.horizontal").resizable()
                                                         .frame(width: meditationTimeBoxExpand || menuPopUp ? 0 : 30, height: meditationTimeBoxExpand || menuPopUp ? 0 : 20)
                                                     
-                                                        .foregroundColor(cvm.homeBrew)
+                                                        .foregroundColor(Color("homeBrew"))
                                                         .padding(.top, meditationTimeBoxExpand || menuPopUp ? 310 : 100)
                                                         .onTapGesture {
                                                             menuPopUp.toggle()
@@ -572,32 +571,124 @@ struct ChatView: View {
                                     }
                             )
                                 .overlay(
-                                   
-                                        HStack(spacing: 50) {
-                                            if profileButtonPressed == false {
-                                            Button(action: {
-                                                realm.logout()
-                                            }, label: {
-                                                Text("Logout")
-                                                    .foregroundColor(cvm.homeBrew)
-                                            })
-                                            .frame(width: 120, height: 120)
-                                            .modifier(Shapes.NeumorphicPopedOutBox())
-                                            .padding(.top, 100)
-                                            .scaleEffect(menuPopUp ? 1 : 0)
+                                    Grid(horizontalSpacing: 30) {
+                                        if profileButtonPressed == false {
                                             
-                                            Button(action: {
-                                                profileButtonPressed = true
-                                            }, label: {
-                                                Text("Profile")
-                                                    .foregroundColor(cvm.homeBrew)
-                                                
-                                            })
-                                            .frame(width: 120, height: 120)
-                                            .modifier(Shapes.NeumorphicPopedOutBox())
-                                            .padding(.top, 100)
-                                            .scaleEffect(menuPopUp ? 1 : 0)
-                                            
+                                            GridRow {
+                                                VStack {
+                                                    
+                                                    Button(action: {
+                                                        realm.logout()
+                                                    }, label: {
+                                                        HStack {
+                                                            Text("Logout")
+                                                                .font(.system(size: 12))
+                                                                .foregroundColor(Color("homeBrew"))
+                                                            Image(systemName: "pip.exit")
+                                                                .foregroundColor(Color("homeBrew"))
+
+                                                        }
+                                                    })
+                                                    .buttonStyle(.borderless)
+                                                    .frame(width: 120, height: 70)
+                                                    .modifier(Shapes.NeumorphicPopedOutBox())
+                                                    .padding(.top, 110)
+                                                    .scaleEffect(menuPopUp ? 1 : 0)
+                                                    
+                                                    Button(action: {
+                                                        profileButtonPressed = true
+                                                    }, label: {
+                                                        HStack {
+                                                            Text("Profile")
+                                                                .font(.system(size: 12))
+                                                                .foregroundColor(Color("homeBrew"))
+                                                            Image(systemName: "person")
+                                                                .foregroundColor(Color("homeBrew"))
+
+                                                        }
+                                                        
+                                                    })
+                                                    .buttonStyle(.borderless)
+                                                    .frame(width: 120, height: 70)
+                                                    .modifier(Shapes.NeumorphicPopedOutBox())
+                                                    .padding(.top, 20)
+                                                    .scaleEffect(menuPopUp ? 1 : 0)
+                                                }
+                                                GridRow {
+                                                    VStack {
+                                                        Button(action: {
+                                                            realm.logout()
+                                                        }, label: {
+                                                            HStack {
+                                                                Text("Self Timer")
+                                                                    .font(.system(size: 12))
+                                                                    .foregroundColor(Color("homeBrew"))
+                                                                
+                                                                Image(systemName: "clock")
+                                                                    .foregroundColor(Color("homeBrew"))
+                                                            }
+                                                        })
+                                                        .buttonStyle(.borderless)
+                                                        .frame(width: 120, height: 70)
+                                                        .modifier(Shapes.NeumorphicPopedOutBox())
+                                                        .padding(.top, 110)
+                                                        .scaleEffect(menuPopUp ? 1 : 0)
+                                                       
+                                                        if darkmode {
+                                                            
+                                                            Button(action: {
+                                                             darkmode = false
+                                                            }, label: {
+                                                                HStack {
+                                                                    Text("Darkmode")
+                                                                        .font(.system(size: 12))
+                                                                        .foregroundColor(Color("homeBrew"))
+                                                                    
+                                                                    Image(systemName: "moon.stars")
+                                                                        .foregroundColor(Color("homeBrew"))
+                                                                }
+                                                                
+                                                            })
+                                                            .buttonStyle(.borderless)
+                                                            .frame(width: 120, height: 70)
+                                                            .modifier(Shapes.NeumorphicPopedOutBox())
+                                                            .padding(.top, 20)
+                                                            .scaleEffect(menuPopUp ? 1 : 0)
+                                                        } else {
+                                                            Button(action: {
+                                                            }, label: {
+                                                    
+                                                                
+                                                            })
+                                                            .buttonStyle(.borderless)
+                                                            .frame(width: 120, height: 70)
+                                                            .modifier(Shapes.NeumorphicClickedBox())
+                                                            .padding(.top, 20)
+                                                            .scaleEffect(menuPopUp ? 1 : 0)
+                                                            .onTapGesture {
+                                                                darkmode = true
+
+                                                            }
+                                                            .overlay(
+                                                                HStack {
+                                                                Text("Lightmode")
+                                                                    .underline(true)
+                                                                    .font(.system(size: 11))
+                                                                    .foregroundColor(Color("homeBrew"))
+                                                                    .padding(.top, 20)
+
+                                                                Image(systemName: "sun.haze")
+                                                                        .font(.system(size: 11.8))
+                                                                    .foregroundColor(Color("homeBrew"))
+                                                                    .padding(.top, 20)
+
+                                                            }
+                                                        )
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                            }
                                             } else {
                                                 HStack {
                                                     
@@ -607,8 +698,9 @@ struct ChatView: View {
                                                             .frame(height: 120)
                                                         
                                                         Text("Username")
-                                                            .frame(width: 100)
-                                                            .foregroundColor(cvm.homeBrew)
+                                                            .font(.system(size: 12))
+                                                            .frame(width: 150)
+                                                            .foregroundColor(Color("homeBrew"))
                                                         
                                                         Button(action: {}, label: {
                                                             Text(vm.loginUsernameText)
@@ -617,8 +709,9 @@ struct ChatView: View {
                                                         .modifier(Shapes.NeumorphicClickedBox())
                                                         
                                                         Text("Password")
-                                                            .frame(width: 100)
-                                                            .foregroundColor(cvm.homeBrew)
+                                                            .font(.system(size: 12))
+                                                            .frame(width: 150)
+                                                            .foregroundColor(Color("homeBrew"))
                                                         
                                                         Button(action: {}, label: {
                                                             Text(vm.loginUsernameText)
@@ -638,36 +731,36 @@ struct ChatView: View {
                                 .overlay(
                                   
                                     VStack {
-                                        HStack(spacing: 60) {
+                                        HStack(spacing: 20) {
                                             VStack {
                                                 
                                                 Text("DAYS:")
                                                     .scaleEffect(meditationTimeBoxAnimation ? 1 : 0)
-                                                    .foregroundColor(cvm.homeBrew)
-                                                    .padding(.top, 150)
+                                                    .foregroundColor(Color("homeBrew"))
+                                                    .padding(.top, 100)
                                                 Rectangle()
-                                                    .foregroundColor(cvm.offBlack)
+                                                    .foregroundColor(Color("offBlack"))
                                                     .modifier(Shapes.NeumorphicClickedBox())
-                                                    .frame(width: meditationTimeBoxAnimation ? 100 : 0, height: meditationTimeBoxAnimation ? 75 : 0)
+                                                    .frame(width: meditationTimeBoxAnimation ? 140 : 0, height: meditationTimeBoxAnimation ? 75 : 0)
                                                     .overlay(
                                                         Text("999")
-                                                            .scaleEffect(meditationTimeBoxAnimation ? 1 : 0)
-                                                            .foregroundColor(cvm.homeBrew)
+                                                            .scaleEffect(meditationTimeBoxAnimation ? 1.5 : 0)
+                                                            .foregroundColor(Color("homeBrew"))
                                                     )
                                             }
                                                     VStack {
                                                         Text("HOURS:")
                                                             .scaleEffect(meditationTimeBoxAnimation ? 1 : 0)
-                                                            .foregroundColor(cvm.homeBrew)
-                                                            .padding(.top, 150)
+                                                            .foregroundColor(Color("homeBrew"))
+                                                            .padding(.top, 100)
                                                         Rectangle()
-                                                            .foregroundColor(cvm.offBlack)
-                                                            .frame(width: meditationTimeBoxAnimation ? 100 : 0, height: meditationTimeBoxAnimation ? 75 : 0)
+                                                            .foregroundColor(Color("offBlack"))
+                                                            .frame(width: meditationTimeBoxAnimation ? 140 : 0, height: meditationTimeBoxAnimation ? 75 : 0)
                                                             .modifier(Shapes.NeumorphicClickedBox())
                                                             .overlay(
                                                                 Text("999")
-                                                                    .scaleEffect(meditationTimeBoxAnimation ? 1 : 0)
-                                                                    .foregroundColor(cvm.homeBrew)
+                                                                    .scaleEffect(meditationTimeBoxAnimation ? 1.5 : 0)
+                                                                    .foregroundColor(Color("homeBrew"))
                                                             )
                                         }
                                     }
@@ -692,7 +785,7 @@ struct ChatView: View {
                                                 .frame(height: 60)
                                                 .overlay(
                                                 Text(chosenMeditation)
-                                                    .foregroundColor(cvm.homeBrew)
+                                                    .foregroundColor(Color("homeBrew"))
                                      
                                                 )
                                             Spacer()
@@ -702,11 +795,11 @@ struct ChatView: View {
                                     HStack(spacing: 0) {
                                         Rectangle()
                                             .frame(width: 120, height: 0.66)
-                                            .foregroundColor(cvm.homeBrew)
+                                            .foregroundColor(Color("homeBrew"))
                                             .padding(.bottom, 80)
                                         Rectangle()
                                             .frame(width: 120, height: 1)
-                                            .foregroundColor(cvm.homeBrew)
+                                            .foregroundColor(Color("homeBrew"))
                                             .padding(.bottom, 80)
                                     }
                                 }
@@ -717,7 +810,7 @@ struct ChatView: View {
                                             Circle()
                                                 .stroke()
                                                 .frame(width: 110, height: 110)
-                                                .foregroundColor(cvm.homeBrew)
+                                                .foregroundColor(Color("homeBrew"))
                                                 .padding(.bottom, 30)
                                                 .zIndex(3)
 
@@ -725,7 +818,7 @@ struct ChatView: View {
                                                 NavigationLink(destination: MeditationGenerator(vm: vm), label: {
                                                     Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
                                                         .underline(false)
-                                                        .foregroundColor(cvm.homeBrew)
+                                                        .foregroundColor(Color("homeBrew"))
                                          
                                                 })
                                                 .onAppear {
@@ -750,7 +843,7 @@ struct ChatView: View {
                                                 .frame(height: 60)
                                                 .overlay(
                                                     Text(chosenInstructor)
-                                                        .foregroundColor(cvm.homeBrew)
+                                                        .foregroundColor(Color("homeBrew"))
                                                  
                                                 )
                                             Spacer()
@@ -762,11 +855,11 @@ struct ChatView: View {
                                     HStack(spacing: 0) {
                                         Rectangle()
                                             .frame(width: 120, height: 1)
-                                            .foregroundColor(cvm.homeBrew)
+                                            .foregroundColor(Color("homeBrew"))
                                             .padding(.bottom, 80)
                                         Rectangle()
                                             .frame(width: 120, height: 0.66)
-                                            .foregroundColor(cvm.homeBrew)
+                                            .foregroundColor(Color("homeBrew"))
                                             .padding(.bottom, 80)
                                             
 
@@ -788,7 +881,7 @@ struct ChatView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width:350, height: 420)
-                        .foregroundColor(cvm.offBlack)
+                        .foregroundColor(Color("offBlack"))
                         .modifier(Shapes.NeumorphicPopedOutBox())
                         .padding(.top, 0)
                     
@@ -808,7 +901,7 @@ struct ChatView: View {
                             .overlay(
                             Text("pick an instructer")
                                 .underline(false)
-                                .foregroundColor(cvm.homeBrew)
+                                .foregroundColor(Color("homeBrew"))
                             )
                             .zIndex(7)
                         }
@@ -822,7 +915,7 @@ struct ChatView: View {
                                             RoundedRectangle(cornerRadius: chiefButtonCornerSize)
                                                 .stroke()
                                                 .frame(width:  chiefButtonBackgroundSize, height:  chiefButtonBackgroundSize)
-                                                .foregroundColor(chiefButtonPressed ? Color.gray : cvm.homeBrew )
+                                                .foregroundColor(chiefButtonPressed ? Color("grayBlack") : Color("homeBrew") )
                                                 .zIndex(2)
                                             if chiefButtonPressed == false  {
                                                 // Chief meditation instructor link with a description of how Chief will guid a meditation.
@@ -842,7 +935,7 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                 }, label: {
                                                     Text(chiefButton ? "Say hello to Chief, Chief is a well trained meditation instructor that is great at guiding beginners through an eyes closed meditation. Chief will connect you with the world using concepts found within your self." : "Chief")
                                                         .underline(false)
-                                                        .foregroundColor(cvm.homeBrew)
+                                                        .foregroundColor(Color("homeBrew"))
                                                         .font(.system(size: chiefButton ? 16 : 16))
                                                         .frame(width: chiefButton ? 200 : 60, height: chiefButton ? 200 : 20)
                                                 })
@@ -857,7 +950,7 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                         Button(action: {
                                                         }, label: {
                                                             Image(systemName: chiefButton ? "minus.circle" : "i.circle").resizable().frame(width: chiefButtonIconSize, height: chiefButtonIconSize)
-                                                                .foregroundColor(cvm.homeBrew)
+                                                                .foregroundColor(Color("homeBrew"))
                                                                 .onTapGesture {
                                                                     withAnimation(.spring(response: 0.2, dampingFraction: 1)) {
                                                                         lunaButtonPressed = false
@@ -933,12 +1026,12 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                             Text("Chief")
                                                                 .font(.system(size: 13))
                                                                 .underline(false)
-                                                                .foregroundColor(Color.gray)
+                                                                .foregroundColor(Color("grayBlack"))
                                                             
                                                             Button(action: {
                                                             }, label: {
                                                                 Image(systemName: "i.circle").resizable().frame(width: 13, height: 13)
-                                                                    .foregroundColor(Color.gray)
+                                                                    .foregroundColor(Color("grayBlack"))
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .padding(.top, 70)
@@ -950,7 +1043,7 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                             RoundedRectangle(cornerRadius: lunaButtonCornerSize)
                                                 .stroke()
                                                 .frame(width: lunaButtonBackgroundSize, height: lunaButtonBackgroundSize)
-                                                .foregroundColor(lunaButtonPressed ? Color.gray : cvm.homeBrew ) .zIndex(6)
+                                                .foregroundColor(lunaButtonPressed ? Color("grayBlack") : Color("homeBrew") ) .zIndex(6)
                                             if lunaButtonPressed == false {
                                                 // Luna meditation instructor link with a description of how Luna will guid a meditation.
                                                 Button(action: {
@@ -971,7 +1064,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     Text(lunaButton ? "Nurture yourself with nature. Go outside, Luna will guide you through a meditation that will connect you to the surroundings of nature.": "Luna")
                                                     
                                                         .underline(false)
-                                                        .foregroundColor(cvm.homeBrew)
+                                                        .foregroundColor(Color("homeBrew"))
                                                         .font(.system(size: lunaButton ? 20 : 17))
                                                         .frame(width: lunaButton ? 200 : 50, height: lunaButton ? 200 : 20)
                                                     
@@ -987,7 +1080,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                         Button(action: {
                                                         }, label: {
                                                             Image(systemName: lunaButton ? "minus.circle" : "i.circle").resizable().frame(width: lunaButtonIconSize, height: lunaButtonIconSize)
-                                                                .foregroundColor(cvm.homeBrew)
+                                                                .foregroundColor(Color("homeBrew"))
                                                                 .onTapGesture {
                                                                     withAnimation(.spring(response: 0.2, dampingFraction: 1)) {
                                                                         chiefButtonPressed = false
@@ -1066,12 +1159,12 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             Text("Luna")
                                                                 .font(.system(size: 13))
                                                                 .underline(false)
-                                                                .foregroundColor(Color.gray)
+                                                                .foregroundColor(Color("grayBlack"))
                                                             
                                                             Button(action: {
                                                             }, label: {
                                                                 Image(systemName: "i.circle").resizable().frame(width: 13, height: 13)
-                                                                    .foregroundColor(Color.gray)
+                                                                    .foregroundColor(Color("grayBlack"))
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .padding(.top, 70)
@@ -1086,7 +1179,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 RoundedRectangle(cornerRadius: zeppelinButtonCornerSize)
                                                     .stroke()
                                                     .frame(width: zeppelinButtonBackgroundSize, height: zeppelinButtonBackgroundSize)
-                                                    .foregroundColor(zeppelinButtonPressed ? Color.gray : cvm.homeBrew )
+                                                    .foregroundColor(zeppelinButtonPressed ? Color("grayBlack") : Color("homeBrew") )
                                                     .zIndex(6)
                                                 
                                                 if zeppelinButtonPressed == false {
@@ -1107,7 +1200,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     }, label: {
                                                         Text(zeppelinButton ? "Zepp is an excellent teacher that guides a body awareness exercise. Wake yourself up, with Zeppelin meditation." :"Zepp")
                                                             .underline(false)
-                                                            .foregroundColor(cvm.homeBrew)
+                                                            .foregroundColor(Color("homeBrew"))
                                                             .font(.system(size: zeppelinButton ? 20 : 15))
                                                             .frame(width: zeppelinButton ? 200 : 60, height: zeppelinButton ? 200 : 20)
                                                     })
@@ -1121,7 +1214,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             Button(action: {
                                                             }, label: {
                                                                 Image(systemName: zeppelinButton ? "minus.circle" : "i.circle").resizable().frame(width: zeppelinButtonIconSize, height: zeppelinButtonIconSize)
-                                                                    .foregroundColor(cvm.homeBrew)
+                                                                    .foregroundColor(Color("homeBrew"))
                                                                     .onTapGesture {
                                                                         withAnimation(.spring(response: 0.2, dampingFraction: 1)) {
                                                                             
@@ -1200,12 +1293,12 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 Text("Zepp")
                                                                     .font(.system(size: 13))
                                                                     .underline(false)
-                                                                    .foregroundColor(Color.gray)
+                                                                    .foregroundColor(Color("grayBlack"))
                                                                 
                                                                 Button(action: {
                                                                 }, label: {
                                                                     Image(systemName: "i.circle").resizable().frame(width: 13, height: 13)
-                                                                        .foregroundColor(Color.gray)
+                                                                        .foregroundColor(Color("grayBlack"))
                                                                 })
                                                                 .buttonStyle(.borderless)
                                                                 .padding(.top, 70)
@@ -1217,7 +1310,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 RoundedRectangle(cornerRadius: maddieButtonCornerSize)
                                                     .stroke()
                                                     .frame(width: maddieButtonBackgroundSize, height: maddieButtonBackgroundSize)
-                                                    .foregroundColor(maddieButtonPressed ? Color.gray : cvm.homeBrew )                                                    .zIndex(6)
+                                                    .foregroundColor(maddieButtonPressed ? Color("grayBlack") : Color("homeBrew"))                                                    .zIndex(6)
                                                 if maddieButtonPressed == false {
                                                     // Maddie meditation instructor link with a description of how Maddie will guid a meditation.
                                                     Button(action: {
@@ -1236,7 +1329,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     }, label: {
                                                         Text(maddieButton ? "Feel the life of your hart, realizing the grounding nature of what makes your life...your life" : "Matil")
                                                             .underline(false)
-                                                            .foregroundColor(cvm.homeBrew)
+                                                            .foregroundColor(Color("homeBrew"))
                                                             .font(.system(size: maddieButton ? 20 : 15))
                                                             .frame(width: maddieButton ? 200 : 60, height: maddieButton ? 200 : 10)
                                                         
@@ -1252,7 +1345,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             Button(action: {
                                                             }, label: {
                                                                 Image(systemName: maddieButton ? "minus.circle" : "i.circle").resizable().frame(width: maddieButtonIconSize, height: maddieButtonIconSize)
-                                                                    .foregroundColor(cvm.homeBrew)
+                                                                    .foregroundColor(Color("homeBrew"))
                                                                     .onTapGesture {
                                                                         withAnimation(.spring(response: 0.2, dampingFraction: 1)) {
                                                                             chiefButtonPressed = false
@@ -1331,12 +1424,12 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 Text("Matil")
                                                                     .font(.system(size: 13))
                                                                     .underline(false)
-                                                                    .foregroundColor(Color.gray)
+                                                                    .foregroundColor(Color("grayBlack"))
                                                                 
                                                                 Button(action: {
                                                                 }, label: {
                                                                     Image(systemName: "i.circle").resizable().frame(width: 13, height: 13)
-                                                                        .foregroundColor(Color.gray)
+                                                                        .foregroundColor(Color("grayBlack"))
                                                                 })
                                                                 .buttonStyle(.borderless)
                                                                 .padding(.top, 70)
@@ -1357,12 +1450,12 @@ You are a fully enlighten vipassana meditation trainer training people through a
                 ZStack(alignment: .bottom) {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 350, height: 450)
-                        .foregroundColor(cvm.offBlack)
+                        .foregroundColor(Color("offBlack"))
                         .modifier(Shapes.NeumorphicPopedOutBox())
                     if viewModel.GPTLoading {
                         VStack {
                             ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: cvm.homeBrew))
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color("homeBrew")))
                                 .scaleEffect(2)
                                 .zIndex(6)
                             
@@ -1389,7 +1482,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 Text("lessions").padding()
                                     .underline(false)
                                     .buttonStyle(.borderless)
-                                    .foregroundColor(cvm.homeBrew)
+                                    .foregroundColor(Color("homeBrew"))
                                 
                             )
                             .zIndex(7)
@@ -1404,7 +1497,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                         RoundedRectangle(cornerRadius: 30)
                             .stroke()
                             .frame(width: 355, height: 400)
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                             .scaleEffect(0.9)
 
                             .zIndex(2)
@@ -1440,7 +1533,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .onAppear {
                                 vm.setup()
                             }
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                             .frame(width: 290, height: 370)
                             .zIndex(5)
                             // the progression of the 1's and 0's that iterate the index to make an animation
@@ -1449,7 +1542,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                     .position(x:180, y: 200)
                                     .frame(width: 355, height: 400)
                                     .font(.system(size:15))
-                                    .foregroundColor(cvm.homeBrew)
+                                    .foregroundColor(Color("homeBrew"))
                                     .zIndex(4)
                                     .onAppear {
                                         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
@@ -1463,7 +1556,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             }
                             if vm.isLoading {
                                 ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: cvm.homeBrew))
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color("homeBrew")))
                                     .position(x: 415, y: 365)
                                     .zIndex(5)
                             }
@@ -1489,10 +1582,10 @@ You are a fully enlighten vipassana meditation trainer training people through a
                         RoundedRectangle(cornerRadius: 100)
                             .stroke(lineWidth: 1.5)
                             .frame(width: 334, height: 62)
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                         // Slider body
                         RoundedRectangle(cornerRadius: 100)
-                            .foregroundColor(cvm.offBlack)
+                            .foregroundColor(Color("offBlack"))
                             .modifier(Shapes.NeumorphicBox())
                             .frame(width: 330, height: 60)
                         
@@ -1552,9 +1645,10 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 // lession play button
                                 Button(action: {
                                     playing.toggle()
+                                    vm.testVoice()
                                 }, label: {
                                     Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
-                                        .foregroundColor(cvm.homeBrew)
+                                        .foregroundColor(Color("homeBrew"))
                                 })
                                 .buttonStyle(.borderless)
                                 .frame(width: 150, height: 150)
@@ -1565,11 +1659,10 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             } else {
                                 // lession play button
                                 Button(action: {
-                                    shapeVm.flipShadow.toggle()
                                     playing.toggle()
                                 }, label: {
                                     Image(systemName:  "pause.circle").resizable().frame(width: 55, height: 55) // play button
-                                        .foregroundColor(cvm.pauseRed)
+                                        .foregroundColor(Color("pauseRed"))
                                 })
                                 .buttonStyle(.borderless)
                                 .frame(width: 150, height: 150)
@@ -1591,7 +1684,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                        label: {
                                     
                                     Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
-                                        .foregroundColor(cvm.homeBrew)
+                                        .foregroundColor(Color("homeBrew"))
                                     
                                 })
                       
@@ -1604,8 +1697,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                        label: {
                                     
                                     Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
-                                        .foregroundColor(cvm.homeBrew)
-                                    
+                                        .foregroundColor(Color("homeBrew"))
                                 })
                                 .cornerRadius(30)
                                 .buttonStyle(.borderless)
@@ -1614,7 +1706,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 .modifier(Shapes.NeumorphicClickedBox())
                                 .overlay(
                                     Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
-                                        .foregroundColor(Color.gray)
+                                        .foregroundColor(Color("grayBlack"))
                                 )
                                 .onAppear {
                                     viewModel.sendMeditationMessage()
@@ -1630,9 +1722,11 @@ You are a fully enlighten vipassana meditation trainer training people through a
 
                 }
                 .frame(minWidth: 900, maxWidth: 1000, minHeight: 700, maxHeight: 2500)
+    
+                
                 .background(LinearGradient (
-                    
-                    gradient: Gradient(colors: [cvm.offBlue, cvm.backgroundAppColor]),
+
+                    gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
                     startPoint: .bottom,
                     endPoint: .top))
 

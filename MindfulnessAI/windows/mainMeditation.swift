@@ -13,7 +13,6 @@ struct MainMeditation: View {
     
     @ObservedObject var vm = ViewModel()
     
-    @ObservedObject var cvm = ColorViewModel()
     
     @State var playPause = true
     
@@ -27,7 +26,7 @@ struct MainMeditation: View {
                 HStack {
                     NavigationLink(destination: ChatView(vm: vm), label:  {
                         Image(systemName: "arrow.backward")
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                         
                     })
                     .buttonStyle(.borderless)
@@ -39,12 +38,12 @@ struct MainMeditation: View {
                 ZStack(alignment: .bottom) {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 350, height: 460)
-                        .foregroundColor(cvm.offBlack)
+                        .foregroundColor(Color("offBlack"))
                         .modifier(Shapes.NeumorphicPopedOutBox())
                     
                     VStack {
                         Text("Léshpngo")
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                             .frame(width: 160, height: 70)
                             .modifier(Shapes.NeumorphicBox())
                         
@@ -54,7 +53,7 @@ struct MainMeditation: View {
                             RoundedRectangle(cornerRadius: 30)
                                 .stroke()
                                 .frame(width: 355, height: 400)
-                                .foregroundColor(cvm.homeBrew)
+                                .foregroundColor(Color("homeBrew"))
                                 .zIndex(3)
                             
                             // layout
@@ -71,7 +70,7 @@ struct MainMeditation: View {
                                     .frame(width: 280, height: 400)
                                 }
                             }
-                            .foregroundColor(cvm.homeBrew)
+                            .foregroundColor(Color("homeBrew"))
                             .frame(width: 290, height: 370)
                             .zIndex(5)
                             
@@ -81,7 +80,7 @@ struct MainMeditation: View {
                                     .position(x:180, y: 200)
                                     .frame(width: 355, height: 400)
                                     .font(.system(size:15))
-                                    .foregroundColor(cvm.homeBrew)
+                                    .foregroundColor(Color("homeBrew"))
                                     .zIndex(4)
                                     .onAppear {
                                         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
@@ -96,7 +95,7 @@ struct MainMeditation: View {
                             
                             if vm.isLoading {
                                 ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: cvm.homeBrew))
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color("homeBrew")))
                                     .position(x: 415, y: 365)
                                     .zIndex(5)
                                 
@@ -105,7 +104,7 @@ struct MainMeditation: View {
                             
                             
                             RoundedRectangle(cornerRadius: 50)
-                                .fill(cvm.offBlack)
+                                .fill(Color("offBlack"))
                                 .frame(width: 350, height: 400)
                                 .modifier(Shapes.NeumorphicBox())
                         }
@@ -122,10 +121,10 @@ struct MainMeditation: View {
                     RoundedRectangle(cornerRadius: 100)
                         .stroke(lineWidth: 1.5)
                         .frame(width: 344, height: 62)
-                        .foregroundColor(cvm.homeBrew)
+                        .foregroundColor(Color("homeBrew"))
                     
                     RoundedRectangle(cornerRadius: 100)
-                        .foregroundColor(cvm.offBlack)
+                        .foregroundColor(Color("offBlack"))
                         .modifier(Shapes.NeumorphicBox())
                         .frame(width: 330, height: 60)
                     
@@ -191,7 +190,7 @@ struct MainMeditation: View {
                             
                         }, label: {
                             Image(systemName: "gobackward.15") .resizable() .frame(width: 40, height: 40)
-                                .foregroundColor(cvm.homeBrew)
+                                .foregroundColor(Color("homeBrew"))
                             
                         })
                         .buttonStyle(.borderless)
@@ -220,7 +219,7 @@ struct MainMeditation: View {
                             playPause = false
                         }, label: {
                             Image(systemName: "play.fill") .resizable() .frame(width: 40, height: 40)
-                                .foregroundColor(cvm.homeBrew)
+                                .foregroundColor(Color("homeBrew"))
                             
                         })
                         .buttonStyle(.borderless)
@@ -233,7 +232,7 @@ struct MainMeditation: View {
                             playPause = true
                         }, label: {
                             Image(systemName: "pause.fill") .resizable() .frame(width: 40, height: 40)
-                                .foregroundColor(cvm.homeBrew)
+                                .foregroundColor(Color("homeBrew"))
                             
                         })
                         .buttonStyle(.borderless)
@@ -255,7 +254,7 @@ struct MainMeditation: View {
                             
                         }, label: {
                             Image(systemName: "gobackward.15") .resizable() .frame(width: 40, height: 40)
-                                .foregroundColor(cvm.homeBrew)
+                                .foregroundColor(Color("homeBrew"))
                             
                         })
                         .buttonStyle(.borderless)
@@ -289,7 +288,7 @@ struct MainMeditation: View {
             }
             .background(LinearGradient (
                 
-                gradient: Gradient(colors: [cvm.offBlue, cvm.backgroundAppColor]),
+                gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
                 startPoint: .top,
                 endPoint: .bottom))
         }

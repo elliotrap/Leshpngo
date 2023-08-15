@@ -217,6 +217,7 @@
 			children = (
 				218B60182A0C056C00EC1DAE /* Shapes.swift */,
 				21E373D0299F16EB008B57D5 /* MAIcolors.swift */,
+				21E373A8299F156D008B57D5 /* Assets.xcassets */,
 				21E2F90A2A818B8800FB6E8D /* API */,
 			);
 			path = UI;
@@ -262,7 +263,6 @@
 				21E2F9082A818AE400FB6E8D /* windows */,
 				21E2F9092A818B5200FB6E8D /* UI */,
 				21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */,
-				21E373A8299F156D008B57D5 /* Assets.xcassets */,
 				21E373AA299F156D008B57D5 /* Preview Content */,
 			);
 			path = MindfulnessAI;
