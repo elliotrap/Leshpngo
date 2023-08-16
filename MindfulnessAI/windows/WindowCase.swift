@@ -32,7 +32,7 @@ struct RealmOpeningView: View {
                     .padding(50)
                 
             case .open(let realm):
-            DatabaseLoginView()
+            DatabaseLoginView(mode: Shapes())
                     .environment(\.realm, realm)
                 
             case .error(let error):

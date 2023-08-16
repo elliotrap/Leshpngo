@@ -12,7 +12,9 @@ import AVFoundation
 struct MainMeditation: View {
     
     @ObservedObject var vm = ViewModel()
-    
+    @ObservedObject var shapeVm = Shapes()
+    @ObservedObject var mode: Shapes
+
     
     @State var playPause = true
     
@@ -31,7 +33,7 @@ struct MainMeditation: View {
                     })
                     .buttonStyle(.borderless)
                     .frame(width: 60, height: 40)
-                    .modifier(Shapes.NeumorphicPopedOutBox())
+                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                     .padding(.trailing, 280)
                 }
                 
@@ -39,7 +41,7 @@ struct MainMeditation: View {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 350, height: 460)
                         .foregroundColor(Color("offBlack"))
-                        .modifier(Shapes.NeumorphicPopedOutBox())
+                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                     
                     VStack {
                         Text("Léshpngo")
@@ -291,12 +293,14 @@ struct MainMeditation: View {
                 gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
                 startPoint: .top,
                 endPoint: .bottom))
+            .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
+
         }
     }
 }
 struct ContentView_Previews2: PreviewProvider {
     static var previews: some View {
-        MainMeditation()
+        MainMeditation(mode: Shapes())
     }
 }
 

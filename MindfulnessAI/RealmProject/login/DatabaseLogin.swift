@@ -13,11 +13,8 @@ import SwiftUI
 struct DatabaseLoginView: View {
     
     @ObservedObject var vm = ViewModel()
-    
-
-    
+    @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes()
-    
     @StateObject var realm = LoginLogout()
     
     @State var haveAnAccount = false
@@ -34,8 +31,11 @@ struct DatabaseLoginView: View {
                         gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
                         startPoint: .bottom,
                         endPoint: .top))
+                    .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
+
                     .frame(minWidth: 900, maxWidth: 1000, minHeight: 700, maxHeight: 2500)
                     .edgesIgnoringSafeArea(.all)
+
                 
                 VStack{
                     ZStack {
@@ -84,7 +84,7 @@ struct DatabaseLoginView: View {
                         
                         RoundedRectangle(cornerRadius: 30)
                             .foregroundColor(Color("offBlack"))
-                            .modifier(Shapes.NeumorphicPopedOutBox())
+                            .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                             .frame(width: 350, height: haveAnAccount ? 500 : 590)
                         
                         VStack {
@@ -148,7 +148,7 @@ struct DatabaseLoginView: View {
                                         .buttonStyle(.borderless)
                                         .foregroundColor(Color("homeBrew"))
                                         .frame(width: 125, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox())
+                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                         
                                         Spacer()
                                             .frame(height: 20)
@@ -165,7 +165,7 @@ struct DatabaseLoginView: View {
                                         .buttonStyle(.borderless)
                                         .foregroundColor(Color("homeBrew"))
                                         .frame(width: 200, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox())
+                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                     }
                                 }
                             } else if haveAnAccount == true {
@@ -209,7 +209,7 @@ struct DatabaseLoginView: View {
                                         .buttonStyle(.borderless)
                                         .foregroundColor(Color("homeBrew"))
                                         .frame(width: 100, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox())
+                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                         Spacer()
                                             .frame(height: 20)
                                         Button(action: {
@@ -218,7 +218,7 @@ struct DatabaseLoginView: View {
                                             }
                                         }, label:{
                                             Text("don't have an account?")
-                                                .modifier(Shapes.NeumorphicPopedOutBox())
+                                                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                 .foregroundColor(Color("homeBrew"))
                                                 .frame(width: 125)
                                                 .underline(false)
@@ -226,7 +226,7 @@ struct DatabaseLoginView: View {
                                         })
                                         .buttonStyle(.borderless)
                                         .frame(width: 200, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox())
+                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                     }
                                 }
                             }
@@ -242,6 +242,6 @@ struct DatabaseLoginView: View {
 
 struct ContentView_Previews1: PreviewProvider {
     static var previews: some View {
-        DatabaseLoginView()
+        DatabaseLoginView(mode: Shapes())
     }
 }

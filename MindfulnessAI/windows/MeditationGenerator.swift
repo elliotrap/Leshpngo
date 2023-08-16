@@ -35,7 +35,7 @@ struct MeditationGenerator: View {
                 })
                 .buttonStyle(.borderless)
                 .frame(width: 60, height: 40)
-                .modifier(Shapes.NeumorphicPopedOutBox())
+                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                 .padding(.trailing, 280)
             }
     
@@ -43,7 +43,7 @@ struct MeditationGenerator: View {
                 RoundedRectangle(cornerRadius: 30)
                     .frame(width: 350, height: 460)
                     .foregroundColor(Color("offBlack"))
-                    .modifier(Shapes.NeumorphicPopedOutBox())
+                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                 
                 VStack {
                         RoundedRectangle(cornerRadius: 30)
@@ -168,7 +168,7 @@ struct MeditationGenerator: View {
                     .buttonStyle(.borderless)
                     .frame(width: 150, height: 150)
                     // nuemorphic design
-                    .modifier(Shapes.NeumorphicCirclePushedIn())
+                    .modifier(Shapes.NeumorphicCirclePushedIn(mode: mode))
                     .zIndex(4)
                 }
                 
@@ -191,7 +191,7 @@ struct MeditationGenerator: View {
                     .buttonStyle(.borderless)
                     .frame(width: 150, height: 150)
                     // nuemorphic design
-                    .modifier(Shapes.NeumorphicPopedOutBox())
+                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                 } else {
                     Button(action: {
                         viewModel.sendMeditationMessage()
@@ -239,7 +239,7 @@ struct MeditationGenerator: View {
                     })
                     .buttonStyle(.borderless)
                     .frame(width: 130, height: 50)
-                    .modifier(Shapes.NeumorphicPopedOutBox())
+                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                     .zIndex(vm.tenMinuetButton ? 1 : 2)
                     
                } else {
@@ -277,7 +277,7 @@ struct MeditationGenerator: View {
                     })
                     .buttonStyle(.borderless)
                     .frame(width:130, height: 50)
-                    .modifier(Shapes.NeumorphicPopedOutBox())
+                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                 } else {
                     Button(action: {
                     }, label: {

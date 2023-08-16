@@ -19,14 +19,12 @@ extension UINavigationController {
 }
 
 struct ChatView: View {
-    
     @ObservedObject var mode: Shapes
     @ObservedObject var viewModel = ChatViewModel()
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes()
     @StateObject var realm = LoginLogout()
 
-    @State var darkmode = true
     
     @State var playing = true
     
@@ -100,7 +98,7 @@ struct ChatView: View {
                                 .font(.system(size:13.35))
                                 .lineLimit(nil)
                                // .shadow(color: Color("homeBrew"), radius: 10,  y: 10)
-                                .foregroundColor(Color("homeBrew"))                            // the progression of the 1's and 0's that iterate the index to make an animation
+                                .foregroundColor(shapeVm.darkmode ? Color("homeBrewSelect") : Color("homeBrew"))                            // the progression of the 1's and 0's that iterate the index to make an animation
                                 .onAppear {
                                     Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
                                         if vm.onesAndZerosIndex == vm.onesAndZeros.count - 1 {
@@ -116,7 +114,7 @@ struct ChatView: View {
                         Text("Léshpngo")
                             .font(.system(size: 50))
                             .font(.caption)
-                            .foregroundColor(Color("offBlue"))
+                            .foregroundColor(Color("logoColor"))
                             .zIndex(5)
               
                         }
@@ -128,7 +126,7 @@ struct ChatView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .foregroundColor(Color("offBlack"))
                             .frame(width: 350, height: expand || expandTwo || expandThree ? 535 : 450)
-                            .modifier(Shapes.NeumorphicPopedOutBox())
+                            .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                             
                         VStack(spacing: 20) {
                             HStack(content:  {
@@ -137,7 +135,7 @@ struct ChatView: View {
                             Text("Chose a meditation").padding()
                                 .underline(false)
                                 .buttonStyle(.borderless)
-                                .frame(width: 220, height: 50)
+                                .frame(width: 260, height: 50)
                                 .cornerRadius(40)
                                 .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                 .overlay(
@@ -151,7 +149,7 @@ struct ChatView: View {
                                 // background for the vipassana button
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke()
-                                    .frame(width: expand ? 300 : 305, height: expand ? 180 : 95)  .foregroundColor(vipassanaButtonPressed ? Color("grayBlack") : Color("homeBrew"))
+                                    .frame(width: expand ? 300 : 305, height: expand ? 180 : 95)  .foregroundColor(vipassanaButtonPressed ? Color("grayBlack") : Color("homeBrewSelect"))
                                     .zIndex(5)
                                 if vipassanaButtonPressed == false {
                                     // vipassana meditation link with a description of what meta is
@@ -164,6 +162,7 @@ struct ChatView: View {
                                     }, label: {
                                         Text(promptToggle ? "Vipassanā is a way of self-transformation through self-observation by paying attention to the physical sensations that form the life of the body and the mind." : "Vipassanā")
                                             .foregroundColor(Color("homeBrew"))
+                                            .fontWeight(.thin)
                                             .font(.system(size: promptToggle ? 14 : 30))
                                             .underline(false)
                                             .lineLimit(6)
@@ -172,7 +171,7 @@ struct ChatView: View {
                                     })
                                     .buttonStyle(.borderless)
                                     .frame(width: expand ? 290 : 275, height: expand ? 150 : 65)
-                                    .modifier(Shapes.NeumorphicRectangle())
+                                    .modifier(Shapes.NeumorphicRectangle(mode: mode))
                                     .disabled(expand)
                                     // the description of the meditation, so the AI will know what type of meditation to do.
                                     .overlay(
@@ -217,7 +216,9 @@ struct ChatView: View {
                                             ZStack {
                                                     HStack {
                                                         Text("Vipassanā")
+                                                            .fontWeight(.thin)
                                                             .font(.system(size: 25))
+                                                            .font(.caption)
                                                             .underline(false)
                                                             .foregroundColor(Color("grayBlack"))
                                                      
@@ -240,7 +241,7 @@ struct ChatView: View {
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke()
                                     .frame(width: expandTwo ? 300 : 305, height: expandTwo ? 180 : 95)
-                                    .foregroundColor(metaButtonPressed ? Color("grayBlack") : Color("homeBrew"))
+                                    .foregroundColor(metaButtonPressed ? Color("grayBlack") : Color("homeBrewSelect"))
                                     .zIndex(5)
                                 // meta meditation link with a description of what meta is
                                 if metaButtonPressed == false {
@@ -259,8 +260,10 @@ struct ChatView: View {
 """
                                     }, label: {
                                         Text(promptToggleTwo ? "Meta meditation is a meditation that cultivates compassion for oneself and others by reciting positive phrases and wishes." : "Maitrī")
+                                            .fontWeight(.thin)
                                             .foregroundColor(metaButtonPressed ? Color("grayBlack") : Color("homeBrew"))
                                             .font(.system(size: promptToggleTwo ? 14 : 30))
+                                       
                                             .underline(false)
                                             .lineLimit(6)
                                             .padding(40)
@@ -268,10 +271,9 @@ struct ChatView: View {
                                     })
                                     .buttonStyle(.borderless)
                                     .frame(width: expandTwo ? 290 : 275, height: expandTwo ? 150 : 65)
-                                    .modifier(Shapes.NeumorphicRectangle())
                                     .cornerRadius(30)
-                                    .shadow(color: Color("shadowBlack"), radius: 20, x: 20, y: 20)
-                                    .shadow(color: Color("offBlue"), radius: 20, x: -20, y: -20)
+                                    .modifier(Shapes.NeumorphicRectangle(mode: mode))
+
                                     .disabled(expandTwo)
                                     .overlay(
                                         ZStack {
@@ -313,6 +315,7 @@ struct ChatView: View {
                                         ZStack {
                                             HStack {
                                                 Text("Maitrī")
+                                                    .fontWeight(.thin)
                                                     .font(.system(size: 25))
                                                     .underline(false)
                                                     .foregroundColor(Color("grayBlack"))
@@ -337,7 +340,7 @@ struct ChatView: View {
                                 // background for the vipassana button
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke()
-                                    .frame(width: expandThree ? 300 : 305, height: expandThree ? 180 : 95)  .foregroundColor(                                        timerButtonPressed ? Color("grayBlack") : Color("homeBrew"))
+                                    .frame(width: expandThree ? 300 : 305, height: expandThree ? 180 : 95)  .foregroundColor(                                        timerButtonPressed ? Color("grayBlack") : Color("homeBrewSelect"))
                                     .zIndex(5)
                                 if timerButtonPressed == false {
                                     // vipassana meditation link with a description of what meta is
@@ -349,6 +352,8 @@ struct ChatView: View {
                                         chiefButtonPressed = true
                                     }, label: {
                                         Text(expandThree ? "" : "Self Timer")
+                                            .fontWeight(.thin)
+
                                             .foregroundColor(Color("homeBrew"))
                                             .font(.system(size: promptToggle ? 14 : 30))
                                             .underline(false)
@@ -358,7 +363,7 @@ struct ChatView: View {
                                     })
                                     .buttonStyle(.borderless)
                                     .frame(width: expandThree ? 290 : 275, height: expandThree ? 150 : 65)
-                                    .modifier(Shapes.NeumorphicRectangle())
+                                    .modifier(Shapes.NeumorphicRectangle(mode: mode))
                                     .disabled(expand)
                                     // the description of the meditation, so the AI will know what type of meditation to do.
                                     .overlay(
@@ -514,7 +519,7 @@ struct ChatView: View {
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(width: 350, height: meditationTimeBoxAnimation || menuAnimationSizeChange ? 400 : 170)
                                 .foregroundColor(Color("offBlack"))
-                                .modifier(Shapes.NeumorphicPopedOutBox())
+                                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                 .overlay(
                                     HStack {
                                         Button(action: {
@@ -523,6 +528,7 @@ struct ChatView: View {
                                     
                                                 HStack(spacing: meditationTimeBoxExpand || menuPopUp ? 40 : 150) {
                                                     Image(systemName:"plus").resizable()       .frame(width: meditationTimeBoxExpand || menuPopUp ? 0 : 30, height: meditationTimeBoxExpand || menuPopUp ? 0 : 30)
+                                                        .fontWeight(.thin)
                                                         .foregroundColor(Color("homeBrew"))
                                                         .padding(.top, meditationTimeBoxExpand || menuPopUp ? 310 : 100)
                                                         .onTapGesture {
@@ -536,9 +542,10 @@ struct ChatView: View {
                                                    
                                                     if meditationTimeBoxExpand || menuPopUp {
                                                         Image(systemName: "chevron.up").resizable()
+                                                            .fontWeight(.thin)
                                                             .frame(width: 100, height: 20)
                                                         
-                                                            .foregroundColor(Color("homeBrew"))
+                                                            .foregroundColor(Color("homeBrewSelect"))
                                                             .padding(.top, meditationTimeBoxExpand || menuPopUp ? 340 : 100)
                                                             .onTapGesture {
                                                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
@@ -554,7 +561,8 @@ struct ChatView: View {
                                                     
                                                     Image(systemName: "line.3.horizontal").resizable()
                                                         .frame(width: meditationTimeBoxExpand || menuPopUp ? 0 : 30, height: meditationTimeBoxExpand || menuPopUp ? 0 : 20)
-                                                    
+                                                        .fontWeight(.thin)
+
                                                         .foregroundColor(Color("homeBrew"))
                                                         .padding(.top, meditationTimeBoxExpand || menuPopUp ? 310 : 100)
                                                         .onTapGesture {
@@ -583,6 +591,7 @@ struct ChatView: View {
                                                     }, label: {
                                                         HStack {
                                                             Text("Logout")
+                                                                .underline(true)
                                                                 .font(.system(size: 12))
                                                                 .foregroundColor(Color("homeBrew"))
                                                             Image(systemName: "pip.exit")
@@ -592,7 +601,7 @@ struct ChatView: View {
                                                     })
                                                     .buttonStyle(.borderless)
                                                     .frame(width: 120, height: 70)
-                                                    .modifier(Shapes.NeumorphicPopedOutBox())
+                                                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                     .padding(.top, 110)
                                                     .scaleEffect(menuPopUp ? 1 : 0)
                                                     
@@ -601,6 +610,7 @@ struct ChatView: View {
                                                     }, label: {
                                                         HStack {
                                                             Text("Profile")
+                                                                .underline(true)
                                                                 .font(.system(size: 12))
                                                                 .foregroundColor(Color("homeBrew"))
                                                             Image(systemName: "person")
@@ -611,7 +621,7 @@ struct ChatView: View {
                                                     })
                                                     .buttonStyle(.borderless)
                                                     .frame(width: 120, height: 70)
-                                                    .modifier(Shapes.NeumorphicPopedOutBox())
+                                                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                     .padding(.top, 20)
                                                     .scaleEffect(menuPopUp ? 1 : 0)
                                                 }
@@ -622,6 +632,7 @@ struct ChatView: View {
                                                         }, label: {
                                                             HStack {
                                                                 Text("Self Timer")
+                                                                    .underline(true)
                                                                     .font(.system(size: 12))
                                                                     .foregroundColor(Color("homeBrew"))
                                                                 
@@ -631,29 +642,30 @@ struct ChatView: View {
                                                         })
                                                         .buttonStyle(.borderless)
                                                         .frame(width: 120, height: 70)
-                                                        .modifier(Shapes.NeumorphicPopedOutBox())
+                                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                         .padding(.top, 110)
                                                         .scaleEffect(menuPopUp ? 1 : 0)
                                                        
-                                                        if darkmode {
+                                                        if shapeVm.darkmode {
                                                             
                                                             Button(action: {
-                                                             darkmode = false
+                                                                shapeVm.darkmode = false
                                                                 mode.changeMode = false
                                                             }, label: {
                                                                 HStack {
-                                                                    Text("Darkmode")
+                                                                    Text("Lightmode")
+                                                                        .underline(true)
                                                                         .font(.system(size: 12))
                                                                         .foregroundColor(Color("homeBrew"))
                                                                     
-                                                                    Image(systemName: "moon.stars")
+                                                                    Image(systemName: "sun.haze")
                                                                         .foregroundColor(Color("homeBrew"))
                                                                 }
                                                                 
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .frame(width: 120, height: 70)
-                                                            .modifier(Shapes.NeumorphicPopedOutBox())
+                                                            .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                             .padding(.top, 20)
                                                             .scaleEffect(menuPopUp ? 1 : 0)
                                           
@@ -669,19 +681,19 @@ struct ChatView: View {
                                                             .padding(.top, 20)
                                                             .scaleEffect(menuPopUp ? 1 : 0)
                                                             .onTapGesture {
-                                                                darkmode = true
+                                                                shapeVm.darkmode = true
                                                                 mode.changeMode = true
 
                                                             }
                                                             .overlay(
                                                                 HStack {
-                                                                Text("Lightmode")
+                                                                Text("darkmode")
                                                                     .underline(true)
                                                                     .font(.system(size: 11))
                                                                     .foregroundColor(Color("homeBrew"))
                                                                     .padding(.top, 20)
 
-                                                                Image(systemName: "sun.haze")
+                                                                Image(systemName: "moon.stars")
                                                                         .font(.system(size: 11.8))
                                                                     .foregroundColor(Color("homeBrew"))
                                                                     .padding(.top, 20)
@@ -801,11 +813,11 @@ struct ChatView: View {
                                     HStack(spacing: 0) {
                                         Rectangle()
                                             .frame(width: 120, height: 0.66)
-                                            .foregroundColor(Color("homeBrew"))
+                                            .foregroundColor(Color("homeBrewSelect"))
                                             .padding(.bottom, 80)
                                         Rectangle()
                                             .frame(width: 120, height: 1)
-                                            .foregroundColor(Color("homeBrew"))
+                                            .foregroundColor(Color("homeBrewSelect"))
                                             .padding(.bottom, 80)
                                     }
                                 }
@@ -816,15 +828,17 @@ struct ChatView: View {
                                             Circle()
                                                 .stroke()
                                                 .frame(width: 110, height: 110)
-                                                .foregroundColor(Color("homeBrew"))
+                                                .foregroundColor(Color("homeBrewSelect"))
                                                 .padding(.bottom, 30)
                                                 .zIndex(3)
 
                                                 // lession play button
                                             NavigationLink(destination: MeditationGenerator(vm: vm, mode: Shapes()), label: {
                                                     Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
+
                                                         .underline(false)
                                                         .foregroundColor(Color("homeBrew"))
+
                                          
                                                 })
                                                 .onAppear {
@@ -861,11 +875,11 @@ struct ChatView: View {
                                     HStack(spacing: 0) {
                                         Rectangle()
                                             .frame(width: 120, height: 1)
-                                            .foregroundColor(Color("homeBrew"))
+                                            .foregroundColor(Color("homeBrewSelect"))
                                             .padding(.bottom, 80)
                                         Rectangle()
                                             .frame(width: 120, height: 0.66)
-                                            .foregroundColor(Color("homeBrew"))
+                                            .foregroundColor(Color("homeBrewSelect"))
                                             .padding(.bottom, 80)
                                             
 
@@ -888,7 +902,7 @@ struct ChatView: View {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width:350, height: 420)
                         .foregroundColor(Color("offBlack"))
-                        .modifier(Shapes.NeumorphicPopedOutBox())
+                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                         .padding(.top, 0)
                     
                     VStack(spacing: 15) {
@@ -901,7 +915,7 @@ struct ChatView: View {
                          
                                     
                             })
-                            .frame(width: 200, height: 50)
+                            .frame(width: 240, height: 50)
                             .cornerRadius(40)
                             .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                             .overlay(
@@ -921,7 +935,7 @@ struct ChatView: View {
                                             RoundedRectangle(cornerRadius: chiefButtonCornerSize)
                                                 .stroke()
                                                 .frame(width:  chiefButtonBackgroundSize, height:  chiefButtonBackgroundSize)
-                                                .foregroundColor(chiefButtonPressed ? Color("grayBlack") : Color("homeBrew") )
+                                                .foregroundColor(chiefButtonPressed ? Color("grayBlack") : Color("homeBrewSelect") )
                                                 .zIndex(2)
                                             if chiefButtonPressed == false  {
                                                 // Chief meditation instructor link with a description of how Chief will guid a meditation.
@@ -942,14 +956,15 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                     Text(chiefButton ? "Say hello to Chief, Chief is a well trained meditation instructor that is great at guiding beginners through an eyes closed meditation. Chief will connect you with the world using concepts found within your self." : "Chief")
                                                         .underline(false)
                                                         .foregroundColor(Color("homeBrew"))
-                                                        .font(.system(size: chiefButton ? 16 : 16))
+                                                        .font(.system(size: chiefButton ? 16 : 21))
+                                                        .fontWeight(.thin)
                                                         .frame(width: chiefButton ? 200 : 60, height: chiefButton ? 200 : 20)
                                                 })
                                                 .disabled(chiefButton)
                                                 .buttonStyle(.borderless)
                                                 .frame(width:  chiefButtonSize, height: chiefButtonSize)
                                                 // nuemorphic design
-                                                .modifier(Shapes.NeumorphicPopedOutBox())
+                                                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                 .overlay(
                                                     ZStack {
                                                         // Chief extra info icon that shows what type of meditation this instructor does
@@ -1030,7 +1045,8 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
                                                             
                                                             Text("Chief")
-                                                                .font(.system(size: 13))
+                                                                .font(.system(size: 18))
+                                                                .fontWeight(.thin)
                                                                 .underline(false)
                                                                 .foregroundColor(Color("grayBlack"))
                                                             
@@ -1049,7 +1065,7 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                             RoundedRectangle(cornerRadius: lunaButtonCornerSize)
                                                 .stroke()
                                                 .frame(width: lunaButtonBackgroundSize, height: lunaButtonBackgroundSize)
-                                                .foregroundColor(lunaButtonPressed ? Color("grayBlack") : Color("homeBrew") ) .zIndex(6)
+                                                .foregroundColor(lunaButtonPressed ? Color("grayBlack") : Color("homeBrewSelect") ) .zIndex(6)
                                             if lunaButtonPressed == false {
                                                 // Luna meditation instructor link with a description of how Luna will guid a meditation.
                                                 Button(action: {
@@ -1071,14 +1087,16 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     
                                                         .underline(false)
                                                         .foregroundColor(Color("homeBrew"))
-                                                        .font(.system(size: lunaButton ? 20 : 17))
+                                                        .font(.system(size: lunaButton ? 20 : 21))
+                                                        .fontWeight(.thin)
+
                                                         .frame(width: lunaButton ? 200 : 50, height: lunaButton ? 200 : 20)
                                                     
                                                 })
                                                 .disabled(lunaButton)
                                                 .buttonStyle(.borderless)
                                                 .frame(width: lunaButtonSize, height: lunaButtonSize)
-                                                .modifier(Shapes.NeumorphicPopedOutBox())
+                                                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                 .overlay(
                                                     ZStack {
                                                         
@@ -1163,7 +1181,9 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                         ZStack {
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
                                                             Text("Luna")
-                                                                .font(.system(size: 13))
+                                                                .font(.system(size: 18))
+                                                                .fontWeight(.thin)
+
                                                                 .underline(false)
                                                                 .foregroundColor(Color("grayBlack"))
                                                             
@@ -1185,7 +1205,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 RoundedRectangle(cornerRadius: zeppelinButtonCornerSize)
                                                     .stroke()
                                                     .frame(width: zeppelinButtonBackgroundSize, height: zeppelinButtonBackgroundSize)
-                                                    .foregroundColor(zeppelinButtonPressed ? Color("grayBlack") : Color("homeBrew") )
+                                                    .foregroundColor(zeppelinButtonPressed ? Color("grayBlack") : Color("homeBrewSelect") )
                                                     .zIndex(6)
                                                 
                                                 if zeppelinButtonPressed == false {
@@ -1207,13 +1227,14 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                         Text(zeppelinButton ? "Zepp is an excellent teacher that guides a body awareness exercise. Wake yourself up, with Zeppelin meditation." :"Zepp")
                                                             .underline(false)
                                                             .foregroundColor(Color("homeBrew"))
-                                                            .font(.system(size: zeppelinButton ? 20 : 15))
+                                                            .font(.system(size: zeppelinButton ? 20 : 21))
+                                                            .fontWeight(.thin)
                                                             .frame(width: zeppelinButton ? 200 : 60, height: zeppelinButton ? 200 : 20)
                                                     })
                                                     .disabled(zeppelinButton)
                                                     .buttonStyle(.borderless)
                                                     .frame(width: zeppelinButtonSize, height: zeppelinButtonSize)
-                                                    .modifier(Shapes.NeumorphicPopedOutBox())
+                                                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                     .overlay(
                                                         ZStack {
                                                             // Zeppelin extra info icon that shows what type of meditation this instructor does
@@ -1297,7 +1318,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 
                                                                 // Maddie extra info icon that shows what type of meditation this instructor does
                                                                 Text("Zepp")
-                                                                    .font(.system(size: 13))
+                                                                    .font(.system(size: 18))
+                                                                    .fontWeight(.thin)
                                                                     .underline(false)
                                                                     .foregroundColor(Color("grayBlack"))
                                                                 
@@ -1316,7 +1338,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 RoundedRectangle(cornerRadius: maddieButtonCornerSize)
                                                     .stroke()
                                                     .frame(width: maddieButtonBackgroundSize, height: maddieButtonBackgroundSize)
-                                                    .foregroundColor(maddieButtonPressed ? Color("grayBlack") : Color("homeBrew"))                                                    .zIndex(6)
+                                                    .foregroundColor(maddieButtonPressed ? Color("grayBlack") : Color("homeBrewSelect"))                                                    .zIndex(6)
                                                 if maddieButtonPressed == false {
                                                     // Maddie meditation instructor link with a description of how Maddie will guid a meditation.
                                                     Button(action: {
@@ -1336,7 +1358,9 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                         Text(maddieButton ? "Feel the life of your hart, realizing the grounding nature of what makes your life...your life" : "Matil")
                                                             .underline(false)
                                                             .foregroundColor(Color("homeBrew"))
-                                                            .font(.system(size: maddieButton ? 20 : 15))
+                                                            .font(.system(size: maddieButton ? 20 : 21))
+                                                            .fontWeight(.thin)
+
                                                             .frame(width: maddieButton ? 200 : 60, height: maddieButton ? 200 : 10)
                                                         
                                                     })
@@ -1344,7 +1368,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                     .buttonStyle(.borderless)
                                                     .frame(width: maddieButtonSize, height: maddieButtonSize)
                                                     // nuemorphic design
-                                                    .modifier(Shapes.NeumorphicPopedOutBox())
+                                                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                                     .overlay(
                                                         ZStack {
                                                             // Maddie extra info icon that shows what type of meditation this instructor does
@@ -1428,7 +1452,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             ZStack {
                                                                 // Maddie extra info icon that shows what type of meditation this instructor does
                                                                 Text("Matil")
-                                                                    .font(.system(size: 13))
+                                                                    .font(.system(size: 18))
+                                                                    .fontWeight(.thin)
                                                                     .underline(false)
                                                                     .foregroundColor(Color("grayBlack"))
                                                                 
@@ -1457,7 +1482,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 350, height: 450)
                         .foregroundColor(Color("offBlack"))
-                        .modifier(Shapes.NeumorphicPopedOutBox())
+                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                     if viewModel.GPTLoading {
                         VStack {
                             ProgressView()
@@ -1485,7 +1510,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                             .overlay(
                                 // the label for describing the lesions section
-                                Text("lessions").padding()
+                                Text("lessons").padding()
                                     .underline(false)
                                     .buttonStyle(.borderless)
                                     .foregroundColor(Color("homeBrew"))
@@ -1503,7 +1528,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                         RoundedRectangle(cornerRadius: 30)
                             .stroke()
                             .frame(width: 355, height: 400)
-                            .foregroundColor(Color("homeBrew"))
+                            .foregroundColor(Color("homeBrewSelect"))
                             .scaleEffect(0.9)
 
                             .zIndex(2)
@@ -1512,8 +1537,10 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 ScrollView {
                                     if vm.startLessonPrompt {
                                                     Image(systemName: "arrow.2.squarepath")
+                                            
                                                           // .position(x: 67, y: 67)
                                             .position(x: 167, y: 77)
+                                            .foregroundColor(shapeVm.darkmode ? Color("homeBrewSelect") : Color("homeBrew"))
                                             HStack {
                                                 
                                                 Text("Generate a lesson by pressing the         button.")
@@ -1588,7 +1615,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                         RoundedRectangle(cornerRadius: 100)
                             .stroke(lineWidth: 1.5)
                             .frame(width: 334, height: 62)
-                            .foregroundColor(Color("homeBrew"))
+                            .foregroundColor(Color("homeBrewSelect"))
                         // Slider body
                         RoundedRectangle(cornerRadius: 100)
                             .foregroundColor(Color("offBlack"))
@@ -1654,6 +1681,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                     vm.testVoice()
                                 }, label: {
                                     Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
+                                        .fontWeight(.thin)
                                         .foregroundColor(Color("homeBrew"))
                                 })
                                 .buttonStyle(.borderless)
@@ -1668,12 +1696,14 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                     playing.toggle()
                                 }, label: {
                                     Image(systemName:  "pause.circle").resizable().frame(width: 55, height: 55) // play button
+                                        .fontWeight(.thin)
+
                                         .foregroundColor(Color("pauseRed"))
                                 })
                                 .buttonStyle(.borderless)
                                 .frame(width: 150, height: 150)
                                 // nuemorphic design
-                                .modifier(Shapes.NeumorphicCirclePushedIn())
+                                .modifier(Shapes.NeumorphicCirclePushedIn(mode: mode))
                                 .zIndex(4)
                             }
                             if pressedReset {
@@ -1690,6 +1720,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                        label: {
                                     
                                     Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
+                                        .fontWeight(.thin)
                                         .foregroundColor(Color("homeBrew"))
                                     
                                 })
@@ -1697,7 +1728,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 .buttonStyle(.borderless)
                                 .frame(width: 150, height: 150)
                                 // nuemorphic design
-                                .modifier(Shapes.NeumorphicPopedOutBox())
+                                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                             } else {
                                 Button(action: {},
                                        label: {
@@ -1728,13 +1759,13 @@ You are a fully enlighten vipassana meditation trainer training people through a
 
                 }
                 .frame(minWidth: 900, maxWidth: 1000, minHeight: 700, maxHeight: 2500)
-    
                 
                 .background(LinearGradient (
 
                     gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
                     startPoint: .bottom,
                     endPoint: .top))
+                .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
 
             }
         }
