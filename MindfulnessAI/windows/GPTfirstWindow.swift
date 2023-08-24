@@ -1556,7 +1556,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                         // Create a Text view with the content of the first message
                                         Text(firstMessage.content)
                                             .position(x:140, y: 270)
-                                            .frame(width: 280, height: 1000)
+                                            .frame(width: 280, height: 500)
                                     
                                         
                                         
@@ -1679,7 +1679,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 Button(action: {
                                     playing.toggle()
                                    // vm.testVoice()
-                                    viewModel.textToSpeech(responseText: viewModel.latestAssistantMessage)
+                                    viewModel.textToSpeech(ssmlText: viewModel.latestAssistantMessage)
                                 }, label: {
                                     Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
                                         .fontWeight(.thin)

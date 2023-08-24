@@ -52,7 +52,7 @@ You are vipassana meditation expert training people through an app. give me a no
                 }
             }
             
-                func textToSpeech(responseText: String) {
+                func textToSpeech(ssmlText: String) {
                     let apiKey = "AIzaSyDf2LDCrnMC1fnEaZN5-iNYh8f9EOMjH1I"
                 
                     let url = URL(string: "https://texttospeech.googleapis.com/v1/text:synthesize?key=\(apiKey)")!
@@ -60,11 +60,20 @@ You are vipassana meditation expert training people through an app. give me a no
                     request.httpMethod = "POST"
                     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                     
-                    let input = ["text": responseText]
-                   
-                        let voice = ["languageCode": "en-AU", "name": "en-US-Wavenet-D"]
+           
+                    let escapedResponseText = ssmlText.replacingOccurrences(of: "...", with: "<break time=\"5s\"/>")
+                    let sssmlText = "<speak><prosody volume=\"soft\">This is spoken softly.</prosody></speak>"
+
+                    let ssmlText = "<speak>\(escapedResponseText)</speak>"
+                    
+                    print("SSML Text: \(ssmlText)")
+                    
+                    let input: [String: Any] = ["ssml": ssmlText]
+                    
+                    let voice = ["languageCode": "en-AU", "name": "en-AU-Standard-C"]
                         let audioConfig: [String: Any] = ["audioEncoding": "MP3", "sampleRateHertz": 16000, "speakingRate": 0.7]
-                        
+                   
+                       
                        
                         let requestBody: [String: Any] = ["input": input, "voice": voice, "audioConfig": audioConfig]
                         let requestBodyData = try! JSONSerialization.data(withJSONObject: requestBody)
