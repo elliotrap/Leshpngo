@@ -18,12 +18,13 @@ extension LinearGradient {
 class Shapes: ObservableObject {
     
     @Published var changeMode: Bool = false
-    @Published var darkmode = false
+    @Published var darkmode: Bool = false
 
     
     // nuemorphic design template for the text
     struct NeumorphicBox: ViewModifier {
         
+        @ObservedObject var mode = Shapes()
         
         @State var radius: CGFloat = 40
         
@@ -31,12 +32,15 @@ class Shapes: ObservableObject {
             content
                 .overlay (
                     
-                    RoundedRectangle(cornerRadius: radius)
-                        .stroke(Color("screenStroke"), lineWidth: 30)
-                        .shadow(color: Color("ScreenUpperShadow"), radius: 3, x: -5, y: -5)
-                        .clipShape(RoundedRectangle(cornerRadius: radius))
-                        .shadow(color: Color("screenLowerShadow"), radius: 3, x: 10, y: 10)
-                        .clipShape(RoundedRectangle(cornerRadius: radius))
+                        
+                            RoundedRectangle(cornerRadius: radius)
+                                .stroke(Color("screenStroke"), lineWidth: 30)
+                                .shadow(color: Color("ScreenUpperShadow"), radius: 3, x: mode.changeMode ? -10 : 10, y: mode.changeMode ? -10 : 10)
+                                .clipShape(RoundedRectangle(cornerRadius: radius))
+                                .shadow(color: Color("screenLowerShadow"), radius: 3, x: mode.changeMode ? 10 : -10, y: mode.changeMode ? 10 : -10)
+                                .clipShape(RoundedRectangle(cornerRadius: radius))
+                       
+                    
                     
                 )
             
@@ -49,8 +53,7 @@ class Shapes: ObservableObject {
     struct NeumorphicCircle: ViewModifier {
         
         
-        @ObservedObject var shadow = Shapes()
-        
+        @ObservedObject var mode: Shapes
         
         
         func body(content: Content) -> some View {
@@ -58,25 +61,66 @@ class Shapes: ObservableObject {
             
             content
                 .background(ZStack {
-                    Color("shadowBlack")
-                    RoundedRectangle(cornerRadius: 100)
-                        .foregroundColor(Color("offBlue"))
-                        .blur(radius: 10)
-                        .offset(x: -8, y: -8)
-                    
-                    RoundedRectangle(cornerRadius: 100)
-                        .fill(
-                            LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
-                        )
-                        .padding(2)
-                        .blur(radius: 2)
-                    
-                    
-                    
+                    if mode.changeMode {
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: 8, y: 8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                        
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: -8, y: -8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                    } else {
+                        
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: -8, y: -8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                        
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: 8, y: 8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                    }
                 })
                 .cornerRadius(100)
-                .shadow(color: Color("shadowBlack"), radius: 20, x: 20, y: 20)
-                .shadow(color: Color("offBlue"), radius: 20, x: -20, y: -20)
+                .shadow(color: Color("shadowBlack"), radius: 20, x: mode.changeMode ? 20 : -20, y: mode.changeMode ? 20 : -20)
+                .shadow(color: Color("shadowLight"), radius: 20, x: mode.changeMode ? -20 : 20, y: mode.changeMode ? -20 : 20)
             
             
         }

@@ -25,7 +25,7 @@ class ViewModel: ObservableObject {
     @Published var startLessonPrompt = true
     @Published var startMeditationPrompt = true
 
-    
+    @Published var darkmode = false
    
     
 
@@ -205,18 +205,7 @@ point p = {x, y}; color c = RED;
             }
         }
         
-    func testVoice() {
-        counter.start()
-        let utterance = AVSpeechUtterance(string:     """
-You are vipassana meditation expert training people through an app. give me a non metaphysical meditation for an experienced meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
-""")
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-AU")
-        utterance.rate = 0.01
-        let synthesize = AVSpeechSynthesizer()
-        
-        synthesizer.speak(utterance)
-        counter.stop()
-    }
+
     
     func aiVoices(_ script: String, withPause pause: TimeInterval) {
             let segments = script.components(separatedBy: "...")

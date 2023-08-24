@@ -8,7 +8,9 @@
 import Foundation
 import Alamofire
 
-class OpenAIService {
+class OpenAIService: ObservableObject {
+    
+    
     private let endpointUrl = "https://api.openai.com/v1/chat/completions"
     
     func sendMessage(messages: [Message]) async -> OpenAIChatResponse? {
@@ -20,6 +22,7 @@ class OpenAIService {
         ]
         return try? await AF.request(endpointUrl, method: .post, parameters: body, encoder: .json, headers: headers).serializingDecodable(OpenAIChatResponse.self).value
     }
+    
 }
 
 

@@ -17,24 +17,24 @@ struct RealmOpeningView: View {
     // always show data, offline
     @AutoOpen(appId: "application-0-kibhk", partitionValue: "", timeout: 4000) var realmOpen
     
-    
+
     var body: some View {
         
         switch realmOpen {
             case .connecting:
                 ProgressView("connecting ...")
-                
+
             case .waitingForUser:
                 ProgressView("waiting for user ...")
-                
+
             case .progress(let progress):
                 ProgressView(progress)
                     .padding(50)
-                
+
             case .open(let realm):
             DatabaseLoginView(mode: Shapes())
                     .environment(\.realm, realm)
-                
+
             case .error(let error):
                 Text("opening realm error: \(error.localizedDescription)")
                 

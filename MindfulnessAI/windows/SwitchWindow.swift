@@ -14,10 +14,14 @@ struct ContentView: View {
     
     @ObservedObject var app: RealmSwift.App
     
+
+    
+    
     var body: some View {
         if let user = app.currentUser {
             ChatView(mode: Shapes())
                 .environment(\.partitionValue, user.id)
+
            
         }
         else {

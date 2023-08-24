@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210B94462A93EE5700111F89 /* Text-To-Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210B94452A93EE5700111F89 /* Text-To-Speech.swift */; };
 		2115E21E2A84186B002BBF53 /* SwitchWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115E21D2A84186B002BBF53 /* SwitchWindow.swift */; };
 		2115E2212A841D3F002BBF53 /* WindowCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115E2202A841D3F002BBF53 /* WindowCase.swift */; };
 		2115E2232A84249A002BBF53 /* TimeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115E2222A84249A002BBF53 /* TimeCounter.swift */; };
@@ -105,6 +106,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		210B94452A93EE5700111F89 /* Text-To-Speech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text-To-Speech.swift"; sourceTree = "<group>"; };
 		2115E21D2A84186B002BBF53 /* SwitchWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchWindow.swift; sourceTree = "<group>"; };
 		2115E2202A841D3F002BBF53 /* WindowCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCase.swift; sourceTree = "<group>"; };
 		2115E2222A84249A002BBF53 /* TimeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCounter.swift; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		210B94442A93EE2100111F89 /* GoogleCloudAPI */ = {
+			isa = PBXGroup;
+			children = (
+				210B94452A93EE5700111F89 /* Text-To-Speech.swift */,
+			);
+			path = GoogleCloudAPI;
+			sourceTree = "<group>";
+		};
 		213A387F2A82B91100DABB31 /* DatabaseLogin */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +230,7 @@
 				219901392A423AA100260F17 /* Constants.swift */,
 				219901372A4238F200260F17 /* chatViewModel.swift */,
 				21E373CE299F16AA008B57D5 /* MAIviewModel.swift */,
+				210B94442A93EE2100111F89 /* GoogleCloudAPI */,
 				213A387F2A82B91100DABB31 /* DatabaseLogin */,
 			);
 			path = API;
@@ -502,6 +513,7 @@
 				218B60192A0C056D00EC1DAE /* Shapes.swift in Sources */,
 				2115E2212A841D3F002BBF53 /* WindowCase.swift in Sources */,
 				2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */,
+				210B94462A93EE5700111F89 /* Text-To-Speech.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,7 +686,7 @@
 				DEVELOPMENT_TEAM = SDVM3QJL8X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "homeBrew - demo";
+				INFOPLIST_KEY_CFBundleDisplayName = "Léshpngo - demo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -706,7 +718,7 @@
 				DEVELOPMENT_TEAM = SDVM3QJL8X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "homeBrew - demo";
+				INFOPLIST_KEY_CFBundleDisplayName = "Léshpngo - demo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

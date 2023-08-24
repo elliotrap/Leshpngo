@@ -199,7 +199,7 @@ struct MainMeditation: View {
                         .frame(width: 80, height: 80)
                         
                         // nuemorphic design
-                        .modifier(Shapes.NeumorphicCircle())
+                        .modifier(Shapes.NeumorphicCircle(mode: mode))
                     } else {
                         Button(action: {
                             
@@ -228,7 +228,7 @@ struct MainMeditation: View {
                         .frame(width: 100, height: 100)
                         
                         // nuemorphic design
-                        .modifier(Shapes.NeumorphicCircle())
+                        .modifier(Shapes.NeumorphicCircle(mode: mode))
                     } else {
                         Button(action: {
                             playPause = true
@@ -263,7 +263,7 @@ struct MainMeditation: View {
                         .frame(width: 80, height: 80)
                         
                         // nuemorphic design
-                        .modifier(Shapes.NeumorphicCircle())
+                        .modifier(Shapes.NeumorphicCircle(mode: mode))
                     } else {
                         Button(action: {
                             
@@ -294,6 +294,7 @@ struct MainMeditation: View {
                 startPoint: .top,
                 endPoint: .bottom))
             .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
+
 
         }
     }

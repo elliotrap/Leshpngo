@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import AVFoundation
 extension UINavigationController {
 
     // Remove back button text
@@ -19,13 +18,13 @@ extension UINavigationController {
 }
 
 struct ChatView: View {
+
+    
     @ObservedObject var mode: Shapes
-    @ObservedObject var viewModel = ChatViewModel()
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes()
     @StateObject var realm = LoginLogout()
-
-    
+    @ObservedObject var viewModel = ChatViewModel()
     @State var playing = true
     
     @State var pressedReset = true
@@ -132,14 +131,15 @@ struct ChatView: View {
                             HStack(content:  {
                             })
                             // the label to pick a meditation
-                            Text("Chose a meditation").padding()
+                            Text("").padding()
                                 .underline(false)
                                 .buttonStyle(.borderless)
-                                .frame(width: 260, height: 50)
+                                .frame(width: 230, height: 50)
                                 .cornerRadius(40)
                                 .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                 .overlay(
                                 Text("Choose a meditation")
+                                    .font(.system(size: 18))
                                     .foregroundColor(Color("homeBrew"))
 
                                 )
@@ -795,17 +795,17 @@ struct ChatView: View {
                                         Spacer()
                                             .frame(width: 150)
                                         VStack {
-                                            RoundedRectangle(cornerRadius: 30)
+                                            Text("               ").padding()
                                                 .modifier(Shapes.NeumorphicClickedBox(mode: mode))
-                                                .font(.system(size: 15))
                                                 .padding(.leading, 0)
                                                 .padding(.trailing, 0)
                                                 .frame(height: 60)
                                                 .overlay(
-                                                Text(chosenMeditation)
-                                                    .foregroundColor(Color("homeBrew"))
-                                     
+                                                    Text(chosenMeditation)
+                                                        .foregroundColor(Color("homeBrew"))
+
                                                 )
+                                            
                                             Spacer()
                                                 .frame(height: 15)
                                         }
@@ -846,7 +846,7 @@ struct ChatView: View {
                                                     }
                                                 .buttonStyle(.borderless)
                                                 .frame(width: 80, height: 80)
-                                                .modifier(Shapes.NeumorphicCircle())
+                                                .modifier(Shapes.NeumorphicCircle(mode: mode))
                                                 .padding(.bottom, 30)
                                         }
                                     }
@@ -855,16 +855,16 @@ struct ChatView: View {
                                     Spacer()
                                     HStack {
                                         VStack {
-                                            RoundedRectangle(cornerRadius: 30)
+                            
+                                            Text("            ").padding()
                                                 .modifier(Shapes.NeumorphicClickedBox(mode: mode))
-                                                .font(.system(size: 15))
                                                 .padding(.leading, 0)
                                                 .padding(.trailing, 0)
                                                 .frame(height: 60)
                                                 .overlay(
                                                     Text(chosenInstructor)
                                                         .foregroundColor(Color("homeBrew"))
-                                                 
+
                                                 )
                                             Spacer()
                                                 .frame(height: 15)
@@ -910,16 +910,16 @@ struct ChatView: View {
                             HStack(content:  {
                                 
                                 // the label for choosing different instructors
-                                RoundedRectangle(cornerRadius: 30)
-                                    .buttonStyle(.borderless)
+                          Text("")
                          
                                     
                             })
-                            .frame(width: 240, height: 50)
+                            .frame(width: 220, height: 50)
                             .cornerRadius(40)
                             .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                             .overlay(
                             Text("pick an instructer")
+                                .font(.system(size: 18))
                                 .underline(false)
                                 .foregroundColor(Color("homeBrew"))
                             )
@@ -1501,8 +1501,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             HStack(content:  {
                                 
                                 
-                       RoundedRectangle(cornerRadius: 30)
-                
+                                Text("")
                                 
                             })
                             .frame(width: 130, height: 50)
@@ -1511,6 +1510,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             .overlay(
                                 // the label for describing the lesions section
                                 Text("lessons").padding()
+                                    .font(.system(size: 18))
                                     .underline(false)
                                     .buttonStyle(.borderless)
                                     .foregroundColor(Color("homeBrew"))
@@ -1556,7 +1556,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                         // Create a Text view with the content of the first message
                                         Text(firstMessage.content)
                                             .position(x:140, y: 270)
-                                            .frame(width: 280, height: 500)
+                                            .frame(width: 280, height: 1000)
                                     
                                         
                                         
@@ -1678,7 +1678,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 // lession play button
                                 Button(action: {
                                     playing.toggle()
-                                    vm.testVoice()
+                                   // vm.testVoice()
+                                    viewModel.textToSpeech(responseText: viewModel.latestAssistantMessage)
                                 }, label: {
                                     Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
                                         .fontWeight(.thin)
@@ -1687,7 +1688,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 .buttonStyle(.borderless)
                                 .frame(width: 150, height: 150)
                                 // nuemorphic design
-                                .modifier(Shapes.NeumorphicCircle())
+                                .modifier(Shapes.NeumorphicCircle(mode: mode))
                                 .zIndex(4)
                                 
                             } else {
@@ -1698,7 +1699,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                     Image(systemName:  "pause.circle").resizable().frame(width: 55, height: 55) // play button
                                         .fontWeight(.thin)
 
-                                        .foregroundColor(Color("pauseRed"))
+                                        .foregroundColor(Color.red)
                                 })
                                 .buttonStyle(.borderless)
                                 .frame(width: 150, height: 150)
@@ -1765,6 +1766,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                     gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
                     startPoint: .bottom,
                     endPoint: .top))
+                .environmentObject(shapeVm)
                 .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
 
             }

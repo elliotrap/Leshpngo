@@ -206,8 +206,8 @@
             filePath = "MindfulnessAI/UI/Shapes.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "body(content:)"
             landmarkType = "7">
             <Locations>
@@ -254,8 +254,8 @@
             filePath = "MindfulnessAI/UI/Shapes.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
             landmarkName = "body(content:)"
             landmarkType = "7">
             <Locations>
@@ -290,6 +290,22 @@
                   offsetFromSymbolStart = "1200">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E1D2C444-9A21-4ED9-A166-B453AA0D93F1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MindfulnessAI/windows/GPTfirstWindow.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1403"
+            endingLineNumber = "1403"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

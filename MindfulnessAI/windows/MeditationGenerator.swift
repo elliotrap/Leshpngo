@@ -46,11 +46,12 @@ struct MeditationGenerator: View {
                     .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                 
                 VStack {
-                        RoundedRectangle(cornerRadius: 30)
+                        Text("")
                         .frame(width: 210, height: 60)
                         .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                         .overlay(
                             Text("Choose a Meditation")
+                                .font(.system(size: 18))
                                 .foregroundColor(Color("homeBrew"))
                         )
                         
@@ -154,7 +155,7 @@ struct MeditationGenerator: View {
                     .buttonStyle(.borderless)
                     .frame(width: 150, height: 150)
                     // nuemorphic design
-                    .modifier(Shapes.NeumorphicCircle())
+                    .modifier(Shapes.NeumorphicCircle(mode: mode))
                     .zIndex(4)
                     
                 } else {
@@ -307,6 +308,7 @@ struct MeditationGenerator: View {
             gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
             startPoint: .topLeading,
             endPoint: .bottomLeading))
+        .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
 
             
         }
