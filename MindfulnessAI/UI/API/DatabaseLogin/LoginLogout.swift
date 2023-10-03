@@ -11,12 +11,19 @@ import SwiftUI
 
 class LoginLogout: ObservableObject {
     
+    @ObservedObject var mode: Shapes
+    
+    @ObservedRealmObject var group: Group
+
+    init() {
+        // Initialize 'mode' here, assuming 'Shapes' is an ObservableObject
+        self.mode = Shapes()
+        self.group = Group()
+    }
     
     @Published var email = ""
     
     @Published var isLoading = true
-    
-
     
     @Published var password = ""
     
@@ -27,6 +34,9 @@ class LoginLogout: ObservableObject {
     @Published var app = App(id: "application-0-kibhk")
     
     @Published private var currentView: AnyView = AnyView(EmptyView())
+    
+
+
     
     func login() {
         
@@ -46,7 +56,7 @@ class LoginLogout: ObservableObject {
     }
     func showNextWindow(user: User) {
 
-        currentView = AnyView(ChatView(mode: Shapes()))
+        currentView = AnyView(ChatView(mode: Shapes(), group: group))
         
     }
     
@@ -89,4 +99,9 @@ class LoginLogout: ObservableObject {
             }
         }
     }
+
+
+
+
+
 }

@@ -140,7 +140,7 @@ class Shapes: ObservableObject {
                 .background(
                     ZStack {
                         if mode.changeMode {
-                            Group {
+                        
                                 Circle()
                                     .fill(LinearGradient(colors: [Color("offBlue"), Color("offBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
                                     .overlay(
@@ -157,7 +157,7 @@ class Shapes: ObservableObject {
                                             .blur(radius: 5)
                                             .offset(x: 5, y: 5)
                                             .mask(Circle().fill(LinearGradient(Color("circleShadowBlack"), Color.black))))
-                            }
+                            
                                 
                             } else {
                                 Circle()
@@ -192,9 +192,9 @@ class Shapes: ObservableObject {
         
         func body(content: Content) -> some View {
             content
-                .background(
+                
                     
-                    Group {
+                    
                         Circle()
                             .fill(LinearGradient(colors: [Color("lowerCircleShadowWhite"), Color("upperCircleShadowBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
                             .overlay(
@@ -212,8 +212,8 @@ class Shapes: ObservableObject {
                                     .offset(x: -4, y: -4)
                                     .mask(Circle().fill(LinearGradient(Color("circleShadowBlack"), Color.black))))
                         
-                    }
-                )
+                    
+                
         }
     }
     
@@ -274,7 +274,7 @@ class Shapes: ObservableObject {
             content
                 .overlay( ZStack {
                     if mode.changeMode {
-                        Group {
+                    
                             RoundedRectangle(cornerRadius: 30)
                                 .fill(LinearGradient(colors: [Color("leftCircleShadowWhite"), Color("rightCircleShadowBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .overlay(
@@ -292,9 +292,9 @@ class Shapes: ObservableObject {
                                         .offset(x: -4, y: -4)
                                         .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowUpper"), Color.black))))
                             
-                        }
+                        
                     } else {
-                        Group {
+                    
                             RoundedRectangle(cornerRadius: 30)
                                 .fill(LinearGradient(colors: [Color("rightCircleShadowBlack"), Color("leftCircleShadowWhite")], startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .overlay(
@@ -312,7 +312,7 @@ class Shapes: ObservableObject {
                                         .offset(x: -4, y:  -4)
                                         .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowBlack"), Color.black))))
                             
-                        }
+                        
                         
                     }
                 }

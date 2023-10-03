@@ -16,7 +16,7 @@ class OpenAIService: ObservableObject {
     func sendMessage(messages: [Message]) async -> OpenAIChatResponse? {
         let openAIMessages = messages.map({OpenAIChatMessage(role: $0.role, content: $0.content)})
         
-        let body = OpenAIChatBody(model: "gpt-4", messages: openAIMessages)
+        let body = OpenAIChatBody(model: "gpt-4", messages: openAIMessages, max_tokens: 50)
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(Constants.openAIApiKey)"
         ]
@@ -29,14 +29,15 @@ class OpenAIService: ObservableObject {
 struct OpenAIChatBody: Encodable {
 let model: String
 let messages: [OpenAIChatMessage]
+    let max_tokens: Int
 }
 
 
 struct OpenAIChatMessage: Codable {
-
-let role: SenderRole
-let content: String
- }
+    
+    let role: SenderRole
+    let content: String
+}
 
 enum SenderRole: String, Codable {
     case system

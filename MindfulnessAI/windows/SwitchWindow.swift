@@ -13,13 +13,15 @@ import RealmSwift
 struct ContentView: View {
     
     @ObservedObject var app: RealmSwift.App
-    
+
 
     
     
     var body: some View {
+        let group = Group()
+
         if let user = app.currentUser {
-            ChatView(mode: Shapes())
+            ChatView(mode: Shapes(), group: group)
                 .environment(\.partitionValue, user.id)
 
            

@@ -17,7 +17,6 @@ class ViewModel: ObservableObject {
         
     }
     
-    @ObservedObject var counter = Counter()
     
     @ObservedObject var voice = ChatViewModel()
     
@@ -38,7 +37,7 @@ class ViewModel: ObservableObject {
     @Published private var client: OpenAISwift?
     @Published var prompt =
     """
-You are vipassana meditation expert training people through an app. give me a non metaphysical meditation for an experienced meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
+You are vipassana meditation expert training people through an app. give me a non metaphysical meditation for an experienced meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.You are vipassana meditation expert training people through an app. give me a non metaphysical meditation for an experienced meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.You are vipassana meditation expert training people through an app. give me a non metaphysical meditation for an experienced meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.You are vipassana meditation expert training people through an app. give me a non metaphysical meditation for an experienced meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
 """
     
 
@@ -216,7 +215,6 @@ point p = {x, y}; color c = RED;
             func speakNextSegment() {
                 
                 
-                counter.start()
                 
                 guard segmentIndex < segments.count else { return }
                 
@@ -228,7 +226,6 @@ point p = {x, y}; color c = RED;
                 
                 segmentIndex += 1
                 
-                counter.stop()
             }
             
             speakNextSegment()
@@ -246,13 +243,6 @@ point p = {x, y}; color c = RED;
     
 
 
-    func startNewCounter() {
-        let counter = Counter()
-        counter.start()
 
-        try! realm.write {
-            realm.add(counter)
-        }
-    }
     }
 

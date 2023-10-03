@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
+
 extension UINavigationController {
 
     // Remove back button text
@@ -19,12 +21,20 @@ extension UINavigationController {
 
 struct ChatView: View {
 
-    
+
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes()
     @StateObject var realm = LoginLogout()
-    @ObservedObject var viewModel = ChatViewModel()
+    @ObservedObject var viewModel = ChatViewModel.shared
+    
+    @ObservedRealmObject var group: Group
+    let realmConnect = try! Realm()
+    let savedItems = Item.self
+
+
+
+    
     @State var playing = true
     
     @State var pressedReset = true
@@ -42,9 +52,10 @@ struct ChatView: View {
     @State var expandTwo: Bool = false
     @State var promptToggleTwo: Bool = false
     
-    @State var timerButtonPressed: Bool = false
+    @State var savedButtonPressed: Bool = false
     @State var expandThree: Bool = false
     
+    @State var selfTimerButtonPressed = false
     @State var profileButtonPressed = false
     @State var chosenMeditation = "Vipas"
     @State var chosenInstructor = "Chief"
@@ -144,7 +155,7 @@ struct ChatView: View {
 
                                 )
                             
-                            
+                            // MARK: - Vipas Button
                             ZStack {
                                 // background for the vipassana button
                                 RoundedRectangle(cornerRadius: 30)
@@ -154,7 +165,7 @@ struct ChatView: View {
                                 if vipassanaButtonPressed == false {
                                     // vipassana meditation link with a description of what meta is
                                     Button(action: {
-                                        timerButtonPressed = false
+                                        savedButtonPressed = false
                                         vipassanaButtonPressed = true
                                         metaButtonPressed = false
                                         chosenMeditation = "Vipas"
@@ -236,6 +247,7 @@ struct ChatView: View {
                                     }
                                 }
                             }
+                            // MARK: - Metta Button
                             ZStack {
                                 // background for the meta button
                                 RoundedRectangle(cornerRadius: 30)
@@ -252,7 +264,7 @@ struct ChatView: View {
                                         maddieButtonPressed = false
                                         metaButtonPressed = true
                                         vipassanaButtonPressed = false
-                                        timerButtonPressed = false
+                                        savedButtonPressed = false
 
                                         chosenMeditation = "Maitrī"
                                         vm.prompt = """
@@ -336,22 +348,24 @@ struct ChatView: View {
                                 }
             
                             }
+                            
+                            // MARK: - Saved Button
                             ZStack {
                                 // background for the vipassana button
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke()
-                                    .frame(width: expandThree ? 300 : 305, height: expandThree ? 180 : 95)  .foregroundColor(                                        timerButtonPressed ? Color("grayBlack") : Color("homeBrewSelect"))
+                                    .frame(width: expandThree ? 300 : 305, height: expandThree ? 180 : 95)  .foregroundColor(                                        savedButtonPressed ? Color("grayBlack") : Color("homeBrewSelect"))
                                     .zIndex(5)
-                                if timerButtonPressed == false {
+                                if savedButtonPressed == false {
                                     // vipassana meditation link with a description of what meta is
                                     Button(action: {
                                         vipassanaButtonPressed = false
-                                        timerButtonPressed = true
+                                        savedButtonPressed = true
                                         metaButtonPressed = false
                                         chosenMeditation = "Vipas"
                                         chiefButtonPressed = true
                                     }, label: {
-                                        Text(expandThree ? "" : "Self Timer")
+                                        Text(expandThree ? "" : "Saved")
                                             .fontWeight(.thin)
 
                                             .foregroundColor(Color("homeBrew"))
@@ -372,75 +386,11 @@ struct ChatView: View {
                                             VStack {
                                                 Spacer()
                                                     .frame(height: 50)
+                                                // MARK: - !!!!!!
                                                 if expandThree {
-                                                    VStack(spacing: 5) {
-                                                        Text("minutes")
-                                                            .foregroundColor(Color("homeBrew"))
-                                                            .font(.system(size: 25))
-                                                        Text(
-                                                            String(format:"%.0f", vm.minuteSliderProgress)
-                                                            )
-                                                        .foregroundColor(Color("homeBrew"))
-                                                        .font(.system(size: 25))
-                                                        
-                                                        ZStack {
-                                                            // green background
-                                                            RoundedRectangle(cornerRadius: 100)
-                                                                .stroke(lineWidth: 1.5)
-                                                                .frame(width: 254, height: 52)
-                                                                .foregroundColor(Color("homeBrew"))
-                                                            // Slider body
-                                                            RoundedRectangle(cornerRadius: 100)
-                                                                .foregroundColor(Color("offBlack"))
-                                                                .modifier(Shapes.NeumorphicBox())
-                                                                .frame(width: 250, height: 50)
-                                                            
-                                                            ZStack(alignment: .leading, content: {
-                                                                // slider itself make the slider have neumorphism
-                                                                HStack {
-                                                                    Spacer()
-                                                                        .frame(width: 35)
-                                                                    Circle()
-                                                                        .foregroundColor(Color.clear)
-                                                                        .frame(width: vm.minuteSliderHeight, height: 13)
-                                                                        .modifier(Shapes.NeumorphicSider())
-                                                                        .zIndex(6)
-                                                                }
-                                                                RoundedRectangle(cornerRadius: 100)
-                                                                    .foregroundColor(Color.clear)
-                                                                    .frame(width: 250, height: 50)
-                                                                
-                                                                
-                                                            })
-                                                            .frame(width: vm.minuteMaxHeight)
-                                                            // the logic for the slider
-                                                            .gesture(DragGesture(minimumDistance:
-                                                                                    0).onChanged({ (value) in
-                                                                
-                                                                let minuteTranslation = value.translation
-                                                                
-                                                                vm.minuteSliderHeight = minuteTranslation.width + vm.minuteLastDragValue
-                                                                
-                                                                vm.minuteSliderHeight = vm.minuteSliderHeight > vm.minuteMaxHeight ? vm.minuteMaxHeight : vm.minuteSliderHeight
-                                                                
-                                                                vm.minuteSliderHeight = vm.minuteSliderHeight >= 0 ?
-                                                                vm.minuteSliderHeight : 0
-                                                                
-                                                                vm.minuteSliderProgress += 1
-                                                                
-                                                            }) .onEnded({ (value) in
-                                                                
-                                                                vm.minuteSliderHeight = vm.minuteSliderHeight > vm.minuteMaxHeight ? vm.minuteMaxHeight : vm.minuteSliderHeight
-                                                                
-                                                                vm.minuteSliderHeight = vm.minuteSliderHeight >= 0 ?
-                                                                vm.lessonSliderHeight : 0
-                                                                
-                                                                vm.minuteLastDragValue = vm.minuteSliderHeight
-                                                                vm.minuteSliderHeight = vm.minuteSliderHeight
-                                                            }))
-                                                        }
-                                                        .scaleEffect(0.9)
-                                                    }
+                                                
+                                              
+                                             
                                                 }
                                                 Spacer()
                                                     .frame(height: 50)
@@ -554,6 +504,7 @@ struct ChatView: View {
                                                                     menuAnimationSizeChange = false
                                                                     meditationTimeBoxAnimation = false
                                                                     profileButtonPressed = false
+                                                                    selfTimerButtonPressed = false
                                                                 }
                                                             }
                                                             .padding(meditationTimeBoxExpand || menuPopUp ? 50 : 0)
@@ -579,9 +530,10 @@ struct ChatView: View {
                                         .buttonStyle(.borderless)
                                     }
                             )
+                            // MARK: - Menu
                                 .overlay(
                                     Grid(horizontalSpacing: 30) {
-                                        if profileButtonPressed == false {
+                                        if profileButtonPressed == false && selfTimerButtonPressed == false {
                                             
                                             GridRow {
                                                 VStack {
@@ -628,7 +580,7 @@ struct ChatView: View {
                                                 GridRow {
                                                     VStack {
                                                         Button(action: {
-                                                            realm.logout()
+                                                            selfTimerButtonPressed = true
                                                         }, label: {
                                                             HStack {
                                                                 Text("Self Timer")
@@ -707,7 +659,7 @@ struct ChatView: View {
                                                     }
                                                 }
                                             }
-                                            } else {
+                                            } else if profileButtonPressed {
                                                 HStack {
                                                     
                                                     VStack {
@@ -741,11 +693,83 @@ struct ChatView: View {
                                                
                                                     
                                                 }
+                                            } else if selfTimerButtonPressed {
+                                               
+                                                VStack {
+                                                    Spacer()
+                                                        .frame(height: 100)
+                                                    Text("minutes")
+                                                        .foregroundColor(Color("homeBrew"))
+                                                        .font(.system(size: 25))
+                                                    Text(
+                                                        String(format:"%.0f", vm.minuteSliderProgress)
+                                                        )
+                                                    .foregroundColor(Color("homeBrew"))
+                                                    .font(.system(size: 25))
+                                                    
+                                                    ZStack {
+                                                        
+                                                        // green background
+                                                        RoundedRectangle(cornerRadius: 100)
+                                                            .stroke(lineWidth: 1.5)
+                                                            .frame(width: 254, height: 52)
+                                                            .foregroundColor(Color("homeBrew"))
+                                                        // Slider body
+                                                        RoundedRectangle(cornerRadius: 100)
+                                                            .foregroundColor(Color("offBlack"))
+                                                            .modifier(Shapes.NeumorphicBox())
+                                                            .frame(width: 250, height: 50)
+                                                        
+                                                        ZStack(alignment: .leading, content: {
+                                                            // slider itself make the slider have neumorphism
+                                                            HStack {
+                                                                Spacer()
+                                                                    .frame(width: 35)
+                                                                Circle()
+                                                                    .foregroundColor(Color.clear)
+                                                                    .frame(width: vm.minuteSliderHeight, height: 13)
+                                                                    .modifier(Shapes.NeumorphicSider())
+                                                                    .zIndex(6)
+                                                            }
+                                                            RoundedRectangle(cornerRadius: 100)
+                                                                .foregroundColor(Color.clear)
+                                                                .frame(width: 250, height: 50)
+                                                            
+                                                            
+                                                        })
+                                                        .frame(width: vm.minuteMaxHeight)
+                                                        // the logic for the slider
+                                                        .gesture(DragGesture(minimumDistance:
+                                                                                0).onChanged({ (value) in
+                                                            
+                                                            let minuteTranslation = value.translation
+                                                            
+                                                            vm.minuteSliderHeight = minuteTranslation.width + vm.minuteLastDragValue
+                                                            
+                                                            vm.minuteSliderHeight = vm.minuteSliderHeight > vm.minuteMaxHeight ? vm.minuteMaxHeight : vm.minuteSliderHeight
+                                                            
+                                                            vm.minuteSliderHeight = vm.minuteSliderHeight >= 0 ?
+                                                            vm.minuteSliderHeight : 0
+                                                            
+                                                            vm.minuteSliderProgress += 1
+                                                            
+                                                        }) .onEnded({ (value) in
+                                                            
+                                                            vm.minuteSliderHeight = vm.minuteSliderHeight > vm.minuteMaxHeight ? vm.minuteMaxHeight : vm.minuteSliderHeight
+                                                            
+                                                            vm.minuteSliderHeight = vm.minuteSliderHeight >= 0 ?
+                                                            vm.lessonSliderHeight : 0
+                                                            
+                                                            vm.minuteLastDragValue = vm.minuteSliderHeight
+                                                            vm.minuteSliderHeight = vm.minuteSliderHeight
+                                                        }))
+                                                    }
+                                                }
                                             }
                                         }
                                     
                                 )
-             
+                            // MARK: - Time Display
                                 .overlay(
                                   
                                     VStack {
@@ -833,8 +857,10 @@ struct ChatView: View {
                                                 .zIndex(3)
 
                                                 // lession play button
-                                            NavigationLink(destination: MeditationGenerator(vm: vm, mode: Shapes()), label: {
-                                                    Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
+                                            NavigationLink(destination: savedButtonPressed ? AnyView(MainMeditation(mode: Shapes(), vm: vm, group: group)) : AnyView(MeditationGenerator(vm: vm, mode: Shapes(), group: group))
+, label: {
+
+                                                Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
 
                                                         .underline(false)
                                                         .foregroundColor(Color("homeBrew"))
@@ -897,7 +923,7 @@ struct ChatView: View {
                 Spacer()
                     .frame(height: 20)
                
-                    
+                    // MARK: - Instructors
                 ZStack {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width:350, height: 420)
@@ -1057,6 +1083,13 @@ You are a fully enlighten vipassana meditation trainer, training people through 
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .padding(.top, 70)
+                                                            .onAppear {
+                                                                viewModel.currentInput = """
+                                                      You are a fully enlighten vipassana meditation trainer training people through an app. Please conjure up a non metaphysical meditation for an beginner meditator. Provide a plus sign with a 2 which looks like this "+2" to identify a pause for silence after each section; let there be five and only 5 "2+" in the meditation, each pause (+2) is 2 minutes so the meditation will last 10 minutes. Add a lot of emphasis in the punctuation to make the meditation sound more dramatic. Also please don't number each section of the meditation.
+"""
+                                                                viewModel.contentMessage = """
+                                                      Please provide a meditation lesson for a beginner. Remember to use the "+2" key to signify a pause.
+                                                      """}
                                                     }
                                                 )}
                                             }
@@ -1194,6 +1227,13 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             })
                                                             .buttonStyle(.borderless)
                                                             .padding(.top, 70)
+                                                            .onAppear {
+                                                                viewModel.currentInput = """
+                                                      You are a fully enlighten vipassana meditation trainer training people through an app. Please conjure up a non metaphysical meditation for an experienced meditator, have the meditator go outside or play the sounds of nature though a speaker. Provide a plus sign "+" with a two "2" which looks like this: "+2" to identify a pause for silence after each section; let there be five and only 5 pauses (2+) in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Add a lot of emphasis in the punctuation to make the meditation sound more dramatic by adding a lot of "--" and ",". Also don't number each section of the meditation.
+"""
+                                                                viewModel.contentMessage = """
+                                                      Provide a meditation that walks the meditator though an outdoor meditation experience.
+                                                      """}
                                                     }
                                                 )}
                                             }
@@ -1330,6 +1370,13 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 })
                                                                 .buttonStyle(.borderless)
                                                                 .padding(.top, 70)
+                                                                .onAppear {
+                                                                    viewModel.currentInput = """
+                                                          You are a fully enlighten vipassana meditation trainer training people through an app. Please conjure up a non metaphysical meditation for an experienced meditator, have the meditator do a body scan meditation. Provide a plus sign "+" with a two "2" which looks like this: "+2" to identify a pause for silence after each section; let there be five and only 5 pauses (2+) in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Add a lot of emphasis in the punctuation to make the meditation sound more dramatic by adding a lot of "--" and ",". Also don't number each section of the meditation.
+"""
+                                                                    viewModel.contentMessage = """
+                                                          Please provide a body scan meditation. Remember to use the "+2" key to signify a pause.
+                                                          """}
                                                         }
                                                     )}
                                                 }
@@ -1351,7 +1398,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                             maddieButtonPressed.toggle()
                                                         }
                                                         vm.prompt = """
-                                                    You are a fully enlighten vipassana meditation trainer training people through an app. Please conjure up a non metaphysical meditation for an experienced meditator, have the meditator feel the hart beating as the object of meditation for the practice. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
+                                                    You are a fully enlighten vipassana meditation trainer training people through an app. Please conjure up a non metaphysical meditation for an experienced meditator, have the meditator feel the hart beating as the object of meditation for the practice. Provide a plus sign "+" with a two "2" which looks like this: "+2" to identify a pause for silence after each section; let there be five and only 5 pauses (2+) in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Add a lot of emphasis in the punctuation to make the meditation sound more dramatic by adding a lot of "--" and ",". Also don't number each section of the meditation.
 """
                                                         chosenInstructor = "Matil"
                                                     }, label: {
@@ -1464,6 +1511,13 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                                 })
                                                                 .buttonStyle(.borderless)
                                                                 .padding(.top, 70)
+                                                                .onAppear {
+                                                                    viewModel.currentInput = """
+                                                          You are a fully enlighten vipassana meditation trainer training people through an app. Please conjure up a non metaphysical meditation for an experienced meditator, have the meditator feel the hart beating as the object of meditation for the practice. Provide a plus sign "+" with a two "2" which looks like this: "+2" to identify a pause for silence after each section; let there be five and only 5 pauses (2+) in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Add a lot of emphasis in the punctuation to make the meditation sound more dramatic by adding a lot of "--" and ",". Also don't number each section of the meditation.
+"""
+                                                                    viewModel.contentMessage = """
+                                                          Provide a meditation lesson that guides you to feel the beating of your hart. Remember to use the "+2" key to signify a pause.
+                                                          """}
                                                         }
                                                     )}
                                                 }
@@ -1494,6 +1548,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 .frame(height: 170)
                         }
                     }
+                    // MARK: - Lesson section
                     VStack {
                         Spacer()
                             .frame(height: 10)
@@ -1538,8 +1593,8 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                     if vm.startLessonPrompt {
                                                     Image(systemName: "arrow.2.squarepath")
                                             
-                                                          // .position(x: 67, y: 67)
-                                            .position(x: 167, y: 77)
+                                                      // .position(x: 67, y: 67)
+                                        .position(x: 167, y: 77)
                                             .foregroundColor(shapeVm.darkmode ? Color("homeBrewSelect") : Color("homeBrew"))
                                             HStack {
                                                 
@@ -1549,18 +1604,15 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                             }
                                         }
 //                                    // The text that is generated for the lesions
-//                                    ForEach(viewModel.messages.filter({$0.role != .system}),
-//                                            id: \.id) { meditationMessage in
-//                                        messageView(message: meditationMessage)
-                                    if let firstMessage = viewModel.messages.first(where: { $0.role != .system }) {
-                                        // Create a Text view with the content of the first message
-                                        Text(firstMessage.content)
-                                            .position(x:140, y: 270)
-                                            .frame(width: 280, height: 500)
+                                        
+                                        if let firstMessage = viewModel.messages.last(where: { $0.role != .system }) {
+                                            
+                                            Text(firstMessage.content)
+                                                .padding(.top, 30)
+                                                .padding(.bottom, 30)
+                                        }
                                     
-                                        
-                                        
-                                    }
+                             
                                 }
                             }
                             .onAppear {
@@ -1678,8 +1730,9 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                 // lession play button
                                 Button(action: {
                                     playing.toggle()
-                                   // vm.testVoice()
+
                                     viewModel.textToSpeech(ssmlText: viewModel.latestAssistantMessage)
+                           
                                 }, label: {
                                     Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
                                         .fontWeight(.thin)
@@ -1710,7 +1763,14 @@ You are a fully enlighten vipassana meditation trainer training people through a
                             if pressedReset {
                                 // generate meditation button
                                 Button(action: {
-                                    viewModel.currentInput = "Teach me about vipassana meditation without waking me through a meditation."
+                               
+                                    viewModel.sendMessage(messageContent:
+                                                          """
+                                                           You are a well trained meditation instructor training people through an app, please provide lessons about meditation and mindfulness without walking through a meditation. Please don't add a title or heading to the lessons. Make the lessons very punctuate using a lot of "...", and commas.
+                                                          """, systemContent:
+                                                          """
+                                                          Please give me a high level lesson on meditation without walking through a meditation. Use a lot of '...' in the speech of the lesson also please use a lot of commas. Please don't give a Title for the meditation. Thank you.
+                                                          """)
                                     vm.startLessonPrompt = false
                                     vm.startMeditationPrompt = false
                                     pressedReset = false
@@ -1746,10 +1806,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                     Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
                                         .foregroundColor(Color("grayBlack"))
                                 )
-                                .onAppear {
-                                    viewModel.sendMeditationMessage()
-
-                                }
+                      
                             }
                             
      
@@ -1771,18 +1828,15 @@ You are a fully enlighten vipassana meditation trainer training people through a
 
             }
         }
-    func messageView(message: Message) -> some View {
-        HStack {
-            Text(message.content)
-            if message.role == .assistant {Spacer()}
-        }
-    }
+
 }
+
+
 
 struct ContentView_Previews3: PreviewProvider {
-    @ObservedObject var mode: Shapes
-
     static var previews: some View {
-        ChatView(mode: Shapes())
+        let group = Group() 
+        return ChatView(mode: Shapes(), group: group)
     }
 }
+
