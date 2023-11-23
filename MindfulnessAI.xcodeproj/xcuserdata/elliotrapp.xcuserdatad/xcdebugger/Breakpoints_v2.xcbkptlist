@@ -23,118 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "59B42FBE-E0AC-42FC-B501-1F218DF19F57"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/RealmProject/login/DatabaseLogin.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1B6B3D6D-A767-4719-98DD-A4796BEE45C0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/RealmProject/login/DatabaseLogin.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "05B19474-6751-4FD8-8A62-90D3F84DC0F2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/RealmProject/login/DatabaseLogin.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "76F5729F-1012-4CFC-90AC-2A87F536DE4F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/RealmProject/login/DatabaseLogin.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BE6E1FCD-E04B-4842-A489-5F6C5EF9F781"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/RealmProject/login/DatabaseLogin.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "ContentView_Previews1"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AED0C75F-AC5E-4567-BB59-2D860C3CDE67"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/RealmProject/login/DatabaseLogin.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1723358F-12DE-4473-8A5D-C86D1BE99E19"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/RealmProject/login/DatabaseLogin.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
-            landmarkName = "DatabaseLoginView"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "8BF5336D-A3EC-42C3-AFFB-B9C4142CD4AB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -151,102 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9A2CFB5A-2988-4C28-9D2B-80CB9063BDD0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/UI/Shapes.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
-            landmarkName = "body(content:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9A2CFB5A-2988-4C28-9D2B-80CB9063BDD0 - aa0220e87530b811"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;&gt; in MindfulnessAI.Shapes.NeumorphicClickedBox.body(content: SwiftUI._ViewModifier_Content&lt;MindfulnessAI.Shapes.NeumorphicClickedBox&gt;) -&gt; some"
-                  moduleName = "MindfulnessAI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elliotrapp/Documents/LeshpngohomeBrew/MindfulnessAI/UI/Shapes.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "242"
-                  endingLineNumber = "242"
-                  offsetFromSymbolStart = "2456">
-               </Location>
-               <Location
-                  uuid = "9A2CFB5A-2988-4C28-9D2B-80CB9063BDD0 - aa0220e87530c57d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;&gt; in MindfulnessAI.Shapes.NeumorphicClickedBox.body(content: SwiftUI._ViewModifier_Content&lt;MindfulnessAI.Shapes.NeumorphicClickedBox&gt;) -&gt; some"
-                  moduleName = "MindfulnessAI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elliotrapp/Documents/LeshpngohomeBrew/MindfulnessAI/UI/Shapes.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "262"
-                  endingLineNumber = "262"
-                  offsetFromSymbolStart = "2456">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "87D4CCBE-2886-4CA8-ABC9-3EEAB115FA49"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/UI/Shapes.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
-            landmarkName = "body(content:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "87D4CCBE-2886-4CA8-ABC9-3EEAB115FA49 - 2baa3c0cb41568f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;&gt; in MindfulnessAI.Shapes.NeumorphicClickedBox.body(content: SwiftUI._ViewModifier_Content&lt;MindfulnessAI.Shapes.NeumorphicClickedBox&gt;) -&gt; some"
-                  moduleName = "MindfulnessAI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elliotrapp/Documents/LeshpngohomeBrew/MindfulnessAI/UI/Shapes.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "215"
-                  endingLineNumber = "215"
-                  offsetFromSymbolStart = "1200">
-               </Location>
-               <Location
-                  uuid = "87D4CCBE-2886-4CA8-ABC9-3EEAB115FA49 - 2baa3c0cb4153fb"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, SwiftUI.Group&lt;&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;&gt; in MindfulnessAI.Shapes.NeumorphicClickedBox.body(content: SwiftUI._ViewModifier_Content&lt;MindfulnessAI.Shapes.NeumorphicClickedBox&gt;) -&gt; some"
-                  moduleName = "MindfulnessAI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elliotrapp/Documents/LeshpngohomeBrew/MindfulnessAI/UI/Shapes.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "235"
-                  endingLineNumber = "235"
-                  offsetFromSymbolStart = "1200">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E1D2C444-9A21-4ED9-A166-B453AA0D93F1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -255,9 +47,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1450"
-            endingLineNumber = "1450"
-            landmarkName = "body"
-            landmarkType = "24">
+            endingLineNumber = "1450">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -271,57 +61,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1736"
-            endingLineNumber = "1736"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AD6DD798-0233-4011-9CD7-60016BC66F8B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MindfulnessAI/UI/API/chatViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "textToSpeech(ssmlText:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "AD6DD798-0233-4011-9CD7-60016BC66F8B - 2ca37d8c0bd6dfe6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MindfulnessAI.ChatViewModel.textToSpeech(ssmlText: Swift.String) -&gt; ()"
-                  moduleName = "MindfulnessAI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elliotrapp/Documents/LeshpngohomeBrew/MindfulnessAI/UI/API/chatViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "124"
-                  endingLineNumber = "124"
-                  offsetFromSymbolStart = "1208">
-               </Location>
-               <Location
-                  uuid = "AD6DD798-0233-4011-9CD7-60016BC66F8B - ba8a8b8d3d18c8b1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MindfulnessAI.ChatViewModel.textToSpeech(ssmlText: Swift.String) -&gt; ()"
-                  moduleName = "MindfulnessAI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elliotrapp/Documents/LeshpngohomeBrew/MindfulnessAI/UI/API/chatViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "4180">
-               </Location>
-            </Locations>
+            endingLineNumber = "1736">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -1,4 +1,3 @@
-//
 //  LoginLogout.swift
 //  MindfulnessAI
 //
@@ -11,33 +10,60 @@ import SwiftUI
 
 class LoginLogout: ObservableObject {
     
+
     @ObservedObject var mode: Shapes
     
-    @ObservedRealmObject var group: Group
+    @ObservedRealmObject var group: BackendGroup
 
-    init() {
-        // Initialize 'mode' here, assuming 'Shapes' is an ObservableObject
-        self.mode = Shapes()
-        self.group = Group()
-    }
+    @Published var realmConnect: Realm?
     
-    @Published var email = ""
+ 
+ 
+    
+    init() {
+        self.mode = Shapes()
+        self.group = BackendGroup()
+        if let realm = RealmManager.shared.realm {
+            self.realmConnect = realm
+        } else {
+            // Handle error or assign a default value
+        }
+    }
+
+
+
+    let minLength = 6
+    let maxLength = 254
     
     @Published var isLoading = true
     
-    @Published var password = ""
+    @Published var password: String = ""
     
+    @Published var reenterPassword: String = ""
+    
+    @Published var email = ""
+
+    @Published var minEmailLength = 8
+        
     @Published var loginReenterPasswordText = ""
     
-    @Published var errorMessage = "error"
+    @Published var errorMessage = ""
+    
+    @Published var showErrorMessage = false
+
+    
+    @Published var signUpSuccess: Bool = false
     
     @Published var app = App(id: "application-0-kibhk")
     
     @Published private var currentView: AnyView = AnyView(EmptyView())
     
+    func isEmailValid(_ email: String, min: Int, max: Int) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        return emailPred.evaluate(with: email) && email.count >= min && email.count <= max
+    }
 
-
-    
     func login() {
         
         isLoading = true
@@ -60,26 +86,30 @@ class LoginLogout: ObservableObject {
         
     }
     
+
+
+    
     func signup() {
-          
-          let client = app.emailPasswordAuth
-          
-          isLoading = true
+        let client = app.emailPasswordAuth
+        isLoading = true
+        signUpSuccess = false  // Reset the success flag
         
-          
-          client.registerUser(email: email, password: password) { [weak self] error in
-              DispatchQueue.main.async {
-                  if let error = error {
-                      self?.errorMessage = "signup error: \(error.localizedDescription)"
-                      self?.isLoading = false
-                  }
-                  else {
-                      self?.login()
-                  }
-              }
-              
-          }
-      }
+        client.registerUser(email: email, password: password) { [weak self] error in
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                if let error = error {
+                    self?.errorMessage = "signup error: \(error.localizedDescription)"
+                    if error.localizedDescription.contains("already exists") {
+                        self?.errorMessage = "An account with this email already exists."
+                    }
+                } else {
+                    self?.signUpSuccess = true
+                    self?.login()
+                }
+            }
+        }
+    }
+
     
     func logout() {
         // Get the current user
@@ -99,9 +129,4 @@ class LoginLogout: ObservableObject {
             }
         }
     }
-
-
-
-
-
 }

@@ -10,7 +10,7 @@
 import Foundation
 import RealmSwift
 
-final class Group: Object, ObjectKeyIdentifiable {
+final class BackendGroup: Object, ObjectKeyIdentifiable {
     
     @Persisted(primaryKey: true) var _id: ObjectId
     

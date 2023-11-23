@@ -17,14 +17,16 @@ extension LinearGradient {
 
 class Shapes: ObservableObject {
     
-    @Published var changeMode: Bool = false
-    @Published var darkmode: Bool = false
+    static var shared = Shapes()
+    
+    @Published var changeMode: Bool = true
+    @Published var darkmode: Bool = true
 
     
     // nuemorphic design template for the text
     struct NeumorphicBox: ViewModifier {
         
-        @ObservedObject var mode = Shapes()
+        @ObservedObject var mode = Shapes.shared
         
         @State var radius: CGFloat = 40
         
@@ -35,9 +37,9 @@ class Shapes: ObservableObject {
                         
                             RoundedRectangle(cornerRadius: radius)
                                 .stroke(Color("screenStroke"), lineWidth: 30)
-                                .shadow(color: Color("ScreenUpperShadow"), radius: 3, x: mode.changeMode ? -10 : 10, y: mode.changeMode ? -10 : 10)
+                                .shadow(color: Color("ScreenUpperShadow"), radius: 3, x: mode.changeMode ? 10 : -10, y: mode.changeMode ? 10 : -10)
                                 .clipShape(RoundedRectangle(cornerRadius: radius))
-                                .shadow(color: Color("screenLowerShadow"), radius: 3, x: mode.changeMode ? 10 : -10, y: mode.changeMode ? 10 : -10)
+                                .shadow(color: Color("screenLowerShadow"), radius: 3, x: mode.changeMode ? -10 : 10, y: mode.changeMode ? -10 : 10)
                                 .clipShape(RoundedRectangle(cornerRadius: radius))
                        
                     
@@ -48,12 +50,12 @@ class Shapes: ObservableObject {
     }
     
     
-    
+
     // nuemorphic design template for circle buttons
     struct NeumorphicCircle: ViewModifier {
         
         
-        @ObservedObject var mode: Shapes
+        @ObservedObject var mode = Shapes.shared
         
         
         func body(content: Content) -> some View {
@@ -127,11 +129,88 @@ class Shapes: ObservableObject {
         
     }
     
+    
+    struct NeumorphicBackCircle: ViewModifier {
+        
+        
+        @ObservedObject var mode = Shapes.shared
+
+        
+        func body(content: Content) -> some View {
+            
+            
+            content
+                .background(ZStack {
+                    if mode.changeMode {
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: 8, y: 8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                        
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: -8, y: -8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                    } else {
+                        
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: -8, y: -8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                        
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: 8, y: 8)
+                        
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                    }
+                })
+                .cornerRadius(100)
+
+            
+            
+        }
+        
+    }
+    
     // nuemorphic design template for circle buttons
     struct NeumorphicCirclePushedIn: ViewModifier {
         
         
-        @ObservedObject var mode: Shapes
+        @ObservedObject var mode = Shapes.shared
 
         
         
@@ -186,8 +265,8 @@ class Shapes: ObservableObject {
     struct NeumorphicCirclePushedInMain: ViewModifier {
         
         
-        @ObservedObject var shadow = Shapes()
-        
+        @ObservedObject var mode = Shapes.shared
+
         
         
         func body(content: Content) -> some View {
@@ -221,7 +300,7 @@ class Shapes: ObservableObject {
     // nuemorphic design template for the boxes of buttons
     struct NeumorphicPopedOutBox: ViewModifier {
         
-        @ObservedObject var mode: Shapes
+        @ObservedObject var mode = Shapes.shared
 
         
         func body(content: Content) -> some View {
@@ -229,12 +308,12 @@ class Shapes: ObservableObject {
                 .background(ZStack {
                     if mode.changeMode {
                         Color("shadowBlack")
-                        RoundedRectangle(cornerRadius: 30)
+                        RoundedRectangle(cornerRadius: 20)
                             .foregroundColor(Color("offBlue"))
                             .blur(radius: 10)
                             .offset(x: -8, y: -8)
                         
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 20)
                             .fill(
                                 LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
                             )
@@ -244,12 +323,12 @@ class Shapes: ObservableObject {
                         
                     } else {
                         Color("shadowBlack")
-                        RoundedRectangle(cornerRadius: 30)
+                        RoundedRectangle(cornerRadius: 20)
                             .foregroundColor(Color("offBlue"))
                             .blur(radius: 10)
                             .offset(x: 8, y: 8)
                         
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 20)
                             .fill(
                                 LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
                             )
@@ -264,12 +343,43 @@ class Shapes: ObservableObject {
         }
     }
     
+    struct NeumorphicPopedOutBackBox: ViewModifier {
+        
+        @ObservedObject var mode = Shapes.shared
+
+        
+        func body(content: Content) -> some View {
+            content
+                .background(ZStack {
+        
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 50)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 15)
+                            .offset(x: 8, y: 8)
+                        
+                        RoundedRectangle(cornerRadius: 50)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                    
+                })
+                .cornerRadius(30)
+                .shadow(color: Color("shadowBlack"), radius: 30, x: -20, y: -20)
+                .shadow(color: Color("shadowLight"), radius: 30, x:  20, y:  20)
+        }
+    }
+
+    
     // nuemorphic design template for the boxes of buttons
     struct NeumorphicClickedBox: ViewModifier {
         
         
-        @ObservedObject var mode: Shapes
-        
+        @ObservedObject var mode = Shapes.shared
+
         func body(content: Content) -> some View {
             content
                 .overlay( ZStack {
@@ -279,17 +389,17 @@ class Shapes: ObservableObject {
                                 .fill(LinearGradient(colors: [Color("leftCircleShadowWhite"), Color("rightCircleShadowBlack")], startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 30)
-                                        .stroke(Color("circleShadowUpper"), lineWidth: 12)
-                                        .blur(radius: 5)
-                                        .offset(x: 4, y: 4)
+                                        .stroke(Color("circleShadowUpper"), lineWidth: 20)
+                                        .blur(radius: 4)
+                                        .offset(x: -4, y: -4)
                                         .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color.black, Color.clear)))
                                     
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 30)
-                                        .stroke(Color("circleShadowLower"), lineWidth: 6)
-                                        .blur(radius: 4)
-                                        .offset(x: -4, y: -4)
+                                        .stroke(Color("circleShadowLower"), lineWidth: 11)
+                                        .blur(radius: 7)
+                                        .offset(x: 4, y: 4)
                                         .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowUpper"), Color.black))))
                             
                         
@@ -299,7 +409,7 @@ class Shapes: ObservableObject {
                                 .fill(LinearGradient(colors: [Color("rightCircleShadowBlack"), Color("leftCircleShadowWhite")], startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 30)
-                                        .stroke(Color("circleShadowBlack"), lineWidth: 12)
+                                        .stroke(Color("circleShadowBlack"), lineWidth: 6)
                                         .blur(radius: 5)
                                         .offset(x: 4, y: 4)
                                         .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color.black, Color.clear)))
@@ -310,7 +420,8 @@ class Shapes: ObservableObject {
                                         .stroke(Color("circleShadowLower"), lineWidth: 6)
                                         .blur(radius: 5)
                                         .offset(x: -4, y:  -4)
-                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowBlack"), Color.black))))
+                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowBlack"), Color.black)))
+                                )
                             
                         
                         
@@ -328,8 +439,8 @@ class Shapes: ObservableObject {
     // nuemorphic design template for the rectangle buttons
     struct NeumorphicRectangle: ViewModifier {
         
-        @ObservedObject var mode: Shapes
-        
+        @ObservedObject var mode = Shapes.shared
+
         
         @ObservedObject var vm = ViewModel()
         func body(content: Content) -> some View {
@@ -340,12 +451,12 @@ class Shapes: ObservableObject {
                         if mode.changeMode {
                             
                             Color("shadowBlack")
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: 30)
                                 .foregroundColor(Color("offBlue"))
                                 .blur(radius: 10)
                                 .offset(x: -8, y: -8)
                             
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: 30)
                                 .fill(
                                     LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
                                 )
@@ -357,12 +468,12 @@ class Shapes: ObservableObject {
                             
                             } else {
                                 Color("shadowBlack")
-                                RoundedRectangle(cornerRadius: 20)
+                                RoundedRectangle(cornerRadius: 30)
                                     .foregroundColor(Color("offBlue"))
                                     .blur(radius: 10)
                                     .offset(x: 8, y: 8)
                                 
-                                RoundedRectangle(cornerRadius: 20)
+                                RoundedRectangle(cornerRadius: 30)
                                     .fill(
                                         LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
                                     )
@@ -404,5 +515,134 @@ class Shapes: ObservableObject {
                     .cornerRadius(100)
             }
         }
+    
+    struct SpinningModifier: ViewModifier {
+        @State var isAnimating: Bool = false
+        
+        @ObservedObject var mode = Shapes.shared
+
+        
+        @ObservedObject var vm = ViewModel()
+        func body(content: Content) -> some View {
+            content
+                        .background(ZStack {
+                            if mode.changeMode {
+                                Color("shadowBlack")
+                                RoundedRectangle(cornerRadius: 100)
+                                    .foregroundColor(Color("offBlue"))
+                                    .blur(radius: 10)
+                                    .offset(x: 8, y: 8)
+                                
+                                
+                                RoundedRectangle(cornerRadius: 100)
+                                    .fill(
+                                        LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                                    )
+                                    .padding(2)
+                                    .blur(radius: 2)
+                                
+                                
+                                Color("shadowBlack")
+                                RoundedRectangle(cornerRadius: 100)
+                                    .foregroundColor(Color("offBlue"))
+                                    .blur(radius: 10)
+                                    .offset(x: -8, y: -8)
+                                
+                                RoundedRectangle(cornerRadius: 100)
+                                    .fill(
+                                        LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                                    )
+                                    .padding(2)
+                                    .blur(radius: 2)
+                            } else {
+                                
+                                Color("shadowBlack")
+                                RoundedRectangle(cornerRadius: 100)
+                                    .foregroundColor(Color("offBlue"))
+                                    .blur(radius: 10)
+                                    .offset(x: -8, y: -8)
+                                
+                                RoundedRectangle(cornerRadius: 100)
+                                    .fill(
+                                        LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                                    )
+                                    .padding(2)
+                                    .blur(radius: 2)
+                                
+                                
+                                Color("shadowBlack")
+                                RoundedRectangle(cornerRadius: 100)
+                                    .foregroundColor(Color("offBlue"))
+                                    .blur(radius: 10)
+                                    .offset(x: 8, y: 8)
+                                
+                                RoundedRectangle(cornerRadius: 100)
+                                    .fill(
+                                        LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                                    )
+                                    .padding(2)
+                                    .blur(radius: 2)
+                            }
+                        })
+                        .cornerRadius(100)
+                        .shadow(color: Color("shadowBlack"), radius: 20, x: mode.changeMode ? 20 : -20, y: mode.changeMode ? 20 : -20)
+                        .shadow(color: Color("shadowLight"), radius: 20, x: mode.changeMode ? -20 : 20, y: mode.changeMode ? -20 : 20)
+                        .rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
+                        .onAppear {
+                            withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
+                                isAnimating = true
+                            }
+                        }
+                    
+                }
+                
+            }
+
+        
+    
+    
+    
+
+    struct FlickeringBinaryBackground: ViewModifier {
+        @State private var randomText = ""
+        let characters = ["0", "1"]
+
+        func body(content: Content) -> some View {
+            content
+            ZStack {
+                RoundedRectangle(cornerRadius: 100)
+                    .foregroundColor(.clear)
+                    .frame(width: 320, height: 80)
+                    .modifier(Shapes.NeumorphicCircle())
+//                 Flickering binary background
+                Text(randomText)
+                    .cornerRadius(100)
+                    .frame(width: 310, height: 70)
+                    .font(.system(size: 8.35))
+                    .lineLimit(nil)
+                    .foregroundColor(Color("homeBrewSelect")) // Adjust the color accordingly
+                    .onAppear {
+                        startFlickeringEffect()
+                    }
+              
+                    .zIndex(1)
+
+                // Name of the app
+                Text("Léshpngo")
+                    .font(.system(size: 52))
+                    .foregroundColor(Color("logoColor"))
+                    .zIndex(2)
+            }
+        }
+
+        private func startFlickeringEffect() {
+            Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
+                randomText = (0..<750).map { _ in characters.randomElement() ?? "0" }.joined()
+            }
+        }
+    }
+
+
+    
     
 }

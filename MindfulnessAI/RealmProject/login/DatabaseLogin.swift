@@ -5,9 +5,9 @@
 //  Created by Elliot Rapp on 6/27/23.
 //
 
-import Foundation
-import Foundation
 import SwiftUI
+import RealmSwift
+import Foundation
 
 
 struct DatabaseLoginView: View {
@@ -15,11 +15,13 @@ struct DatabaseLoginView: View {
     @ObservedObject var vm = ViewModel()
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes()
-    @StateObject var realm = LoginLogout()
+    @ObservedObject var realm = LoginLogout()
     
     @State var haveAnAccount = false
     
-
+    @State var wrongPassword = false
+    
+    @State var wrongEmail = false
     
     var body: some View {
         NavigationView {
@@ -39,44 +41,21 @@ struct DatabaseLoginView: View {
                 
                 VStack{
                     ZStack {
-                        // leshpngo background for the logo
-                        Text(vm.onesAndZeros[vm.onesAndZerosIndex])
-                            .frame(width: 310, height: 80)
-                            .cornerRadius(100)
-                        //.font(.system(size:14.3))
-                            .font(.system(size:13.35))
-                            .lineLimit(nil)
-                            .shadow(color: Color.white, radius: 10,  y: 10)
-                            .foregroundColor(Color("homeBrew"))
-                        // the progression of the 1's and 0's that iterate the index to make an animation
-                            .onAppear {
-                                Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
-                                    if vm.onesAndZerosIndex == vm.onesAndZeros.count - 1 {
-                                        vm.onesAndZerosIndex = 0
-                                    } else {
-                                        vm.onesAndZerosIndex += 1
-                                    }
-                                }
-                            }
-                            .zIndex(0)
-                        // name of the app
-                        
-                        Text("Léshpngo")
-                            .font(.system(size: 50))
-                            .font(.caption)
-                            .foregroundColor(Color("offBlue"))
-                            .zIndex(5)
+                        VStack {
+                            Rectangle()
+                                .foregroundColor(.clear)
+                                .frame(width: 200)
+                                .modifier(Shapes.FlickeringBinaryBackground())
+                        }
+                    
                         
                     }
-                    
                     .padding(10)
                     .scaleEffect(1)
                     Spacer()
                         .frame(height: 650)
                 }
-                
-                
-                
+
                 VStack {
                     Spacer()
                         .frame(height: 110)
@@ -88,78 +67,143 @@ struct DatabaseLoginView: View {
                             .frame(width: 350, height: haveAnAccount ? 500 : 590)
                         
                         VStack {
-                            Text("Welcome")
-                                .foregroundColor(Color("homeBrew"))
-                                .frame(width: 150, height: 70)
-                                .modifier(Shapes.NeumorphicBox())
+                            Spacer()
+                                .frame(height: 20)
+                            Text("").padding()
+                                .underline(false)
+                                .buttonStyle(.borderless)
+                                .frame(width: 150, height: 50)
+                                .cornerRadius(40)
+                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                .overlay(
+                                    Text(haveAnAccount ? "Log In" : "Sign Up")
+                                    .fontWeight(.thin)
+                                    .font(.system(size: 22))
+                                    .foregroundColor(Color("homeBrew"))
+
+                                )
                             Spacer()
                                 .frame(height: 15)
                             if haveAnAccount == false {
                                 VStack {
-                                    Text("Enter your name")
+                                    Text("Enter your Email")
+                                        .fontWeight(.thin)
                                         .foregroundColor(Color("homeBrew"))
-                                    
-                                    Spacer()
-                                        .frame(height: 0)
-                                    
-                                    TextField( "name:", text: $realm.email)
-                                        .padding(.leading, 40)
-                                        .padding(.top, 4)
-                                        .foregroundColor(Color("homeBrew"))
-                                        .frame(width: 300, height: 70)
-                                        .modifier(Shapes.NeumorphicBox())
                                     
                                     Spacer()
                                         .frame(height: 10)
-                                    Text("Enter a passwoard")
+               
+                                    ZStack {
+                                        Rectangle()
+                                            .frame(width: 300, height: 50)
+                                            .foregroundColor(.clear)
+                                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                        
+                                        TextField( "Email", text: $realm.email)
+                                            .padding(.leading, 25)
+                                            .padding(.top, 4)
+                                            .foregroundColor(Color("homeBrew"))
+                                            .frame(width: 300, height: 50)
+                                           
+                                        
+                                    }
+                                    Spacer()
+                                        .frame(height: 15)
+                                    Text("Enter a password")
+                                        .fontWeight(.thin)
                                         .foregroundColor(Color("homeBrew"))
                                     VStack {
                                         Spacer()
-                                            .frame(height: 0)
-                                        TextField("password:", text: $realm.password)
-                                            .padding(.leading, 40)
-                                            .padding(.top, 4)
-
-
-                                            .foregroundColor(Color("homeBrew"))
-                                            .frame(width: 300, height: 70)
-                                            .modifier(Shapes.NeumorphicBox())
-                                        Spacer()
                                             .frame(height: 10)
-                                        Text("reenter a passwoard")                            .foregroundColor(Color("homeBrew"))
-                                        Spacer()
-                                            .frame(height: 0)
-                                        TextField("password:", text: $realm.password)
-                                            .padding(.leading, 40)
-                                            .padding(.top, 4)
-
-                                            .foregroundColor(Color("homeBrew"))
-                                            .frame(width: 300, height: 70)
-                                            .modifier(Shapes.NeumorphicBox())
+                                       
+                                        ZStack {
+                                            Rectangle()
+                                                .frame(width: 300, height: 50)
+                                                .foregroundColor(.clear)
+                                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                            
+                                            SecureField( "password", text: $realm.password)
+                                                .padding(.leading, 25)
+                                                .padding(.top, 4)
+                                                .foregroundColor(Color("homeBrew"))
+                                                .frame(width: 300, height: 50)
+                                           
+                                        }
+                                        
                                         Spacer()
                                             .frame(height: 15)
+                                        Text("Reenter a password")
+                                            .fontWeight(.thin)
+                                            .foregroundColor(Color("homeBrew"))
+                                        
+                                        Spacer()
+                                            .frame(height: 10)
+                                        ZStack {
+                                            Rectangle()
+                                                .frame(width: 300, height: 50)
+                                                .foregroundColor(.clear)
+                                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                            
+                                            SecureField( "password", text: $realm.reenterPassword)
+                                                .padding(.leading, 25)
+                                                .padding(.top, 4)
+                                                .foregroundColor(Color("homeBrew"))
+                                                .frame(width: 300, height: 50)
+                                                .cornerRadius(30)
+                                              
+                                        }
+                                        Spacer()
+                                            .frame(height: 30)
                                         
                                         Button(action: {
-                                            realm.signup()
-                                        }, label: { Text("Create account")
-                                                .frame(width: 100)
+                                            if realm.password == realm.reenterPassword {
+                                                realm.signup()
+
+                                            }
+                                            if realm.password != realm.reenterPassword {
+                                                wrongPassword = true
+
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                    wrongPassword = false
+
+                                                }
+                                            
+                                            }
+                                            if realm.isEmailValid(realm.email, min: realm.minLength, max: realm.maxLength) {
+                                                print("The email is valid.")
+                                            } else {
+                                                realm.signUpSuccess = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
+                                                    realm.signUpSuccess = false
+
+                                                }
+
+                                            }
+                                        }, label: { Text("Create account!")
+                                                .fontWeight(.thin)
+                                                .frame(width: 150)
                                                 .underline(false)
                                         })
                                         .buttonStyle(.borderless)
                                         .foregroundColor(Color("homeBrew"))
-                                        .frame(width: 125, height: 70)
+                                        .frame(width: 200, height: 70)
                                         .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                         
                                         Spacer()
-                                            .frame(height: 20)
+                                            .frame(height: 30)
                                         Button(action: {
                                             withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
                                                 haveAnAccount = true
                                             }
+                                            realm.password = ""
+                                            realm.email = ""
+                                            realm.reenterPassword = ""
                                         }, label:{
-                                            Text("already have an account?")
-                                                .frame(width: 100)
+                                            Text("Have an account?")
+                                                .fontWeight(.thin)
+                                                .frame(width: 150)
                                                 .underline(false)
+                                            
 
                                         })
                                         .buttonStyle(.borderless)
@@ -170,55 +214,82 @@ struct DatabaseLoginView: View {
                                 }
                             } else if haveAnAccount == true {
                                 VStack {
-                                    Text("Enter your username")
+                                    Spacer()
+                                        .frame(height: 5)
+                                    Text("Enter your Email")
+                                        .fontWeight(.thin)
                                         .foregroundColor(Color("homeBrew"))
                                     
                                     Spacer()
-                                        .frame(height: 0)
-                                    
-                                    TextField("name:", text: $realm.email)
-                                        .padding(.leading, 40)
-                                        .padding(.top, 4)
-                                        .foregroundColor(Color("homeBrew"))
-                                        .frame(width: 300, height: 70)
-                                        .modifier(Shapes.NeumorphicBox())
+                                        .frame(height: 15)
+                                    ZStack {
+                                        Rectangle()
+                                            .frame(width: 300, height: 50)
+                                            .foregroundColor(.clear)
+                                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                        
+                                        TextField("name", text: $realm.email)
+                                            .padding(.leading, 25)
+                                            .padding(.top, 4)
+                                            .foregroundColor(Color("homeBrew"))
+                                            .frame(width: 300, height: 50)
+                                        
+                                    }
                                     Spacer()
-                                        .frame(height: 10)
+                                        .frame(height: 15)
                                     Text("Enter your password")
+                                        .fontWeight(.thin)
                                         .foregroundColor(Color("homeBrew"))
                                     VStack {
                                         Spacer()
-                                            .frame(height: 0)
-                                        TextField("password:", text: $realm.password)
-                                            .padding(.leading, 40)
-                                            .padding(.top, 4)
-                                            .foregroundColor(Color("homeBrew"))
-                                            .frame(width: 300, height: 70)
-                                            .modifier(Shapes.NeumorphicBox())
+                                            .frame(height: 10)
                                         
+                                        ZStack {
+                                            Rectangle()
+                                                .frame(width: 300, height: 50)
+                                                .foregroundColor(.clear)
+                                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                            SecureField("password", text: $realm.password)
+                                                .padding(.leading, 25)
+                                                .padding(.top, 4)
+                                                .foregroundColor(Color("homeBrew"))
+                                                .frame(width: 300, height: 50)
+                                        }
+
                                         Spacer()
                                             .frame(height: 30)
                                         Button(action: {
 
                                             realm.login()
                                             
-                                        }, label: { Text("Login")
-                                                .underline(false)
+                                        }, label: {
+                                            HStack {
+                                                Spacer()
+                                                    .frame(width: 40)
+                                                Text("Sign in")
+                                                    .fontWeight(.thin)
+                                                    .underline(false)
+                                                Spacer()
+                                                    .frame(width: 20)
+                                                Image(systemName: "rectangle.portrait.and.arrow.right")
+                                                    .fontWeight(.thin)
+
+                                            }
 
                                         })
                                         .buttonStyle(.borderless)
                                         .foregroundColor(Color("homeBrew"))
-                                        .frame(width: 100, height: 70)
+                                        .frame(width: 200, height: 70)
                                         .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                         Spacer()
-                                            .frame(height: 20)
+                                            .frame(height: 30)
                                         Button(action: {
                                             withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
                                                 haveAnAccount = false
                                             }
                                         }, label:{
-                                            Text("don't have an account?")
-                                                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                                            Text("Don't have an account?")
+                                                .fontWeight(.thin)
                                                 .foregroundColor(Color("homeBrew"))
                                                 .frame(width: 125)
                                                 .underline(false)
@@ -228,13 +299,61 @@ struct DatabaseLoginView: View {
                                         .frame(width: 200, height: 70)
                                         .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                                     }
+                                    
                                 }
+                                
                             }
+       
                         }
+                     
+                    }
+                    
+                }
+                
+                if wrongPassword {
+                    ZStack {
+                        
+                        RoundedRectangle(cornerRadius: 30)
+                            .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                            .foregroundColor(Color("offBlack"))
+                            .frame(width:300, height: 100)
+                        Text("The password you entered does not match")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color(.red))
+                            .frame(width: 200, height: 50)
                     }
                 }
+                
+                if !realm.signUpSuccess && !realm.errorMessage.isEmpty {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 30)
+                            .modifier(Shapes.NeumorphicPopedOutBox(mode: realm.mode))
+                            .foregroundColor(Color("offBlack"))
+                            .frame(width:300, height: 100)
+                   
+                        Text(realm.errorMessage)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color(.red))
+                            .frame(width: 200, height: 200)
+                       
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
+                                    realm.signUpSuccess = true
+                                    
+                                }
+                            }
+                    }
+                }
+                
             }
         }
+        .background(LinearGradient (
+
+            gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
+            startPoint: .bottom,
+            endPoint: .top))
+        .environmentObject(shapeVm)
+        .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
     }
 }
 

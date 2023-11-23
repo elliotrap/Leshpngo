@@ -12,22 +12,33 @@ import AVFoundation
 import RealmSwift
 import Combine
 
-class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate  {
-
-
-
+class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate  {
+    
+    
+    
     static var shared = ChatViewModel()
     
     private var realm = LoginLogout()
-
+    
     private let openAIService = OpenAIService()
     
     private var viewModelTwo = OpenAIService()
     
+    @Published var databaseAccess = false
     
-    var player: AVAudioPlayer?
+    @Published var darkmode = false
+    
+    @Published var meditationDuration: TimeInterval = 0
 
-    private var startDate: Date?
+    @Published var totalMeditationTimeString: String = ""
+    
+    @Published var totalMeditationTime: Double = 0
+    
+    @Published var counter: Int = 0
+
+    @Published var isPaused = true
+    
+    @Published var ttsIsTalking = false
     
     @Published var GPTLoading = false
     
@@ -40,7 +51,24 @@ You are vipassana meditation expert training people through an app. give me a no
             @Published var messages: [Message] = []
             
             @Published var currentInput: String = ""
+    
+    var player: AVAudioPlayer?
+    
+    private var startDate: Date?
+    
+    var currentItem: Item?
             
+    var meditationTimer: Timer?
+    
+    @Published var randomText = ""
+    let characters = ["0", "1"]
+    
+    private func startFlickeringEffect() {
+            Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
+                self.randomText = (0..<50).map { _ in self.characters.randomElement() ?? "0" }.joined()
+            }
+        }
+    
     func sendMessage(messageContent: String? = nil, systemContent: String? = nil) {
         
         let userMessageContent = messageContent ?? self.currentInput
@@ -48,7 +76,6 @@ You are vipassana meditation expert training people through an app. give me a no
                 
         let userMessage = Message(id: UUID(), role: .user, content: userMessageContent, createAt: Date())
          let systemMessage = Message(id: UUID(), role: .system, content: systemMessageContent, createAt: Date())
-
 
                 currentInput = ""
                 
@@ -98,8 +125,7 @@ You are vipassana meditation expert training people through an app. give me a no
                    
                         let requestBody: [String: Any] = ["input": input, "voice": voice, "audioConfig": audioConfig]
                         let requestBodyData = try! JSONSerialization.data(withJSONObject: requestBody)
-                
-                     
+            
                         request.httpBody = requestBodyData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
@@ -111,38 +137,186 @@ You are vipassana meditation expert training people through an app. give me a no
                     if let audioContent = responseJSON["audioContent"] as? String,
                        let audioData = Data(base64Encoded: audioContent) {
 
-                playAudio(fromData: audioData) {
-              
-                }
+                        self.playAudio(fromData: audioData) { result in
+                            switch result {
+                            case .success:
+                                print("Audio started successfully.")
+                            case .failure(let error):
+                                print("Failed to start audio: \(error)")
+                                // Here you can add any additional handling or notifications about the failure.
+                            }
+                        }
+
             }
         }
-
                     task.resume()
-        
-    func playAudio(fromData audioData: Data, completion: @escaping () -> Void) {
-            do {
-                
-                self.startDate = Date()
-                player = try AVAudioPlayer(data: audioData)
-                player?.prepareToPlay()
-                player?.play()
-            } catch {
-                print("Error playing audio: \(error)")
+    }
+    
+    func playAudio(fromData audioData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            self.player = try AVAudioPlayer(data: audioData)
+            player?.delegate = self
+            player?.prepareToPlay()
+            player?.play()
+            
+            // UI-related tasks are dispatched on the main thread
+            DispatchQueue.main.async {
+                self.startMeditation()
+                print("Is timer valid? \(self.meditationTimer?.isValid ?? false)")
             }
+            
+            completion(.success(()))
+            
+        } catch {
+            print("Error playing audio: \(error)")
+            
+            // Call the completion handler with the error
+            completion(.failure(error))
         }
     }
 
 
+    @objc func timerFired() {
+        meditationDuration += 1
+        print("Timer fired. Meditation duration: \(meditationDuration) seconds.")
+    }
+
+    func startMeditation() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            // Check if the timer is already running
+            if self.meditationTimer == nil {
+                print("Starting meditation timer...")
+                
+                self.meditationTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
+                
+                // No need to add the timer to the main run loop when using `scheduledTimer`. It's added automatically.
+            } else {
+                print("Meditation timer is already running.")
+            }
+        }
+    }
+
+    deinit {
+        meditationTimer?.invalidate()
+        meditationTimer = nil
+    }
+
+
+    func stopMeditation() {
+        meditationTimer?.invalidate()
+        meditationTimer = nil
+        print("audio player did finish playing")
+        updateTotalDuration(duration: meditationDuration)
+        saveUsageToRealm(duration: meditationDuration)
+    }
+
+    func updateTotalDuration(duration: TimeInterval) {
+  
+            // Try to initialize a Realm instance
+            do {
+                let realm = try Realm()
+                
+                // Fetch the first user item or create a new one if it doesn't exist
+                // This seems to suggest a singleton pattern for a 'user' or global entry in the database.
+                // Ensure this behavior is intended.
+                var user = realm.objects(Item.self).first
+                if user == nil {
+                    user = Item() // Create a new user item if one doesn't exist in the database
+                }
+
+                // Try to write changes to the database
+                try realm.write {
+                    user?.duration += duration
+                    if user?.realm == nil {
+                        realm.add(user!)
+                    }
+                }
+            } catch {
+                // Handle or log the error as per your needs
+                print("Error updating duration in Realm: \(error)")
+            }
+    }
+
+    
+    func saveUsageToRealm(duration: TimeInterval) {
+        print("saveUsageToRealm")
+
+        let realm = try! Realm()
+        let item = Item(name: "", isFavorite: false, savedId: 0)
+        item.duration = duration
+        item.startDate = Date()
+
+        try! realm.write {
+            realm.add(item)
+        }
+    }
+
+
+    func retrieveMeditations() -> [Item] {
+        let realm = try! Realm()
+        let items = realm.objects(Item.self)
+        return Array(items)
+    }
+    
+    func getTotalDuration() -> TimeInterval {
+        let realm = try! Realm()
+        let user = realm.objects(Item.self).first
+        return user?.duration ?? 0
+    }
+
+    func formatTotalDuration() -> String {
+        let totalDuration = getTotalDuration()
+        return formatDuration(totalDuration)
+    }
     
     func formatDuration(_ duration: TimeInterval) -> String {
-        let minutes = Int(duration) / 60
+        let hours = Int(duration) / 3600
+        let minutes = (Int(duration) % 3600) / 60
         let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
 
     
-
+    func togglePauseResume() {
+         if isPaused {
+             // Resume playing
+             player?.play()
+         } else {
+             // Pause playing
+             player?.pause()
+         }
+         isPaused.toggle()
+     }
     
+    func justPause() {
+        player?.pause()
+    }
+    
+    func rewind15Seconds() {
+        guard let player = player else { return }
+        
+        let currentTime = player.currentTime
+        let newTime = max(currentTime - 15.0, 0)
+        
+        player.currentTime = newTime
+    }
+    
+   
+    
+    func forward15Seconds() {
+        guard let player = player else { return }
+        
+        let currentTime = player.currentTime
+        let newTime = max(currentTime + 15.0, 0)
+        
+        player.currentTime = newTime
+    }
+
                 func fetchVoiceData(completion: @escaping (Voice?) -> Void) {
                     let apiKey = "AIzaSyDf2LDCrnMC1fnEaZN5-iNYh8f9EOMjH1I"
                     let url = URL(string: "https://texttospeech.googleapis.com/v1/text:synthesize?key=\(apiKey)")!
@@ -199,4 +373,3 @@ struct Message: Decodable {
 
 
 }
-

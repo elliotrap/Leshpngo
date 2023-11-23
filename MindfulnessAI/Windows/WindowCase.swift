@@ -1,4 +1,3 @@
-//
 //  WindowCase.swift
 //  MindfulnessAI
 //
