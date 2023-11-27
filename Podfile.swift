@@ -1,0 +1,18 @@
+//
+//  Podfile.swift
+//  MindfulnessAI
+//
+//  Created by Elliot Rapp on 6/27/23.
+//
+
+
+
+
+platform :ios, '8.0'
+use_frameworks!
+
+target 'MyApp' do
+  pod 'AFNetworking', '~> 2.6'
+  pod 'ORStackView', '~> 3.0'
+  pod 'SwiftyJSON', '~> 2.3'
+end
