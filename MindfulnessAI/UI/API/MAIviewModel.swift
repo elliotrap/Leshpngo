@@ -1,4 +1,4 @@
-//file test
+//
 //  MAIviewModel.swift
 //  MindfulnessAI
 //
@@ -16,7 +16,23 @@ class ViewModel: ObservableObject {
         
         
     }
-    
+    class ViewModel: ObservableObject {
+        init() {
+            
+            
+        }class ViewModel: ObservableObject {
+            init() {
+                
+                
+            }class ViewModel: ObservableObject {
+                init() {
+                    
+                    
+                }class ViewModel: ObservableObject {
+                    init() {
+                        
+                        
+                    }
     
     @ObservedObject var voice = ChatViewModel()
     
