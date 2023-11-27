@@ -400,7 +400,7 @@ struct ContentView_Previews5: PreviewProvider {
         let group = BackendGroup()
         return Group {
             
-            ChatViewTop(mode: Shapes(), group: group)
+            ChatView(mode: Shapes(), group: group)
         }
     }
 }
