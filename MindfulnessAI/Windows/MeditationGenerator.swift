@@ -197,19 +197,12 @@ struct MeditationGenerator: View {
                             .zIndex(1)
                         PlayAndGenerateButtons(mode: Shapes(), group: group)
                             
-                        
+        
                     }
                 }
-                    
-
-                 
-                    
                 }
             .frame(minWidth: 100, maxWidth: 700, minHeight: 0, maxHeight: 800)
-                
-            
-          
-        
+
         }
         .background(LinearGradient (
 
@@ -357,8 +350,7 @@ struct PlayAndGenerateButtons: View {
                     
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 150, height: 150)
-                        .shadow(color: Color("shadowBlack"), radius: 20, x: mode.changeMode ? 20 : -20, y:mode.changeMode ? 20 : -20)
-                        .shadow(color: Color("shadowLight"), radius: 20, x: mode.changeMode ? -20 : 20, y: mode.changeMode ? -20 : 20)
+              
                     // generate meditation button
                     Button(action: {
                         
