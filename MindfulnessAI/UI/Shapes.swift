@@ -400,8 +400,10 @@ class Shapes: ObservableObject {
                                         .stroke(Color("circleShadowLower"), lineWidth: 11)
                                         .blur(radius: 7)
                                         .offset(x: 4, y: 4)
-                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowUpper"), Color.black))))
-                            
+                                        .mask(RoundedRectangle(cornerRadius: 30).fill(LinearGradient(Color("circleShadowUpper"), Color.black)))
+                                )
+                          
+
                         
                     } else {
                     
@@ -625,13 +627,13 @@ class Shapes: ObservableObject {
                         startFlickeringEffect()
                     }
               
-                    .zIndex(1)
+                    .zIndex(4)
 
                 // Name of the app
                 Text("Léshpngo")
                     .font(.system(size: 52))
                     .foregroundColor(Color("logoColor"))
-                    .zIndex(2)
+                    .zIndex(5)
             }
         }
 

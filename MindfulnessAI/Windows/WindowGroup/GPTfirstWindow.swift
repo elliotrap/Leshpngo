@@ -70,36 +70,39 @@ struct ChatView: View {
             } else {
                 NavigationView {
                     ScrollView(showsIndicators: false) {
-                        VStack {
+                        ZStack {
                             VStack {
-                                ZStack {
-               
-                                    
-                                    // name of the app
-                                    Text("Léshpngo")
-                                        .font(.system(size: 50))
-                                        .font(.caption)
-                                        .foregroundColor(Color("logoColor"))
-                                        .zIndex(5)
-                                        .modifier(Shapes.FlickeringBinaryBackground())
-                                    
+                                VStack {
+                                    ZStack {
+                                        
+                                        
+                                        // name of the app
+                                        Text("Léshpngo")
+                                            .font(.system(size: 50))
+                                            .font(.caption)
+                                            .foregroundColor(Color("logoColor"))
+                                            .modifier(Shapes.FlickeringBinaryBackground())
+                                        
+                                    }
                                 }
+                                .padding(10)
+                                .scaleEffect(1)
+                                
+                                
+                                ChatViewTop(mode: Shapes(), group: group)
+                                    .zIndex(3)
+                                Spacer().frame(height: 10)
+                                ChatViewTopMiddle(mode: Shapes(), group: group)
+                                    .zIndex(2)
+                                Spacer().frame(height: 20)
+                                ChatViewBottomMiddle(mode: Shapes(), group: group)
+                                    .zIndex(1)
+                                Spacer().frame(height: 20)
+                                ChatViewBottom(mode: Shapes(), group: group)
+                                    .zIndex(0)
+
                             }
-                            .padding(10)
-                            .scaleEffect(1)
-                            
-                            
-                            ChatViewTop(mode: Shapes(), group: group)
-                            Spacer().frame(height: 10)
-                            ChatViewTopMiddle(mode: Shapes(), group: group)
-                            Spacer().frame(height: 20)
-                            ChatViewBottomMiddle(mode: Shapes(), group: group)
-                            Spacer().frame(height: 20)
-                            ChatViewBottom(mode: Shapes(), group: group)
                         }
-                        
-                        
-                        
                     }
                     .frame(minWidth: 900, maxWidth: 1000, minHeight: 700, maxHeight: 2500)
                     

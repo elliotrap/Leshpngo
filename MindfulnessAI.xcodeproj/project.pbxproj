@@ -147,14 +147,14 @@
 		21C497312B0ED45100F8E40C /* ChatViewBottomMIddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewBottomMIddle.swift; sourceTree = "<group>"; };
 		21C497352B0ED9B200F8E40C /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		21E2F9272A8272E800FB6E8D /* DatabaseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatabaseLogin.swift; path = ../RealmProject/login/DatabaseLogin.swift; sourceTree = "<group>"; };
-		21E373A1299F156C008B57D5 /* MindfulnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindfulnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E373A1299F156C008B57D5 /* MindfulnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MindfulnessAI.app; path = "/Users/elliotrapp/Documents/Leshpingo3.0/build/Debug-iphoneos/MindfulnessAI.app"; sourceTree = "<absolute>"; };
 		21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIApp.swift; sourceTree = "<group>"; };
 		21E373A6299F156C008B57D5 /* MeditationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationGenerator.swift; sourceTree = "<group>"; };
 		21E373A8299F156D008B57D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21E373AB299F156D008B57D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		21E373B1299F156D008B57D5 /* MindfulnessAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindfulnessAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E373B1299F156D008B57D5 /* MindfulnessAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MindfulnessAITests.xctest; path = "/Users/elliotrapp/Documents/Leshpingo3.0/build/Debug-iphoneos/MindfulnessAITests.xctest"; sourceTree = "<absolute>"; };
 		21E373B5299F156D008B57D5 /* MindfulnessAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAITests.swift; sourceTree = "<group>"; };
-		21E373BB299F156D008B57D5 /* MindfulnessAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindfulnessAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E373BB299F156D008B57D5 /* MindfulnessAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MindfulnessAIUITests.xctest; path = "/Users/elliotrapp/Documents/Leshpingo3.0/build/Debug-iphoneos/MindfulnessAIUITests.xctest"; sourceTree = "<absolute>"; };
 		21E373BF299F156D008B57D5 /* MindfulnessAIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIUITests.swift; sourceTree = "<group>"; };
 		21E373C1299F156D008B57D5 /* MindfulnessAIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		21E373CE299F16AA008B57D5 /* MAIviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAIviewModel.swift; sourceTree = "<group>"; };
@@ -188,13 +188,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		210B94442A93EE2100111F89 /* GoogleCloudAPI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GoogleCloudAPI;
-			sourceTree = "<group>";
-		};
 		213A387F2A82B91100DABB31 /* DatabaseLogin */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,7 +268,6 @@
 				219901392A423AA100260F17 /* Constants.swift */,
 				219901372A4238F200260F17 /* ChatViewModel.swift */,
 				21E373CE299F16AA008B57D5 /* MAIviewModel.swift */,
-				210B94442A93EE2100111F89 /* GoogleCloudAPI */,
 				213A387F2A82B91100DABB31 /* DatabaseLogin */,
 			);
 			path = API;
@@ -287,19 +279,8 @@
 				21E373A3299F156C008B57D5 /* MindfulnessAI */,
 				21E373B4299F156D008B57D5 /* MindfulnessAITests */,
 				21E373BE299F156D008B57D5 /* MindfulnessAIUITests */,
-				21E373A2299F156C008B57D5 /* Products */,
 				21AB40DC2A45D85700D72FCC /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		21E373A2299F156C008B57D5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				21E373A1299F156C008B57D5 /* MindfulnessAI.app */,
-				21E373B1299F156D008B57D5 /* MindfulnessAITests.xctest */,
-				21E373BB299F156D008B57D5 /* MindfulnessAIUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		21E373A3299F156C008B57D5 /* MindfulnessAI */ = {
@@ -437,7 +418,7 @@
 				219901582A423B1B00260F17 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				21E2F97B2A827B4600FB6E8D /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
-			productRefGroup = 21E373A2299F156C008B57D5 /* Products */;
+			productRefGroup = 21E37398299F156C008B57D5;
 			projectDirPath = "";
 			projectReferences = (
 				{

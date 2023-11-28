@@ -114,22 +114,24 @@ struct MeditationGenerator: View {
                                     ScrollView {
                                         
                                         
-                 
-                                        // The text that is generated for the lesions
-                                        if let firstMessage = viewModel.messages.last(where: { $0.role != .system }) {
-                                            // Create a Text view with the content of the first message
-                                            
-                                            Text(firstMessage.content)
-                                                .padding(.top, 30)
-                                                .padding(.bottom, 30)
-                                            
-                                        }
                                         
+                                        if viewModel.GPTLoading == false {
+                                            // The text that is generated for the lesions
+                                            if let firstMessage = viewModel.messages.last(where: { $0.role != .system }) {
+                                                // Create a Text view with the content of the first message
+                                                
+                                                Text(firstMessage.content)
+                                                    .padding(.top, 10)
+                                                    .padding(.bottom, 10)
+                                                
+                                            }
+                                        }
                                     }
+                                    .padding(.top, 30)
                                    
                                 }
                                 .foregroundColor(Color("homeBrew"))
-                                .frame(width: 290, height: 350)
+                                .frame(width: 290, height: 360)
                                 .padding(.bottom, 65)
                                 .zIndex(5)
                                 
@@ -140,7 +142,6 @@ struct MeditationGenerator: View {
                                     .fill(Color("offBlack"))
                                     .frame(width: 355, height: 400)
                                     .modifier(Shapes.NeumorphicBox(mode: mode))
-
                                     .padding(.bottom, 30)
                            
                                 
@@ -187,154 +188,24 @@ struct MeditationGenerator: View {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 340, height: 200)
                 }
-                VStack {
-                    Spacer()
-                        .frame(height: 10)
-                    HStack {
-                        Button(action: {
-                            viewModel.rewind15Seconds()
-                        }, label: {
-                            HStack(spacing: 0) {
-                                Image(systemName: "chevron.backward.2" )
-                                    .foregroundColor(Color("homeBrew"))
-                                
-                                Text("15")
-                                    .underline(false)
-                                    .foregroundColor(Color("homeBrew"))
-                                    
-                                
-                            }
+                    
+                    
+                ZStack {
+                    
+                    VStack {
+                        BackAndForwardButtons(mode: Shapes(), group: group)
+                            .zIndex(1)
+                        PlayAndGenerateButtons(mode: Shapes(), group: group)
                             
-                        })
-                        .buttonStyle(.borderless)
-                        .frame(width: 90, height: 50)
-                        // nuemorphic design
-                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
-                        .zIndex(4)
-                        
-                        Spacer()
-                            .frame(width: 75)
-                        
-                        Button(action: {
-                            viewModel.forward15Seconds()
-                        }, label: {
-                            HStack(spacing: 0) {
-                                Text("15")
-                                    .underline(false)
-                                    .foregroundColor(Color("homeBrew"))
-                                
-                                Image(systemName: "chevron.forward.2" )
-                                    .foregroundColor(Color("homeBrew"))
-                                
-                            }
-                        })
-                        .buttonStyle(.borderless)
-                        .frame(width: 90, height: 50)
-                        // nuemorphic design
-                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
-                        .zIndex(4)
-                        
                         
                     }
-                    Spacer()
-                        .frame(height: 50)
                 }
-
-
-                    HStack(spacing: 40) {
-                        // meditation play link
-                        if playingMain {
-                            
-                            // lession play button
-                            Button(action: {
-                                
-                                viewModel.textToSpeech(ssmlText: viewModel.latestAssistantMessage)
-                                
-                                
-                                playingMain.toggle()
-                            }, label: {
-                                Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
-                                    .fontWeight(.thin)
-                                    .foregroundColor(Color("homeBrew"))
-                            })
-                            .buttonStyle(.borderless)
-                            .frame(width: 150, height: 150)
-                            // nuemorphic design
-                            .modifier(Shapes.NeumorphicCircle(mode: mode))
-                            .zIndex(4)
-                            
-                        } else {
-                            // lession play button
-                            Button(action: {
-                                playingMain.toggle()
-                            }, label: {
-                                Image(systemName: "pause.circle").resizable().frame(width: 50, height: 50) // play button
-                                    .fontWeight(.thin)
-                                    .foregroundColor(Color.red)
-                            })
-                            .buttonStyle(.borderless)
-                            .frame(width: 150, height: 150)
-                            // nuemorphic design
-                            .modifier(Shapes.NeumorphicCirclePushedIn(mode: mode))
-                            .zIndex(4)
-                            
-                        }
-                        
-                        if pressedResetMain {
-                            // generate meditation button
-                            Button(action: {
-                                
-                                viewModel.sendMessage()
-                                startMeditationPrompt = false
-                                pressedResetMain = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    pressedResetMain = true
-                                }
-                            },
-                                   label: {
-                                
-                                Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
-                                    .fontWeight(.thin)
-                                    .foregroundColor(Color("homeBrew"))
-                                
-                            })
-                            .buttonStyle(.borderless)
-                            .frame(width: 150, height: 150)
-                            // nuemorphic design
-                            .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
-                        } else {
-                            Button(action: {
-                                viewModel.sendMessage()
-                            } ,
-                                   label: {
-                                
-                                
-                                
-                            })
-                            .cornerRadius(30)
-                            .buttonStyle(.borderless)
-                            .frame(width: 150, height: 150)
-                            // nuemorphic design
-                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
-                            .overlay(
-                                Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
-                                    .fontWeight(.thin)
-                                    .foregroundColor(Color.gray)
-                            )
-                        }
-                    }
-                    .padding(.top, 0)
-
-                    .scaleEffect(0.9)
-                    
                     
 
-                    
-
-                    .frame(minWidth: 100, maxWidth: 700, minHeight: 0, maxHeight: 700)
+                 
                     
                 }
-                
+            .frame(minWidth: 100, maxWidth: 700, minHeight: 0, maxHeight: 800)
                 
             
           
@@ -348,9 +219,193 @@ struct MeditationGenerator: View {
         .environmentObject(shapeVm)
         .environment(\.colorScheme, shapeVm.darkmode ? .dark : .light)
 
-
         }
+    }
+}
+
+
+struct BackAndForwardButtons: View {
     
+    @ObservedObject var vm = ViewModel()
+    @ObservedObject var mode: Shapes
+    @ObservedObject var shapeVm = Shapes.shared
+    @ObservedObject var viewModel = ChatViewModel.shared
+    @StateObject var realm = LoginLogout()
+    @ObservedRealmObject var group: BackendGroup
+    @ObservedObject var helper = RealmHelper()
+
+    @State var startMeditationPrompt = true
+    let realmConnect = try! Realm()
+
+    @State var playingMain = true
+    @State var pressedResetMain = true
+    
+    var body: some View {
+        VStack {
+            Spacer()
+                .frame(height: 20)
+            HStack {
+                Button(action: {
+                    viewModel.rewind15Seconds()
+                }, label: {
+                    HStack(spacing: 0) {
+                        Image(systemName: "chevron.backward.2" )
+                            .foregroundColor(Color("homeBrew"))
+                        
+                        Text("15")
+                            .underline(false)
+                            .foregroundColor(Color("homeBrew"))
+                        
+                        
+                    }
+                    
+                })
+                .zIndex(2)
+                .buttonStyle(.borderless)
+                .frame(width: 90, height: 50)
+                // nuemorphic design
+                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                
+                Spacer()
+                    .frame(width: 75)
+                
+                Button(action: {
+                    viewModel.forward15Seconds()
+                }, label: {
+                    HStack(spacing: 0) {
+                        Text("15")
+                            .underline(false)
+                            .foregroundColor(Color("homeBrew"))
+                        
+                        
+                        Image(systemName: "chevron.forward.2" )
+                            .foregroundColor(Color("homeBrew"))
+                        
+                    }
+                })
+                .buttonStyle(.borderless)
+                .frame(width: 90, height: 50)
+                // nuemorphic design
+                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                
+                
+                
+            }
+            Spacer()
+                .frame(height: 20)
+        }
+    }
+}
+
+struct PlayAndGenerateButtons: View {
+    
+    @ObservedObject var vm = ViewModel()
+    @ObservedObject var mode: Shapes
+    @ObservedObject var shapeVm = Shapes.shared
+    @ObservedObject var viewModel = ChatViewModel.shared
+    @StateObject var realm = LoginLogout()
+    @ObservedRealmObject var group: BackendGroup
+    @ObservedObject var helper = RealmHelper()
+
+    @State var startMeditationPrompt = true
+    let realmConnect = try! Realm()
+
+    @State var playingMain = true
+    @State var pressedResetMain = true
+    
+    var body: some View {
+        HStack(spacing: 40) {
+            // meditation play link
+            if playingMain {
+                
+                // lession play button
+                Button(action: {
+                    
+                    viewModel.textToSpeech(ssmlText: viewModel.latestAssistantMessage)
+                    
+                    
+                    playingMain.toggle()
+                }, label: {
+                    Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
+                        .fontWeight(.thin)
+                        .foregroundColor(Color("homeBrew"))
+                })
+                .buttonStyle(.borderless)
+                .frame(width: 150, height: 150)
+                // nuemorphic design
+                .modifier(Shapes.NeumorphicCircle(mode: mode))
+                
+                
+            } else {
+                // lession play button
+                Button(action: {
+                    playingMain.toggle()
+                }, label: {
+                    Image(systemName: "pause.circle").resizable().frame(width: 50, height: 50) // play button
+                        .fontWeight(.thin)
+                        .foregroundColor(Color.red)
+                })
+                .buttonStyle(.borderless)
+                .frame(width: 150, height: 150)
+                // nuemorphic design
+                .modifier(Shapes.NeumorphicCirclePushedIn(mode: mode))
+                .zIndex(4)
+                
+            }
+            ZStack {
+                if pressedResetMain {
+                    
+                    RoundedRectangle(cornerRadius: 30)
+                        .frame(width: 150, height: 150)
+                        .shadow(color: Color("shadowBlack"), radius: 20, x: mode.changeMode ? 20 : -20, y:mode.changeMode ? 20 : -20)
+                        .shadow(color: Color("shadowLight"), radius: 20, x: mode.changeMode ? -20 : 20, y: mode.changeMode ? -20 : 20)
+                    // generate meditation button
+                    Button(action: {
+                        
+                        viewModel.sendMessage()
+                        startMeditationPrompt = false
+                        pressedResetMain = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            pressedResetMain = true
+                        }
+                    },
+                           label: {
+                        
+                        Image(systemName: "arrow.2.squarepath").resizable().frame(width: 90, height: 80) // reset button
+                            .fontWeight(.thin)
+                            .foregroundColor(Color("homeBrew"))
+                        
+                    })
+                    .buttonStyle(.borderless)
+                    .frame(width: 150, height: 150)
+                    // nuemorphic design
+                    .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                    
+                } else {
+                    Button(action: {
+                        viewModel.sendMessage()
+                    } ,
+                           label: {
+                        
+                        
+                        
+                    })
+                    .cornerRadius(30)
+                    .buttonStyle(.borderless)
+                    .frame(width: 150, height: 150)
+                    // nuemorphic design
+                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                    .overlay(
+                        Image(systemName: "arrow.2.squarepath").resizable().frame(width: 80, height: 70) // reset button
+                            .fontWeight(.thin)
+                            .foregroundColor(Color.gray)
+                    )
+                }
+            }
+        }
+        .padding(.top, 0)
+        
+        .scaleEffect(0.9)
     }
 }
 struct ContentView_Previews: PreviewProvider {
