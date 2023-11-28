@@ -40,6 +40,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		215F205D2B15955A002B7364 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 317338C42A43A4FA00D4EA0A;
+			remoteInfo = "Alamofire visionOS";
+		};
+		215F205F2B15955A002B7364 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 317338F42A43BE5F00D4EA0A;
+			remoteInfo = "Alamofire visionOS Tests";
+		};
 		21AB40CB2A45D3AC00D72FCC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */;
@@ -205,6 +219,8 @@
 				21AB40D62A45D3AC00D72FCC /* Alamofire tvOS Tests.xctest */,
 				21AB40D82A45D3AC00D72FCC /* Alamofire.framework */,
 				21AB40DA2A45D3AC00D72FCC /* Alamofire watchOS Tests.xctest */,
+				215F205E2B15955A002B7364 /* Alamofire.framework */,
+				215F20602B15955A002B7364 /* Alamofire visionOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -439,6 +455,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		215F205E2B15955A002B7364 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 215F205D2B15955A002B7364 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		215F20602B15955A002B7364 /* Alamofire visionOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire visionOS Tests.xctest";
+			remoteRef = 215F205F2B15955A002B7364 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		21AB40CC2A45D3AC00D72FCC /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
