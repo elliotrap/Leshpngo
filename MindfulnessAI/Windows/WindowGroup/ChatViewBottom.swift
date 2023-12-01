@@ -28,22 +28,48 @@ struct ChatViewBottom: View {
 
     var body: some View {
         
+       
+        ZStack {
+            VStack {
+                // the display structure
+                display(mode: Shapes(), group: group)
+                    .zIndex(2)
+                Spacer()
+                .frame(height: 10)
+                // the structure for the back and forward 15 seconds buttons
+                backAndForwardButtonsHome(mode: Shapes(), group: group)
+                    .zIndex(1)
+                // the play and pause button structure
+                playAndGenerateButtonsHome(mode: Shapes(), group: group)
+            }
+        }
+    }
+}
+
+struct display: View {
+    @ObservedObject var mode: Shapes
+    @ObservedObject var vm = ViewModel()
+    @ObservedObject var shapeVm = Shapes.shared
+    @StateObject var realm = LoginLogout()
+    @ObservedObject var viewModel = ChatViewModel.shared
+    
+    @ObservedRealmObject var group: BackendGroup
+    let savedItems = Item.self
+
+    
+    @State var playing = true
+    @State var pressedReset = true
+    @State var startLessonPrompt = true
+    @State var startMeditationPrompt = false
+    
+    var body: some View {
         ZStack(alignment: .bottom) {
+            // the background for the text container
             RoundedRectangle(cornerRadius: 30)
                 .frame(width: 350, height: 450)
                 .foregroundColor(Color("offBlack"))
                 .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
-            if viewModel.GPTLoading {
-                VStack {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("homeBrew")))
-                        .scaleEffect(2)
-                        .zIndex(6)
-                    
-                    Spacer()
-                        .frame(height: 170)
-                }
-            }
+            
             // MARK: - Lesson section
             VStack {
                 Spacer()
@@ -52,7 +78,6 @@ struct ChatViewBottom: View {
                     HStack(content:  {
                         
                         
-                        Text("")
                         
                     })
                     .frame(width: 130, height: 50)
@@ -83,7 +108,7 @@ struct ChatViewBottom: View {
                     .foregroundColor(Color("homeBrewSelect"))
                     .scaleEffect(0.9)
                     .zIndex(2)
-                // the box that holds the text for the lesion
+                // the text box for the generated meditations
                 // MARK: - Text box
                 RoundedRectangle(cornerRadius: 50)
                     .fill(Color.clear)
@@ -92,17 +117,18 @@ struct ChatViewBottom: View {
                 ZStack {
                     VStack {
                         VStack {
+                            // this text shows to the user that in order to generate a meditation you need to click the generate button
                             if startLessonPrompt {
                                 VStack {
                                     Image(systemName: "arrow.2.squarepath")
                                         .fontWeight(.thin)
                                     
                                     //    .position(x: 61, y: 67)
-                                        .position(x: 60, y: 68)
+                                        .position(x: 60, y: 53)
                                         .foregroundColor(Color("homeBrew"))
                                     
                                     HStack {
-                                        
+                                        // the text that gets displayed for the user to generate a meditation
                                         Text("Generate a lesson by pressing the        button.")
                                             .fontWeight(.thin)
                                             .font(.system(size: 20))
@@ -114,6 +140,7 @@ struct ChatViewBottom: View {
                             }
                             
                             ScrollView {
+                                // This displays to the user the first message in the list of meditations that have been generated 
                                 if viewModel.GPTLoading == false {
                                     // The text that is generated for the lesions
                                     if let firstMessage = viewModel.messages.last(where: { $0.role != .system }) {
@@ -131,6 +158,8 @@ struct ChatViewBottom: View {
                         Spacer()
                             .frame(height: 15)
                     }
+                    
+                    // the progress bar for while the meditation is loading
                     if viewModel.GPTLoading {
                         ProgressView()
                             .progressViewStyle(
@@ -148,13 +177,6 @@ struct ChatViewBottom: View {
 
         }
         .scaleEffect(0.9)
-        ZStack {
-            VStack {
-                backAndForwardButtonsHome(mode: Shapes(), group: group)
-                    .zIndex(1.0)
-                playAndGenerateButtonsHome(mode: Shapes(), group: group)
-            }
-        }
     }
 }
 
@@ -326,7 +348,7 @@ struct backAndForwardButtonsHome: View {
                 .buttonStyle(.borderless)
                 .frame(width: 100, height: 50)
                 // nuemorphic design
-                .modifier(Shapes.NeumorphicCircle(mode: mode))
+                .modifier(Shapes.backAndForthButton(mode: mode))
                 .zIndex(4)
         
             Spacer()
@@ -349,7 +371,7 @@ struct backAndForwardButtonsHome: View {
                 .buttonStyle(.borderless)
                 .frame(width: 100, height: 50)
                 // nuemorphic design
-                .modifier(Shapes.NeumorphicCircle(mode: mode))
+                .modifier(Shapes.backAndForthButton(mode: mode))
                 .zIndex(4)
                 
           

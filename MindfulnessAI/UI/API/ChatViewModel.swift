@@ -24,6 +24,11 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AV
     
     private var viewModelTwo = OpenAIService()
     
+    
+    @Published var profileButtonPressed: Bool = false
+    
+    @Published var durationButtonPressed: Bool = false
+    
     @Published var databaseAccess = false
     
     @Published var darkmode = false

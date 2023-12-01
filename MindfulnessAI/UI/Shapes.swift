@@ -15,14 +15,15 @@ extension LinearGradient {
     }
 }
 
+
+
 class Shapes: ObservableObject {
-    
+
     static var shared = Shapes()
     
     @Published var changeMode: Bool = true
     @Published var darkmode: Bool = true
 
-    
     // nuemorphic design template for the text
     struct NeumorphicBox: ViewModifier {
         
@@ -168,6 +169,7 @@ class Shapes: ObservableObject {
                             )
                             .padding(2)
                             .blur(radius: 2)
+                     
                     } else {
                         
                         Color("shadowBlack")
@@ -196,13 +198,17 @@ class Shapes: ObservableObject {
                             )
                             .padding(2)
                             .blur(radius: 2)
+                        
                     }
                 })
                 .cornerRadius(100)
+                .shadow(color: Color("backButtonShadowBlack"), radius: 5, x: mode.changeMode ? 10 : -10, y: mode.changeMode ? 10 : -10)
+                .shadow(color: Color("shadowLight"), radius: 5, x: mode.changeMode ? -10 : 10, y: mode.changeMode ? -10 : 10)
 
             
             
         }
+        
         
     }
     
@@ -342,7 +348,51 @@ class Shapes: ObservableObject {
                 .shadow(color: Color("shadowLight"), radius: 20, x: mode.changeMode ? -20 : 20, y: mode.changeMode ? -20 : 20)
         }
     }
-    
+    struct NeumorphicMenuPopedOutBox: ViewModifier {
+        
+        @ObservedObject var mode = Shapes.shared
+
+        
+        func body(content: Content) -> some View {
+            content
+                .background(ZStack {
+                    if mode.changeMode {
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: -8, y: -8)
+                        
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                        
+                    } else {
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: 8, y: 8)
+                        
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                    }
+                })
+                .cornerRadius(30)
+                .shadow(color: Color("mediumSizedShadowBlack"), radius: 10, x: mode.changeMode ? 10 : -10, y: mode.changeMode ? 10 : -10)
+                .shadow(color: Color("shadowLight"), radius: 10, x: mode.changeMode ? -10 : 10, y: mode.changeMode ? -10 : 10)
+        }
+    }
+   
     struct NeumorphicPopedOutBackBox: ViewModifier {
         
         @ObservedObject var mode = Shapes.shared
@@ -372,7 +422,51 @@ class Shapes: ObservableObject {
                 .shadow(color: Color("shadowLight"), radius: 30, x:  20, y:  20)
         }
     }
+    struct backAndForthButton: ViewModifier {
+        
+        @ObservedObject var mode = Shapes.shared
 
+        
+        func body(content: Content) -> some View {
+            content
+                .background(ZStack {
+                    if mode.changeMode {
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: -8, y: -8)
+                        
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                        
+                    } else {
+                        Color("shadowBlack")
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color("offBlue"))
+                            .blur(radius: 10)
+                            .offset(x: 8, y: 8)
+                        
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(
+                                LinearGradient(gradient: Gradient(colors: [Color("offBlue"), Color("offBlack")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                            )
+                            .padding(2)
+                            .blur(radius: 2)
+                        
+                    }
+                })
+                .cornerRadius(30)
+                .shadow(color: Color("backAndForthShadowBlack"), radius: 5, x: mode.changeMode ? 10 : -10, y:mode.changeMode ? 10 : -10)
+                .shadow(color: Color("shadowLight"), radius: 5, x: mode.changeMode ? -10 : 10, y: mode.changeMode ? -10 : 10)
+        }
+    }
+    
     
     // nuemorphic design template for the boxes of buttons
     struct NeumorphicClickedBox: ViewModifier {

@@ -57,18 +57,19 @@ struct MeditationGenerator: View {
                     VStack {
                         
                         Text("")
-                            .frame(width: 210, height: 60)
+                            .frame(width: 150, height: 60)
                             .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                             .overlay(
-                                Text("Choose a Meditation")
+                                Text("Generate")
                                     .fontWeight(.thin)
-                                    .font(.system(size: 18))
+                                    .font(.system(size: 22))
                                     .foregroundColor(Color("homeBrew"))
                             )
                         
                         
                         
                         ZStack {
+                            // the progress bar for while the meditation is loading
                             if viewModel.GPTLoading {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color("homeBrew")))
@@ -90,17 +91,18 @@ struct MeditationGenerator: View {
                                 
                                 
                                 VStack {
+                                    // this text shows to the user that in order to generate a meditation you need to click the generate button
                                     if startMeditationPrompt {
                                         VStack {
                                             Image(systemName: "arrow.2.squarepath")
                                                 .fontWeight(.thin)
                                             
                                             //    .position(x: 61, y: 42)
-                                                .position(x: 60, y: 58)
+                                                .position(x: 60, y: 63)
                                                 .foregroundColor(Color("homeBrew"))
                                             
                                             HStack {
-                                                
+                                                // the text that gets displayed for the user to generate a meditation
                                                 Text("Generate a lesson by pressing the        button.")
                                                     .fontWeight(.thin)
                                                     .font(.system(size: 20))
@@ -114,11 +116,11 @@ struct MeditationGenerator: View {
                                     ScrollView {
                                         
                                         
-                                        
+                                        // This displays to the user the first message in the list of meditations that have been generated
                                         if viewModel.GPTLoading == false {
                                             // The text that is generated for the lesions
                                             if let firstMessage = viewModel.messages.last(where: { $0.role != .system }) {
-                                                // Create a Text view with the content of the first message
+                                          
                                                 
                                                 Text(firstMessage.content)
                                                     .padding(.top, 10)
@@ -137,11 +139,11 @@ struct MeditationGenerator: View {
                                 
                                
                             
-                                
+                                // the text box for the generated meditations
                                 RoundedRectangle(cornerRadius: 50)
                                     .fill(Color("offBlack"))
-                                    .frame(width: 355, height: 400)
-                                    .modifier(Shapes.NeumorphicBox(mode: mode))
+                                    .frame(width: 340, height: 385)
+                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                     .padding(.bottom, 30)
                            
                                 
@@ -150,11 +152,13 @@ struct MeditationGenerator: View {
                                         .frame(height: 435)
                                     
                                     Button(action: {
+                                        // This allows the user to save up to 6 meditations
                                         if viewModel.counter < 6 {
                                             
                                             viewModel.counter += 1
                                             let newItem = Item(name: viewModel.latestAssistantMessage, isFavorite: false, savedId: viewModel.counter)
 
+                                            // this saves the meditations
                                             try? realmConnect.write {
                                                 realmConnect.add(newItem)
                                             }
@@ -183,7 +187,7 @@ struct MeditationGenerator: View {
                 .scaleEffect(0.9)
                 .zIndex(6)
             
-                
+                // the message that gets displayed to the user that they can only save up to 6 meditations
                 if viewModel.counter >= 6 {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: 340, height: 200)
@@ -193,8 +197,10 @@ struct MeditationGenerator: View {
                 ZStack {
                     
                     VStack {
+                        // the structure for the back and forward 15 seconds buttons
                         BackAndForwardButtons(mode: Shapes(), group: group)
                             .zIndex(1)
+                        // the play and pause button structure
                         PlayAndGenerateButtons(mode: Shapes(), group: group)
                             
         
@@ -204,9 +210,10 @@ struct MeditationGenerator: View {
             .frame(minWidth: 100, maxWidth: 700, minHeight: 0, maxHeight: 800)
 
         }
+        
+        // the background colors for the app
         .background(LinearGradient (
-
-            gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
+            gradient: Gradient(colors: [Color("backgroundAppColor"), Color("offBlue")]),
             startPoint: .bottom,
             endPoint: .top))
         .environmentObject(shapeVm)
@@ -257,7 +264,7 @@ struct BackAndForwardButtons: View {
                 .buttonStyle(.borderless)
                 .frame(width: 90, height: 50)
                 // nuemorphic design
-                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                .modifier(Shapes.backAndForthButton(mode: mode))
                 
                 Spacer()
                     .frame(width: 75)
@@ -279,7 +286,7 @@ struct BackAndForwardButtons: View {
                 .buttonStyle(.borderless)
                 .frame(width: 90, height: 50)
                 // nuemorphic design
-                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                .modifier(Shapes.backAndForthButton(mode: mode))
                 
                 
                 

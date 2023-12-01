@@ -82,7 +82,6 @@ struct ChatView: View {
                                             .font(.caption)
                                             .foregroundColor(Color("logoColor"))
                                             .modifier(Shapes.FlickeringBinaryBackground())
-                                        
                                     }
                                 }
                                 .padding(10)
@@ -106,8 +105,8 @@ struct ChatView: View {
                     }
                     .frame(minWidth: 900, maxWidth: 1000, minHeight: 700, maxHeight: 2500)
                     
+                    // the background colors for the app
                     .background(LinearGradient (
-                        
                         gradient: Gradient(colors: [Color("offBlue"), Color("backgroundAppColor")]),
                         startPoint: .bottom,
                         endPoint: .top))
@@ -120,8 +119,7 @@ struct ChatView: View {
         .onAppear {
             // Simulate a loading process, such as fetching data
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                // This delay represents the loading time
-                // After loading is done, set isLoading to false
+      
                 isLoading = false
             }
         }
