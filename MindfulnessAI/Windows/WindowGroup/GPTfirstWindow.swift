@@ -4,7 +4,6 @@
 //
 //  Created by Elliot Rapp on 4/18/23.
 //
-// hi
 import SwiftUI
 import RealmSwift
 
@@ -18,6 +17,7 @@ extension UINavigationController {
     }
 }
 
+
 struct ChatView: View {
     
     
@@ -30,6 +30,7 @@ struct ChatView: View {
     @ObservedRealmObject var group: BackendGroup
     let savedItems = Item.self
     
+
     
     @State var playing = true
     
@@ -59,14 +60,14 @@ struct ChatView: View {
     @State var menuAnimationSizeChange = false
     
     
-    @State var isLoading = false
+    @State var isLoading = true
     
     
     
     var body: some View {
         Group {
             if isLoading {
-                
+                LoadingView()
             } else {
                 NavigationView {
                     ScrollView(showsIndicators: false) {
@@ -74,8 +75,6 @@ struct ChatView: View {
                             VStack {
                                 VStack {
                                     ZStack {
-                                        
-                                        
                                         // name of the app
                                         Text("Léshpngo")
                                             .font(.system(size: 50))
@@ -123,7 +122,7 @@ struct ChatView: View {
                 isLoading = false
             }
         }
-        
+ 
     }
 }
 

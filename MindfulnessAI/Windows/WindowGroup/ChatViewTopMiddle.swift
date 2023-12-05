@@ -14,13 +14,12 @@ import Foundation
 // MARK: - Chat View Top Middle
 struct ChatViewTopMiddle: View {
     @ObservedObject var mode: Shapes
-    @ObservedObject var shapeVm = Shapes.shared
     @StateObject var realm = LoginLogout()
+    @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
-    
+
     @ObservedRealmObject var group: BackendGroup
     
-    @State var isNavigationActive = false
 
    
     @State var tenMinuetButton = true
@@ -29,8 +28,7 @@ struct ChatViewTopMiddle: View {
     
     @State var startMeditation = true
        
-    @State private var chosenMeditation = "Vipas"
-    @State private var chosenInstructor = "Chief"
+  
     
     @State private var meditationTimeBoxAnimation: Bool = false
     @State private var meditationTimeBoxExpand: Bool = false
@@ -39,6 +37,7 @@ struct ChatViewTopMiddle: View {
     
     
     var body: some View {
+        
        ZStack {
             ZStack {
                 Spacer(minLength: 20)
@@ -84,7 +83,7 @@ struct ChatViewTopMiddle: View {
                                             meditationTimeBoxExpand = false
                                             menuAnimationSizeChange = false
                                             meditationTimeBoxAnimation = false
-                                            viewModel.profileButtonPressed = false
+                                        viewModel.profileButtonPressed = false
                                             viewModel.durationButtonPressed = false
                                         }
                                     }
@@ -318,7 +317,7 @@ struct ChatViewTopMiddle: View {
                                     .frame(height: 60)
                                     .overlay(
                                         // The chosen meditation that the user has clicked
-                                        Text(chosenMeditation)
+                                        Text(viewModel.chosenMeditation)
                                             .fontWeight(.thin)
                                             .font(.system(size: 20))
                                             .foregroundColor(Color("homeBrew"))
@@ -352,28 +351,39 @@ struct ChatViewTopMiddle: View {
                                     .zIndex(3)
                                 // MARK: - lesson play button
                                 // the navigation link for when the user has clicked on a meditation
-                                
-                                NavigationLink(destination: viewModel.databaseAccess ? AnyView(MainMeditation(mode: Shapes(), group: group)) : AnyView(MeditationGenerator( mode: Shapes(), group: group))
-                               , label: {
-
-                                                                   Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
-
-                                                                           .underline(false)
-                                                                           .foregroundColor(Color("homeBrew"))
-
-                                                            
-                                                                   })
-                                                                   .onAppear {
-                                                                       viewModel.databaseAccess = false
-                                                                       }
-                                                                   .buttonStyle(.borderless)
-                                                                   .frame(width: 80, height: 80)
-                                                                   .modifier(Shapes.NeumorphicCircle(mode: mode))
-                                                                   .padding(.bottom, 30)
-                                                           
-                                                       
+                                if viewModel.windowCase {
+                                    NavigationLink(destination: MainMeditation(mode: Shapes(), group: group)
                                                    
-                    
+                                                   , label: {
+                                        Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
+                                        
+                                            .underline(false)
+                                            .foregroundColor(Color("homeBrew"))
+                                        
+                                        
+                                    })
+                                    .buttonStyle(.borderless)
+                                    .frame(width: 80, height: 80)
+                                    .modifier(Shapes.NeumorphicCircle(mode: mode))
+                                    .padding(.bottom, 30)
+                                } else {
+                                    NavigationLink(destination:  MeditationGenerator( mode: Shapes(), group: group)
+                                                   , label: {
+                                        
+                                        Image(systemName: "figure.mind.and.body").resizable().frame(width: 40, height: 40)
+                                        
+                                            .underline(false)
+                                            .foregroundColor(Color("homeBrew"))
+                                        
+                                        
+                                    })
+                                    .buttonStyle(.borderless)
+                                    .frame(width: 80, height: 80)
+                                    .modifier(Shapes.NeumorphicCircle(mode: mode))
+                                    .padding(.bottom, 30)
+                                    
+                                    
+                                }
                             }
                         }
                     }
@@ -389,7 +399,7 @@ struct ChatViewTopMiddle: View {
                                     .frame(height: 60)
                                     .overlay(
                                         // The chosen instructor that the user has chosen
-                                        Text(chosenInstructor)
+                                        Text(viewModel.chosenInstructor)
                                             .fontWeight(.thin)
                                             .font(.system(size: 20))
                                             .foregroundColor(Color("homeBrew"))
@@ -525,7 +535,7 @@ struct logOutAndProfileButton: View {
     @ObservedObject var shapeVm = Shapes.shared
     @StateObject var realm = LoginLogout()
     @ObservedObject var viewModel = ChatViewModel.shared
-    
+
     @ObservedRealmObject var group: BackendGroup
     
     @State var tenMinuetButton = true

@@ -11,7 +11,8 @@ import AVFoundation
 import RealmSwift
 
 struct MainMeditation: View {
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
@@ -36,20 +37,20 @@ struct MainMeditation: View {
                 VStack {
                     Spacer()
                         .frame(height: 40)
-                HStack {
-                    NavigationLink(destination: ChatView(mode: Shapes(), vm: vm, group: group), label:  {
-                        Image(systemName: "arrow.backward")
-                            .foregroundColor(Color("homeBrew"))
+                    HStack {
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            HStack {
+                                Image(systemName: "arrow.backward")
+                                    .foregroundColor(Color("homeBrew"))// Customize color
+                            }})
+                        .buttonStyle(.borderless)
+                        .frame(width: 60, height: 40)
+                        .modifier(Shapes.NeumorphicBackCircle(mode: mode))
+                        .padding(.trailing, 280)
                         
-                        
-                        
-                    })
-                    .buttonStyle(.borderless)
-                    .frame(width: 60, height: 40)
-                    .modifier(Shapes.NeumorphicBackCircle(mode: mode))
-                    .padding(.trailing, 280)
-                }
-                
+                    }
                 VStack {
                     Spacer()
                         .frame(height: 30)

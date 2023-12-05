@@ -23,7 +23,13 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AV
     private let openAIService = OpenAIService()
     
     private var viewModelTwo = OpenAIService()
+  
+    @Published var windowCase: Bool = false
+
+
+    @Published var chosenMeditation = "Vipas"
     
+    @Published var chosenInstructor = "Chief"
     
     @Published var profileButtonPressed: Bool = false
     

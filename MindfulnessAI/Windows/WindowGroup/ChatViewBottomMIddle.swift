@@ -14,7 +14,7 @@ struct ChatViewBottomMiddle: View {
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
-    
+
     @ObservedRealmObject var group: BackendGroup
     let savedItems = Item.self
     
@@ -33,9 +33,7 @@ struct ChatViewBottomMiddle: View {
     @State var vipassanaButtonPressed = true
     
     @State var selfTimerButtonPressed = false
-    @State var profileButtonPressed = false
-    @State var chosenMeditation = "Vipas"
-    @State var chosenInstructor = "Chief"
+
     
     @State var chiefButtonPressed: Bool = true
     @State var chiefButton: Bool = false
@@ -123,7 +121,7 @@ struct ChatViewBottomMiddle: View {
                                             vm.prompt = """
 You are a fully enlighten vipassana meditation trainer, training people through an app. give me a non metaphysical meditation for a beginner meditator. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
 """
-                                            chosenInstructor = "Chief"
+                                            viewModel.chosenInstructor = "Chief"
                                         }, label: {
                                             Text(chiefButton ? "Say hello to Chief, Chief is a well trained meditation instructor that is great at guiding beginners through an eyes closed meditation. Chief will connect you with the world using concepts found within your self." : "Chief")
                                                 .underline(false)
@@ -265,7 +263,7 @@ You are a fully enlighten vipassana meditation trainer, training people through 
 You are a fully enlighten vipassana meditation trainer training people through an app. Please create a non metaphysical meditation for experiencing nature; guide the person with all the moments of nature around them . Provide three dots: "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
 """
                                             
-                                            chosenInstructor = "Luna"
+                                            viewModel.chosenInstructor = "Luna"
                                         }, label: {
                                             Text(lunaButton ? "Nurture yourself with nature. Go outside, Luna will guide you through a meditation that will connect you to the surroundings of nature.": "Luna")
                                             
@@ -417,7 +415,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 vm.prompt = """
 You are a fully enlighten vipassana meditation trainer training people through an app. Please create me a non metaphysical meditation for an experienced meditator guiding the person with an eyes open meditation. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
 """
-                                                chosenInstructor = "Zepp"
+                                                viewModel.chosenInstructor = "Zepp"
                                             }, label: {
                                                 Text(zeppelinButton ? "Zepp is an excellent teacher that guides a body awareness exercise. Wake yourself up, with Zeppelin meditation." :"Zepp")
                                                     .underline(false)
@@ -559,7 +557,7 @@ You are a fully enlighten vipassana meditation trainer training people through a
                                                 vm.prompt = """
                                             You are a fully enlighten vipassana meditation trainer training people through an app. Please conjure up a non metaphysical meditation for an experienced meditator, have the meditator feel the hart beating as the object of meditation for the practice. Provide a plus sign "+" with a two "2" which looks like this: "+2" to identify a pause for silence after each section; let there be five and only 5 pauses (2+) in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Add a lot of emphasis in the punctuation to make the meditation sound more dramatic by adding a lot of "--" and ",". Also don't number each section of the meditation.
 """
-                                                chosenInstructor = "Matil"
+                                                viewModel.chosenInstructor = "Matil"
                                             }, label: {
                                                 Text(maddieButton ? "Feel the life of your hart, realizing the grounding nature of what makes your life...your life" : "Matil")
                                                     .underline(false)

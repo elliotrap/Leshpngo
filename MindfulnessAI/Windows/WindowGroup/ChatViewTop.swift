@@ -9,9 +9,11 @@ import Foundation
 struct ChatViewTop: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
-    @ObservedObject var shapeVm = Shapes.shared
     @StateObject var realm = LoginLogout()
+    @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
+
+    
     
     @ObservedRealmObject var group: BackendGroup
     let savedItems = Item.self
@@ -40,9 +42,7 @@ struct ChatViewTop: View {
     @State var expandThree: Bool = false
     @State var promptToggleThree: Bool = false
     @State var selfTimerButtonPressed = false
-    @State var profileButtonPressed = false
-    @State var chosenMeditation = "Vipas"
-    @State var chosenInstructor = "Chief"
+
     
     @State var meditationTimeBoxAnimation = false
     @State var meditationTimeBoxExpand = false
@@ -94,9 +94,10 @@ struct ChatViewTop: View {
                             savedButtonPressed = false
                             vipassanaButtonPressed = true
                             metaButtonPressed = false
-                            chosenMeditation = "Vipas"
+                            viewModel.chosenMeditation = "Vipas"
                             chiefButtonPressed = true
                             viewModel.databaseAccess = false
+                            viewModel.windowCase = false
 
                         }, label: {
                             // if the promptToggle is true show either the name of the meditation of the description of the mditaion
@@ -201,9 +202,9 @@ struct ChatViewTop: View {
                             savedButtonPressed = false
                             vipassanaButtonPressed = false
                             viewModel.databaseAccess = false
+                            viewModel.windowCase = false
 
-
-                            chosenMeditation = "Maitrī"
+                            viewModel.chosenMeditation = "Maitrī"
                             vm.prompt = """
                                     You are a fully enlighten meta meditation trainer training people through an app. Provide me a non metaphysical meta meditation for an experienced meditator make. Provide three dots "..." to identify a pause for silence after each section; let there be five and only 5 pauses in the meditation, each pause is 2 minutes so the meditation will last 10 minutes. Also don't number each section of the meditation.
 """
@@ -300,14 +301,14 @@ struct ChatViewTop: View {
                         .frame(width: expandThree ? 320 : 305, height: expandThree ? 180 : 95)  .foregroundColor(                                        savedButtonPressed ? Color("grayBlack") : Color("homeBrewSelect"))
                         .zIndex(5)
                     if savedButtonPressed == false {
-                        // vipassana meditation link with a description of what meta is
                         Button(action: {
                             vipassanaButtonPressed = false
                             savedButtonPressed = true
                             metaButtonPressed = false
-                            chosenMeditation = "Vipas"
+                            viewModel.chosenMeditation = "Saved"
                             chiefButtonPressed = true
                             viewModel.databaseAccess = true
+                            viewModel.windowCase = true
                         }, label: {
                             // if the expandThree is true show either the name of the meditation of the description of the mditaion
                             Text(expandThree ? "Pick from a list of saved meditations that you have found helpful." : "Saved")

@@ -5,9 +5,9 @@ import RealmSwift
 
 
 struct MeditationGenerator: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
 
-//    @ObservedObject var viewModel = MeditationViewModel()
 
     @ObservedObject var vm = ViewModel()
     @ObservedObject var mode: Shapes
@@ -31,14 +31,15 @@ struct MeditationGenerator: View {
                 VStack {
                     ZStack {
                         HStack {
-                            NavigationLink(destination: ChatView(mode: Shapes(), vm: vm, group: group), label:  {
-                                Image(systemName: "arrow.backward")
-                                    .foregroundColor(Color("homeBrew"))
-                                
-                            })
+                            Button(action: {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }, label: {
+                                HStack {
+                                    Image(systemName: "arrow.backward")
+                                        .foregroundColor(Color("homeBrew"))// Customize color
+                                }})
                             .buttonStyle(.borderless)
                             .frame(width: 60, height: 40)
-                            
                             .modifier(Shapes.NeumorphicBackCircle(mode: mode))
                             .padding(.trailing, 280)
                             

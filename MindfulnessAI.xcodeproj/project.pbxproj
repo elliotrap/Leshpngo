@@ -27,6 +27,7 @@
 		21C497302B0ED43D00F8E40C /* ChatViewTopMiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4972F2B0ED43D00F8E40C /* ChatViewTopMiddle.swift */; };
 		21C497322B0ED45100F8E40C /* ChatViewBottomMIddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C497312B0ED45100F8E40C /* ChatViewBottomMIddle.swift */; };
 		21C497362B0ED9B200F8E40C /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C497352B0ED9B200F8E40C /* Delegate.swift */; };
+		21E2C24F2B1ED14C00B1176D /* LoadingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2C24E2B1ED14C00B1176D /* LoadingWindow.swift */; };
 		21E2F97D2A827B4600FB6E8D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 21E2F97C2A827B4600FB6E8D /* RealmSwift */; };
 		21E2F97E2A827CA900FB6E8D /* DatabaseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F9272A8272E800FB6E8D /* DatabaseLogin.swift */; };
 		21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */; };
@@ -149,6 +150,7 @@
 		21C4972F2B0ED43D00F8E40C /* ChatViewTopMiddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewTopMiddle.swift; sourceTree = "<group>"; };
 		21C497312B0ED45100F8E40C /* ChatViewBottomMIddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewBottomMIddle.swift; sourceTree = "<group>"; };
 		21C497352B0ED9B200F8E40C /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
+		21E2C24E2B1ED14C00B1176D /* LoadingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingWindow.swift; sourceTree = "<group>"; };
 		21E2F9272A8272E800FB6E8D /* DatabaseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatabaseLogin.swift; path = ../RealmProject/login/DatabaseLogin.swift; sourceTree = "<group>"; };
 		21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIApp.swift; sourceTree = "<group>"; };
 		21E373A6299F156C008B57D5 /* MeditationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationGenerator.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		21C497402B0EE93000F8E40C /* WindowGroup */ = {
 			isa = PBXGroup;
 			children = (
+				21E2C24E2B1ED14C00B1176D /* LoadingWindow.swift */,
 				21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */,
 				21C4972D2B0ED42100F8E40C /* ChatViewTop.swift */,
 				21C4972F2B0ED43D00F8E40C /* ChatViewTopMiddle.swift */,
@@ -256,7 +259,6 @@
 			children = (
 				218B60182A0C056C00EC1DAE /* Shapes.swift */,
 				21E373A8299F156D008B57D5 /* Assets.xcassets */,
-				21E2F90A2A818B8800FB6E8D /* API */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -289,6 +291,7 @@
 		21E373A3299F156C008B57D5 /* MindfulnessAI */ = {
 			isa = PBXGroup;
 			children = (
+				21E2F90A2A818B8800FB6E8D /* API */,
 				21E2F9082A818AE400FB6E8D /* Windows */,
 				21E2F9092A818B5200FB6E8D /* UI */,
 				21AB40C02A45D3AC00D72FCC /* Alamofire.xcodeproj */,
@@ -544,6 +547,7 @@
 			files = (
 				21C4972E2B0ED42100F8E40C /* ChatViewTop.swift in Sources */,
 				211E30CA2B0F031E00115243 /* ChatViewBottom.swift in Sources */,
+				21E2C24F2B1ED14C00B1176D /* LoadingWindow.swift in Sources */,
 				2199013A2A423AA100260F17 /* Constants.swift in Sources */,
 				218B813E2AC3741100B81C2A /* Saved.swift in Sources */,
 				21E373CF299F16AA008B57D5 /* MAIviewModel.swift in Sources */,
