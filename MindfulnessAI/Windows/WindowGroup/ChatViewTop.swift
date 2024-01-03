@@ -27,7 +27,6 @@ struct ChatViewTop: View {
     
     @State var gridSpacing: CGFloat = 10
 
-    @State var startMeditationPrompt = false
     
     @State var vipassanaButtonPressed = true
     @State var expand: Bool = false

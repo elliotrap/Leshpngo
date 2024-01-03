@@ -15,6 +15,8 @@
 		21258B732ACC79420016F571 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21258B722ACC79420016F571 /* Results.swift */; };
 		21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21394AEB29EF65FC00152885 /* GPTfirstWindow.swift */; };
 		213A38812A82B93F00DABB31 /* LoginLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A38802A82B93F00DABB31 /* LoginLogout.swift */; };
+		217130E92B3B88F2001CED49 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217130E82B3B88F2001CED49 /* UserDataManager.swift */; };
+		217130ED2B449F7A001CED49 /* APIKeyLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217130EC2B449F7A001CED49 /* APIKeyLogin.swift */; };
 		2173D9EF29AE7CB70090883B /* MainMeditation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2173D9EE29AE7CB70090883B /* MainMeditation.swift */; };
 		218B60192A0C056D00EC1DAE /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B60182A0C056C00EC1DAE /* Shapes.swift */; };
 		218B813E2AC3741100B81C2A /* Saved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B813D2AC3741100B81C2A /* Saved.swift */; };
@@ -28,6 +30,7 @@
 		21C497322B0ED45100F8E40C /* ChatViewBottomMIddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C497312B0ED45100F8E40C /* ChatViewBottomMIddle.swift */; };
 		21C497362B0ED9B200F8E40C /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C497352B0ED9B200F8E40C /* Delegate.swift */; };
 		21E2C24F2B1ED14C00B1176D /* LoadingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2C24E2B1ED14C00B1176D /* LoadingWindow.swift */; };
+		21E2C2512B2028C000B1176D /* ItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2C2502B2028C000B1176D /* ItemManager.swift */; };
 		21E2F97D2A827B4600FB6E8D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 21E2F97C2A827B4600FB6E8D /* RealmSwift */; };
 		21E2F97E2A827CA900FB6E8D /* DatabaseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F9272A8272E800FB6E8D /* DatabaseLogin.swift */; };
 		21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */; };
@@ -139,6 +142,8 @@
 		215F206D2B16B52F002B7364 /* MindfulnessAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindfulnessAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		215F206E2B16B52F002B7364 /* MindfulnessAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindfulnessAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		215F206F2B16B52F002B7364 /* MindfulnessAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindfulnessAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		217130E82B3B88F2001CED49 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
+		217130EC2B449F7A001CED49 /* APIKeyLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyLogin.swift; sourceTree = "<group>"; };
 		2173D9EE29AE7CB70090883B /* MainMeditation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMeditation.swift; sourceTree = "<group>"; };
 		218B60182A0C056C00EC1DAE /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
 		218B813D2AC3741100B81C2A /* Saved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saved.swift; sourceTree = "<group>"; };
@@ -151,6 +156,7 @@
 		21C497312B0ED45100F8E40C /* ChatViewBottomMIddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewBottomMIddle.swift; sourceTree = "<group>"; };
 		21C497352B0ED9B200F8E40C /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		21E2C24E2B1ED14C00B1176D /* LoadingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingWindow.swift; sourceTree = "<group>"; };
+		21E2C2502B2028C000B1176D /* ItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemManager.swift; sourceTree = "<group>"; };
 		21E2F9272A8272E800FB6E8D /* DatabaseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatabaseLogin.swift; path = ../RealmProject/login/DatabaseLogin.swift; sourceTree = "<group>"; };
 		21E373A4299F156C008B57D5 /* MindfulnessAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindfulnessAIApp.swift; sourceTree = "<group>"; };
 		21E373A6299F156C008B57D5 /* MeditationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationGenerator.swift; sourceTree = "<group>"; };
@@ -194,6 +200,8 @@
 			isa = PBXGroup;
 			children = (
 				213A38802A82B93F00DABB31 /* LoginLogout.swift */,
+				217130E82B3B88F2001CED49 /* UserDataManager.swift */,
+				21E2C2502B2028C000B1176D /* ItemManager.swift */,
 				218B813D2AC3741100B81C2A /* Saved.swift */,
 				21258B6E2AC4A8D70016F571 /* Group.swift */,
 				21C497352B0ED9B200F8E40C /* Delegate.swift */,
@@ -244,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				21E2F9272A8272E800FB6E8D /* DatabaseLogin.swift */,
+				217130EC2B449F7A001CED49 /* APIKeyLogin.swift */,
 				21C497402B0EE93000F8E40C /* WindowGroup */,
 				21E373A6299F156C008B57D5 /* MeditationGenerator.swift */,
 				2173D9EE29AE7CB70090883B /* MainMeditation.swift */,
@@ -547,6 +556,7 @@
 			files = (
 				21C4972E2B0ED42100F8E40C /* ChatViewTop.swift in Sources */,
 				211E30CA2B0F031E00115243 /* ChatViewBottom.swift in Sources */,
+				217130ED2B449F7A001CED49 /* APIKeyLogin.swift in Sources */,
 				21E2C24F2B1ED14C00B1176D /* LoadingWindow.swift in Sources */,
 				2199013A2A423AA100260F17 /* Constants.swift in Sources */,
 				218B813E2AC3741100B81C2A /* Saved.swift in Sources */,
@@ -562,11 +572,13 @@
 				21E2F97E2A827CA900FB6E8D /* DatabaseLogin.swift in Sources */,
 				21394AEC29EF65FC00152885 /* GPTfirstWindow.swift in Sources */,
 				219901382A4238F200260F17 /* ChatViewModel.swift in Sources */,
+				217130E92B3B88F2001CED49 /* UserDataManager.swift in Sources */,
 				21E373A5299F156C008B57D5 /* MindfulnessAIApp.swift in Sources */,
 				2173D9EF29AE7CB70090883B /* MainMeditation.swift in Sources */,
 				21C497322B0ED45100F8E40C /* ChatViewBottomMIddle.swift in Sources */,
 				218B60192A0C056D00EC1DAE /* Shapes.swift in Sources */,
 				2115E2212A841D3F002BBF53 /* WindowCase.swift in Sources */,
+				21E2C2512B2028C000B1176D /* ItemManager.swift in Sources */,
 				2199013C2A423ACB00260F17 /* OpenAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

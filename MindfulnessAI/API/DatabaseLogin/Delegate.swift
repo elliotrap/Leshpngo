@@ -13,12 +13,20 @@ class RealmManager {
     
     let realm: Realm?
     
-    
+    func update(_ block: (() -> Void)) throws {
+        do {
+            try realm?.write {
+                block()
+            }
+        } catch let error {
+            throw error // Propagate the error to handle it in the calling code
+        }
+    }
     
     private init() {
         // Configure Realm
         let config = Realm.Configuration(
-            schemaVersion: 4,
+            schemaVersion: 7,
             migrationBlock: { migration, oldSchemaVersion in
                 // Your migration logic here
             }

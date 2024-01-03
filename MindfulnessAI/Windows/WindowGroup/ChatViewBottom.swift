@@ -23,8 +23,6 @@ struct ChatViewBottom: View {
     
     @State var playing = true
     @State var pressedReset = true
-    @State var startLessonPrompt = true
-    @State var startMeditationPrompt = false
 
     var body: some View {
         
@@ -59,8 +57,6 @@ struct display: View {
     
     @State var playing = true
     @State var pressedReset = true
-    @State var startLessonPrompt = true
-    @State var startMeditationPrompt = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -118,7 +114,7 @@ struct display: View {
                     VStack {
                         VStack {
                             // this text shows to the user that in order to generate a meditation you need to click the generate button
-                            if startLessonPrompt {
+                            if viewModel.startLessonPrompt {
                                 VStack {
                                     Image(systemName: "arrow.2.squarepath")
                                         .fontWeight(.thin)
@@ -195,8 +191,6 @@ struct playAndGenerateButtonsHome: View {
     
     @State var playing = true
     @State var pressedReset = true
-    @State var startLessonPrompt = true
-    @State var startMeditationPrompt = false
     
     var body: some View {
         
@@ -210,7 +204,6 @@ struct playAndGenerateButtonsHome: View {
                     Button(action: {
                         playing.toggle()
                         viewModel.togglePauseResume()
-                        viewModel.startMeditation()
                         if viewModel.ttsIsTalking == true {
                             viewModel.textToSpeech(ssmlText: viewModel.latestAssistantMessage)
                         }
@@ -225,7 +218,7 @@ struct playAndGenerateButtonsHome: View {
                     .modifier(Shapes.NeumorphicCircle(mode: mode))
                     .zIndex(4)
                 } else {
-                    // lession play button
+                    // lession pause button
                     Button(action: {
                         playing.toggle()
                         viewModel.togglePauseResume()
@@ -258,8 +251,7 @@ struct playAndGenerateButtonsHome: View {
                                               """
                                               Please give me a high level lesson on meditation without walking through a meditation. Use a lot of '...' in the speech of the lesson also please use a lot of commas. Please don't give a Title for the meditation. Thank you.
                                               """)
-                            startLessonPrompt = false
-                            startMeditationPrompt = false
+                            viewModel.startLessonPrompt = false
                             pressedReset = false
                             viewModel.isPaused = true
                             viewModel.ttsIsTalking = true
@@ -322,8 +314,6 @@ struct backAndForwardButtonsHome: View {
     
     @State var playing = true
     @State var pressedReset = true
-    @State var startLessonPrompt = true
-    @State var startMeditationPrompt = false
     
     var body: some View {
         // MARK: - Back 15 seconds

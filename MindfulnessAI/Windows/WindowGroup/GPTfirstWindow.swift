@@ -20,7 +20,6 @@ extension UINavigationController {
 
 struct ChatView: View {
     
-    
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
@@ -30,8 +29,6 @@ struct ChatView: View {
     @ObservedRealmObject var group: BackendGroup
     let savedItems = Item.self
     
-
-    
     @State var playing = true
     
     @State var pressedReset = true
@@ -40,7 +37,6 @@ struct ChatView: View {
     
     @State var gridSpacing: CGFloat = 10
     
-    @State var startMeditationPrompt = false
     
     @State var vipassanaButtonPressed = true
     @State var expand: Bool = false
@@ -59,10 +55,7 @@ struct ChatView: View {
     @State var menuPopUp = false
     @State var menuAnimationSizeChange = false
     
-    
-    @State var isLoading = true
-    
-    
+    @State var isLoading = false
     
     var body: some View {
         Group {

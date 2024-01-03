@@ -11,6 +11,7 @@ import SwiftUI
 class LoginLogout: ObservableObject {
     
 
+
     @ObservedObject var mode: Shapes
     
     @ObservedRealmObject var group: BackendGroup
@@ -18,9 +19,9 @@ class LoginLogout: ObservableObject {
     @Published var realmConnect: Realm?
     
  
- 
-    
+
     init() {
+        
         self.mode = Shapes()
         self.group = BackendGroup()
         if let realm = RealmManager.shared.realm {
@@ -129,4 +130,6 @@ class LoginLogout: ObservableObject {
             }
         }
     }
+    
+
 }

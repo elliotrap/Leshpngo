@@ -23,6 +23,11 @@ struct DatabaseLoginView: View {
     
     @State var wrongEmail = false
     
+    @State var showXIcon = false
+    @State var showXIconTwo = false
+    
+    @State var showXIconThree = false
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -92,7 +97,7 @@ struct DatabaseLoginView: View {
                                     
                                     Spacer()
                                         .frame(height: 10)
-               
+                                    
                                     ZStack {
                                         Rectangle()
                                             .frame(width: 300, height: 50)
@@ -104,7 +109,7 @@ struct DatabaseLoginView: View {
                                             .padding(.top, 4)
                                             .foregroundColor(Color("homeBrew"))
                                             .frame(width: 300, height: 50)
-                                           
+                                        
                                         
                                     }
                                     Spacer()
@@ -115,20 +120,34 @@ struct DatabaseLoginView: View {
                                     VStack {
                                         Spacer()
                                             .frame(height: 10)
-                                       
+                                        
                                         ZStack {
                                             Rectangle()
                                                 .frame(width: 300, height: 50)
                                                 .foregroundColor(.clear)
                                                 .modifier(Shapes.NeumorphicClickedBox(mode: mode))
-                                            
-                                            SecureField( "password", text: $realm.password)
-                                                .padding(.leading, 25)
-                                                .padding(.top, 4)
-                                                .foregroundColor(Color("homeBrew"))
-                                                .frame(width: 300, height: 50)
                                            
-                                        }
+                                                SecureField( "password", text: $realm.password)
+                                                    .padding(.leading, 25)
+                                                    .padding(.top, 4)
+                                                    .foregroundColor(Color("homeBrew"))
+                                                    .frame(width: 300, height: 50)
+                                                    .onTapGesture {
+                                                        showXIcon = true
+                                                    }
+                                            if showXIcon {
+                                                HStack {
+                                                    Spacer()
+                                                        .frame(width: 240)
+                                                    Image(systemName: "x.circle.fill")
+                                                        .foregroundColor(.red)
+                                                        .onTapGesture {
+                                                            realm.password = ""
+                                                            showXIcon = false
+                                                        }
+                                                    
+                                                }
+                                            }                                        }
                                         
                                         Spacer()
                                             .frame(height: 15)
@@ -150,67 +169,88 @@ struct DatabaseLoginView: View {
                                                 .foregroundColor(Color("homeBrew"))
                                                 .frame(width: 300, height: 50)
                                                 .cornerRadius(30)
-                                              
+                                                .onTapGesture {
+                                                    showXIconTwo = true
+                                                    
+                                                }
+                                            if showXIconTwo {
+                                                HStack {
+                                                    Spacer()
+                                                        .frame(width: 240)
+                                                    Image(systemName: "x.circle.fill")
+                                                        .foregroundColor(.red)
+                                                        .onTapGesture {
+                                                            realm.reenterPassword = ""
+                                                            showXIconTwo = false
+                                                        }
+                                                    
+                                                }
+                                            }
+                                            
                                         }
                                         Spacer()
                                             .frame(height: 30)
-                                        
-                                        Button(action: {
-                                            if realm.password == realm.reenterPassword {
-                                                realm.signup()
-
-                                            }
-                                            if realm.password != realm.reenterPassword {
-                                                wrongPassword = true
-
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                    wrongPassword = false
-
+                                        ZStack {
+                                        VStack(spacing: 25) {
+                                            Button(action: {
+                                                if realm.password == realm.reenterPassword {
+                                                    realm.signup()
+                                                    
                                                 }
-                                            
-                                            }
-                                            if realm.isEmailValid(realm.email, min: realm.minLength, max: realm.maxLength) {
-                                                print("The email is valid.")
-                                            } else {
-                                                realm.signUpSuccess = true
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
-                                                    realm.signUpSuccess = false
-
+                                                if realm.password != realm.reenterPassword {
+                                                    wrongPassword = true
+                                                    
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                        wrongPassword = false
+                                                        
+                                                    }
+                                                    
                                                 }
-
-                                            }
-                                        }, label: { Text("Create account!")
-                                                .fontWeight(.thin)
-                                                .frame(width: 150)
-                                                .underline(false)
-                                        })
-                                        .buttonStyle(.borderless)
-                                        .foregroundColor(Color("homeBrew"))
-                                        .frame(width: 200, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
-                                        
-                                        Spacer()
-                                            .frame(height: 30)
-                                        Button(action: {
-                                            withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
-                                                haveAnAccount = true
-                                            }
-                                            realm.password = ""
-                                            realm.email = ""
-                                            realm.reenterPassword = ""
-                                        }, label:{
-                                            Text("Have an account?")
-                                                .fontWeight(.thin)
-                                                .frame(width: 150)
-                                                .underline(false)
+                                                if realm.isEmailValid(realm.email, min: realm.minLength, max: realm.maxLength) {
+                                                    print("The email is valid.")
+                                                } else {
+                                                    realm.signUpSuccess = true
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
+                                                        realm.signUpSuccess = false
+                                                        
+                                                    }
+                                                    
+                                                }
+                                            }, label: { Text("Create account!")
+                                                    .fontWeight(.thin)
+                                                    .frame(width: 150)
+                                                    .underline(false)
+                                            })
+                                            .buttonStyle(.borderless)
+                                            .foregroundColor(Color("homeBrew"))
+                                            .frame(width: 200, height: 70)
+                                            .modifier(Shapes.NeumorphicMenuPopedOutBox(mode: mode))
+                                            .zIndex(1)
+                                            
+                                            Button(action: {
+                                                withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
+                                                    haveAnAccount = true
+                                                }
+                                                realm.password = ""
+                                                realm.email = ""
+                                                realm.reenterPassword = ""
+                                            }, label:{
+                                                Text("Have an account?")
+                                                    .fontWeight(.thin)
+                                                    .frame(width: 150)
+                                                    .underline(false)
+                                                
+                                                
+                                            })
+                                            .buttonStyle(.borderless)
+                                            .foregroundColor(Color("homeBrew"))
+                                            .frame(width: 200, height: 70)
+                                            .modifier(Shapes.NeumorphicMenuPopedOutBox(mode: mode))
                                             
 
-                                        })
-                                        .buttonStyle(.borderless)
-                                        .foregroundColor(Color("homeBrew"))
-                                        .frame(width: 200, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                                        }
                                     }
+                                }
                                 }
                             } else if haveAnAccount == true {
                                 VStack {
@@ -249,65 +289,84 @@ struct DatabaseLoginView: View {
                                                 .frame(width: 300, height: 50)
                                                 .foregroundColor(.clear)
                                                 .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                            
                                             SecureField("password", text: $realm.password)
                                                 .padding(.leading, 25)
                                                 .padding(.top, 4)
                                                 .foregroundColor(Color("homeBrew"))
                                                 .frame(width: 300, height: 50)
+                                                .onTapGesture {
+                                                    showXIconThree = true
+                                                }
+                                            if showXIconThree {
+                                                HStack {
+                                                    Spacer()
+                                                        .frame(width: 240)
+                                                    Image(systemName: "x.circle.fill")
+                                                        .foregroundColor(.red)
+                                                        .onTapGesture {
+                                                            realm.reenterPassword = ""
+                                                            showXIconThree = false
+                                                        }
+                                                    
+                                                }
+                                            }
                                         }
-
+                                        
                                         Spacer()
                                             .frame(height: 30)
-                                        Button(action: {
-
-                                            realm.login()
-                                            
-                                        }, label: {
-                                            HStack {
-                                                Spacer()
-                                                    .frame(width: 40)
-                                                Text("Sign in")
-                                                    .fontWeight(.thin)
-                                                    .underline(false)
-                                                Spacer()
-                                                    .frame(width: 20)
-                                                Image(systemName: "rectangle.portrait.and.arrow.right")
-                                                    .fontWeight(.thin)
-
-                                            }
-
-                                        })
-                                        .buttonStyle(.borderless)
-                                        .foregroundColor(Color("homeBrew"))
-                                        .frame(width: 200, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
-                                        Spacer()
-                                            .frame(height: 30)
-                                        Button(action: {
-                                            withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
-                                                haveAnAccount = false
-                                            }
-                                        }, label:{
-                                            Text("Don't have an account?")
-                                                .fontWeight(.thin)
+                                        ZStack {
+                                            VStack(spacing: 25) {
+                                                NavigationLink(destination: APIKeyLogin(vm: vm, mode: Shapes())) {
+                                                    Button(action: {
+                                                        
+                                                        
+                                                    }, label: {
+                                                        HStack {
+                                                            Spacer()
+                                                                .frame(width: 40)
+                                                            Text("Sign in")
+                                                                .fontWeight(.thin)
+                                                                .underline(false)
+                                                            Spacer()
+                                                                .frame(width: 20)
+                                                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                                                .fontWeight(.thin)
+                                                            
+                                                        }
+                                                        
+                                                    })
+                                     
+                                                }
+                                                .buttonStyle(.borderless)
                                                 .foregroundColor(Color("homeBrew"))
-                                                .frame(width: 125)
-                                                .underline(false)
+                                                .frame(width: 200, height: 70)
+                                                .modifier(Shapes.NeumorphicMenuPopedOutBox(mode: mode))
+                                                .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
 
-                                        })
-                                        .buttonStyle(.borderless)
-                                        .frame(width: 200, height: 70)
-                                        .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                                                
+                                                Button(action: {
+                                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
+                                                        haveAnAccount = false
+                                                    }
+                                                }, label:{
+                                                    Text("Don't have an account?")
+                                                        .fontWeight(.thin)
+                                                        .foregroundColor(Color("homeBrew"))
+                                                        .frame(width: 125)
+                                                        .underline(false)
+                                                    
+                                                })
+                                                .buttonStyle(.borderless)
+                                                .frame(width: 200, height: 70)
+                                                .modifier(Shapes.NeumorphicMenuPopedOutBox(mode: mode))
+                                            }
+                                        }
                                     }
-                                    
                                 }
-                                
                             }
-       
                         }
-                     
                     }
-                    
                 }
                 
                 if wrongPassword {

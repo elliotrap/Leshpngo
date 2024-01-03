@@ -35,7 +35,7 @@ struct LoadingView: View {
                     .font(.system(size: 13))
                     .foregroundColor(Color("homeBrewSelect"))
                     .shadow(color: Color("homeBrewSelect"),radius: 10, x: 0, y: 5)
-
+               
             }
          
         }

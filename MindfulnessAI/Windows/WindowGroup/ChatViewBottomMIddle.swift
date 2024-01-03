@@ -26,7 +26,6 @@ struct ChatViewBottomMiddle: View {
     
     @State var gridSpacing: CGFloat = 10
 
-    @State var startMeditationPrompt = false
     
     @State var metaButtonPressed = false
     
@@ -692,5 +691,15 @@ You are a fully enlighten vipassana meditation trainer training people through a
        .scaleEffect(0.9)
         
 
+    }
+}
+
+struct ContentView_Previews8: PreviewProvider {
+    static var previews: some View {
+        let group = BackendGroup()
+        return Group {
+            
+            ChatView(mode: Shapes(), group: group)
+        }
     }
 }

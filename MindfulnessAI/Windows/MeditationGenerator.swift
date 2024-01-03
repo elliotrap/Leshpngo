@@ -8,17 +8,16 @@ struct MeditationGenerator: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
 
-
+//    @ObservedObject var manager = ItemManager()
     @ObservedObject var vm = ViewModel()
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
     @StateObject var realm = LoginLogout()
-    @ObservedRealmObject var group: BackendGroup
     @ObservedObject var helper = RealmHelper()
-
-    @State var startMeditationPrompt = true
+    @ObservedRealmObject var group: BackendGroup
     let realmConnect = try! Realm()
+
 
     @State var playingMain = true
     @State var pressedResetMain = true
@@ -93,7 +92,7 @@ struct MeditationGenerator: View {
                                 
                                 VStack {
                                     // this text shows to the user that in order to generate a meditation you need to click the generate button
-                                    if startMeditationPrompt {
+                                    if viewModel.startMeditationPrompt {
                                         VStack {
                                             Image(systemName: "arrow.2.squarepath")
                                                 .fontWeight(.thin)
@@ -154,16 +153,20 @@ struct MeditationGenerator: View {
                                     
                                     Button(action: {
                                         // This allows the user to save up to 6 meditations
-                                        if viewModel.counter < 6 {
-                                            
-                                            viewModel.counter += 1
+//                                        manager.addItem(name: viewModel.latestAssistantMessage, isFavorite: false)
+//                                        
                                             let newItem = Item(name: viewModel.latestAssistantMessage, isFavorite: false, savedId: viewModel.counter)
 
-                                            // this saves the meditations
-                                            try? realmConnect.write {
+                                        do {
+                                            try realmConnect.write {                                               
                                                 realmConnect.add(newItem)
+                                                print("saved successful")
+
                                             }
+                                        } catch let error as NSError {
+                                            print("An error occurred: \(error)")
                                         }
+                                    
                                     }, label: {
                                         Text("save")
                                             .underline(false)
@@ -235,7 +238,6 @@ struct BackAndForwardButtons: View {
     @ObservedRealmObject var group: BackendGroup
     @ObservedObject var helper = RealmHelper()
 
-    @State var startMeditationPrompt = true
     let realmConnect = try! Realm()
 
     @State var playingMain = true
@@ -308,7 +310,6 @@ struct PlayAndGenerateButtons: View {
     @ObservedRealmObject var group: BackendGroup
     @ObservedObject var helper = RealmHelper()
 
-    @State var startMeditationPrompt = true
     let realmConnect = try! Realm()
 
     @State var playingMain = true
@@ -322,10 +323,13 @@ struct PlayAndGenerateButtons: View {
                 // lession play button
                 Button(action: {
                     
-                    viewModel.textToSpeech(ssmlText: viewModel.latestAssistantMessage)
+                    viewModel.startMeditation()
+                    viewModel.togglePauseResume()
+                    if viewModel.ttsIsTalking == true {
+                        viewModel.textToSpeech(ssmlText: viewModel.latestAssistantMessage)
+                    }
                     
-                    
-                    playingMain.toggle()
+                    playingMain.toggle() // toggle the red pause button to appear
                 }, label: {
                     Image(systemName: "play.circle").resizable().frame(width:60, height: 60) // play button
                         .fontWeight(.thin)
@@ -338,9 +342,12 @@ struct PlayAndGenerateButtons: View {
                 
                 
             } else {
-                // lession play button
+                // lession pause button
                 Button(action: {
                     playingMain.toggle()
+                    viewModel.togglePauseResume()
+                    viewModel.ttsIsTalking = false
+                    viewModel.stopMeditation()
                 }, label: {
                     Image(systemName: "pause.circle").resizable().frame(width: 50, height: 50) // play button
                         .fontWeight(.thin)
@@ -361,10 +368,19 @@ struct PlayAndGenerateButtons: View {
               
                     // generate meditation button
                     Button(action: {
-                        
-                        viewModel.sendMessage()
-                        startMeditationPrompt = false
+                        viewModel.sendMessage(messageContent:
+                                          """
+                                           You are a well trained meditation instructor training people through an app, please provide lessons about meditation and mindfulness without walking through a meditation. Please don't add a title or heading to the lessons. Make the lessons very punctuate using a lot of "...", and commas.
+                                          """, systemContent:
+                                          """
+                                          Please give me a high level lesson on meditation without walking through a meditation. Use a lot of '...' in the speech of the lesson also please use a lot of commas. Please don't give a Title for the meditation. Thank you.
+                                          """)
+                        viewModel.startMeditationPrompt = false
                         pressedResetMain = false
+                        viewModel.isPaused = true
+                        viewModel.ttsIsTalking = true
+
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             pressedResetMain = true
                         }

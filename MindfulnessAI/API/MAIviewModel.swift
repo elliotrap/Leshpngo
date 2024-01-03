@@ -20,7 +20,6 @@ class ViewModel: ObservableObject {
     @ObservedObject var voice = ChatViewModel()
     
     @Published var loginUsernameText: String = ""
-    @Published var startLessonPrompt = true
 
   
    

@@ -13,9 +13,47 @@ import RealmSwift
 import Combine
 
 class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate  {
+
+
+
+
+    override init() {
+        super.init()
+
+        // Use the realm instance from RealmManager
+        guard let realm = RealmManager.shared.realm else {
+            fatalError("Failed to initialize Realm")
+        }
+
+        // Fetch data and set up Realm notifications
+        fetchData()
+
+        let meditations = realm.objects(Item.self)
+        // Observe for changes
+        notificationToken = meditations.observe { [weak self] _ in
+            self?.updateSavedMeditationsStatus()
+        }
+
+        updateSavedMeditationsStatus()
+    }
+
+
+        deinit {
+            notificationToken?.invalidate()
+            meditationTimer?.invalidate()
+            meditationTimer = nil
+        }
+
+        func updateSavedMeditationsStatus() {
+            let realm = try! Realm()
+            let savedMeditations = realm.objects(Item.self)
+            self.hasSavedMeditations = !savedMeditations.isEmpty
+        }
     
+
     
-    
+    private var notificationToken: NotificationToken?
+
     static var shared = ChatViewModel()
     
     private var realm = LoginLogout()
@@ -23,9 +61,16 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AV
     private let openAIService = OpenAIService()
     
     private var viewModelTwo = OpenAIService()
-  
+    
+    @Published var startMeditationPrompt = true
+
+    @Published var startLessonPrompt = true
+    
+    @Published var hasSavedMeditations = true
+
     @Published var windowCase: Bool = false
 
+    @Published var firstItemButton = false
 
     @Published var chosenMeditation = "Vipas"
     
@@ -40,11 +85,7 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AV
     @Published var darkmode = false
     
     @Published var meditationDuration: TimeInterval = 0
-
-    @Published var totalMeditationTimeString: String = ""
-    
-    @Published var totalMeditationTime: Double = 0
-    
+        
     @Published var counter: Int = 0
 
     @Published var isPaused = true
@@ -74,13 +115,44 @@ You are vipassana meditation expert training people through an app. give me a no
     @Published var randomText = ""
     let characters = ["0", "1"]
     
+    @Published var items: [Item] = [] // Replace with your actual data fetching logic
+    @Published var dynamicHeight: CGFloat = 100
+
+    private let buttonHeight: CGFloat = 50
+    private let baseHeight: CGFloat = 670
+
+
+    private func fetchData() {
+        // Fetch items from Realm and assign to 'items'
+        @ObservedResults(Item.self) var items
+
+    }
+
+    
+    
+    private var extraHeightPerItem: CGFloat {
+        return buttonHeight
+    }
+    
+     private func updateDynamicHeight() {
+         let extraItems = max(0, items.count - 6)
+         dynamicHeight = baseHeight + CGFloat(extraItems) * extraHeightPerItem
+     }
+
+     // Call this method whenever the list of items changes
+     func onItemsUpdated() {
+         updateDynamicHeight()
+     }
+    
     private func startFlickeringEffect() {
             Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
                 self.randomText = (0..<50).map { _ in self.characters.randomElement() ?? "0" }.joined()
             }
         }
     
-    func sendMessage(messageContent: String? = nil, systemContent: String? = nil) {
+    
+
+        func sendMessage(messageContent: String? = nil, systemContent: String? = nil) {
         
         let userMessageContent = messageContent ?? self.currentInput
             let systemMessageContent = systemContent ?? self.contentMessage
@@ -111,7 +183,6 @@ You are vipassana meditation expert training people through an app. give me a no
             }
             
     func textToSpeech(ssmlText: String) {
-
                     let apiKey = "AIzaSyDf2LDCrnMC1fnEaZN5-iNYh8f9EOMjH1I"
                 
                     let url = URL(string: "https://texttospeech.googleapis.com/v1/text:synthesize?key=\(apiKey)")!
@@ -132,12 +203,13 @@ You are vipassana meditation expert training people through an app. give me a no
                     let input: [String: Any] = ["ssml": ssmlText]
                     
                     let voice = ["languageCode": "en-AU", "name": "en-AU-Standard-C"]
-                        let audioConfig: [String: Any] = ["audioEncoding": "MP3", "sampleRateHertz": 16000, "speakingRate": 0.5]
+                        let audioConfig: [String: Any] = ["audioEncoding": "MP3", "sampleRateHertz": 16000, "speakingRate": 0.7]
                    
                         let requestBody: [String: Any] = ["input": input, "voice": voice, "audioConfig": audioConfig]
                         let requestBodyData = try! JSONSerialization.data(withJSONObject: requestBody)
             
                         request.httpBody = requestBodyData
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 print("Error: \(error!)")
@@ -212,19 +284,40 @@ You are vipassana meditation expert training people through an app. give me a no
         }
     }
 
-    deinit {
-        meditationTimer?.invalidate()
-        meditationTimer = nil
-    }
 
 
     func stopMeditation() {
-        meditationTimer?.invalidate()
-        meditationTimer = nil
-        print("audio player did finish playing")
-        updateTotalDuration(duration: meditationDuration)
-        saveUsageToRealm(duration: meditationDuration)
-    }
+            meditationTimer?.invalidate()
+            meditationTimer = nil
+            print("audio player did finish playing")
+            updateTotalDuration(duration: meditationDuration)
+            saveUsageToRealm(duration: meditationDuration)
+        }
+
+    func saveUsageToRealm(duration: TimeInterval) {
+        print("saveUsageToRealm")
+        
+        do {
+            let realm = try Realm()
+            
+            // Fetch the first user item or update an existing one
+            var user = realm.objects(Item.self).first
+            if user == nil {
+                user = Item(name: "", isFavorite: false, savedId: 0) // Create a new user item if one doesn't exist
+                user?.startDate = Date() // Set the start date for the new user item
+            }
+            // Try to write changes to the database
+                  try realm.write {
+                      user?.duration += duration
+                      if user?.realm == nil {
+                          realm.add(user!)
+                      }
+                  }
+              } catch {
+                  // Handle or log the error as per your needs
+                  print("Error saving usage to Realm: \(error)")
+              }
+          }
 
     func updateTotalDuration(duration: TimeInterval) {
   
@@ -252,22 +345,7 @@ You are vipassana meditation expert training people through an app. give me a no
                 print("Error updating duration in Realm: \(error)")
             }
     }
-
     
-    func saveUsageToRealm(duration: TimeInterval) {
-        print("saveUsageToRealm")
-
-        let realm = try! Realm()
-        let item = Item(name: "", isFavorite: false, savedId: 0)
-        item.duration = duration
-        item.startDate = Date()
-
-        try! realm.write {
-            realm.add(item)
-        }
-    }
-
-
     func retrieveMeditations() -> [Item] {
         let realm = try! Realm()
         let items = realm.objects(Item.self)

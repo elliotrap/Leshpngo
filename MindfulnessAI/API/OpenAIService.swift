@@ -18,7 +18,7 @@ class OpenAIService: ObservableObject {
         
         let body = OpenAIChatBody(model: "gpt-4-1106-preview", messages: openAIMessages, max_tokens: 150)
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(Constants.openAIApiKey)"
+            "Authorization": "Bearer \(ConstantsUserAPIKey.openAIApiKey)"
         ]
         return try? await AF.request(endpointUrl, method: .post, parameters: body, encoder: .json, headers: headers).serializingDecodable(OpenAIChatResponse.self).value
     }

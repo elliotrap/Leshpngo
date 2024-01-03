@@ -18,8 +18,9 @@ struct MainMeditation: View {
     @ObservedObject var shapeVm = Shapes.shared
     @StateObject var realm = LoginLogout()
     @ObservedObject var viewModel = ChatViewModel.shared
-    @ObservedResults(Item.self) var items
     @ObservedRealmObject var group: BackendGroup
+    @ObservedResults(Item.self) var items
+    
     let savedItems = Item.self
 
 
@@ -28,6 +29,9 @@ struct MainMeditation: View {
     @State var goBackward = true
     
     @State var goForward = true
+    
+ 
+
     
     var body: some View {
         NavigationView {
@@ -58,7 +62,7 @@ struct MainMeditation: View {
                         
                         
                         RoundedRectangle(cornerRadius: 30)
-                            .frame(width: 350, height: 670)
+                            .frame(width: 350, height: viewModel.dynamicHeight)
                             .foregroundColor(Color("offBlack"))
                             .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
                         
@@ -80,30 +84,74 @@ struct MainMeditation: View {
                                 .frame(height: 640)
                             
                         }
-                        VStack {
+                        
+                     
                             
-                            Spacer()
-                                .frame(height: 100)
-                            if let firstItem = items.first, firstItem.savedId == 0 {
-                                 Text("Save a meditation in the meditation generator window")
-                                    .fontWeight(.thin)
-                                    .multilineTextAlignment(.center)
-                                    .lineLimit(2)
-                                    .frame(width: 300)
-                            }
-                       
-                            if let unwrappedRealm = realm.realmConnect {
-                                ForEach(unwrappedRealm.objects(Item.self), id: \._id) { item in
-                                    ItemRow(item: item, group: group, mode: mode)
+                            VStack {
+                                
+                              
+                                
+                                
+                                
+                                
+                                VStack {
+                                    if viewModel.hasSavedMeditations == false {
+                                        Spacer()
+                                            .frame(height: 50)
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .stroke()
+                                                .foregroundColor(Color("homeBrewSelect"))
+                                                .frame(width:  315, height: 430)
+                                                .zIndex(5)
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .stroke()
+                                                .foregroundColor(Color("homeBrewSelect"))
+                                                .frame(width:  350, height: 630)
+                                                .zIndex(5)
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .stroke()
+                                                .foregroundColor(Color("homeBrewSelect"))
+                                                .frame(width:  280, height: 200)
+                                                .zIndex(5)
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .frame(width: 250, height: 170)
+                                                .foregroundColor(Color("offBlack"))
+                                                .modifier(Shapes.NeumorphicPopedOutBox(mode: mode))
+                                            Text("Save a meditation in the meditation generator window")
+                                                .fontWeight(.thin)
+                                                .multilineTextAlignment(.center)
+                                                .lineLimit(3)
+                                                .frame(width: 200)
+                                        }
+                                    }
+                                    if viewModel.hasSavedMeditations {
+                                        Spacer().frame(height: 65)
+                                        
+                                        if let unwrappedRealm = realm.realmConnect {
+                                            ForEach(unwrappedRealm.objects(Item.self).filter("isFavorite == false"), id: \._id) { item in
+                                                ItemRow(item: item, group: group, mode: mode)
+                                            }
+                                        }
+                                    }
+
+                                    
+                                    Spacer()
+                                        .frame(height: 10)
+                                    
                                 }
+                                
                             }
-                        }
                         .scaleEffect(0.9)
+                        .onAppear {
+                                viewModel.updateSavedMeditationsStatus()
+                            viewModel.onItemsUpdated()
+                            }
                     }
-                    .zIndex(6)
+              
                     
                     Spacer()
-                        .frame(height: 25)
+                        .frame(height: 5)
                 }
             }
                 VStack {
@@ -157,14 +205,24 @@ struct ItemRow: View {
                             if savedButtonExpand {
                                 Button(action: {
                                 
-                                        viewModel.counter -= 1
                                     if let newItem = item.thaw(),
                                        let realm = newItem.realm {
                                         
-                                        try? realm.write {
-                                            realm.delete(newItem)
+                                        do {
+                                            try realm.write {                                                realm.delete(newItem)
+
+                                                print("delete successful")
+
+                                            }
+                                        } catch let error as NSError {
+                                            print("An error occurred: \(error)")
                                         }
+                                        
                                     }
+                                    
+
+                           
+
                                 }, label: {
                                     Image(systemName: "trash")
                                         .fontWeight(.thin)
@@ -173,8 +231,7 @@ struct ItemRow: View {
                                 })
                                 .buttonStyle(.borderless)
                             }
-                            Spacer()
-                                .frame(width:0)
+                          
                             Text(savedButtonExpand ? item.name : "Saved Meditation #\(item.savedId)")
                                 .font(.system(size: 20))
                                 .fontWeight(.thin)

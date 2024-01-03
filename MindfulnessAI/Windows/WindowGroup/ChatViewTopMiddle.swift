@@ -28,7 +28,8 @@ struct ChatViewTopMiddle: View {
     
     @State var startMeditation = true
        
-  
+    @State private var totalDuration: TimeInterval = 0
+
     
     @State private var meditationTimeBoxAnimation: Bool = false
     @State private var meditationTimeBoxExpand: Bool = false
@@ -63,7 +64,10 @@ struct ChatViewTopMiddle: View {
                                     meditationTimeBoxExpand.toggle()
                                     withAnimation(.spring(response: 1, dampingFraction: 1)) {
                                         meditationTimeBoxAnimation.toggle()
+                                        
                                     }
+                         
+
                                 }
                                 // Adjusts the overall padding based on the state of meditationTimeBoxExpand or menuPopUp
                                 .padding(meditationTimeBoxExpand || menuPopUp ? 50 : 0)
@@ -147,7 +151,7 @@ struct ChatViewTopMiddle: View {
                                             Spacer()
                                                 .frame(height: 120)
                                             // if the profile button was clicked display the username
-                                            Text("Username")
+                                            Text("ChatGPT API key")
                                                 .fontWeight(.thin)
                                                 .font(.system(size: 15))
                                                 .frame(width: 150)
@@ -159,10 +163,10 @@ struct ChatViewTopMiddle: View {
                                             .frame(width: 200, height: 40)
                                             .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                             // if the profile button was clicked display the password
-                                            Text("Password")
+                                            Text("google cloud text-to-speech API key")
                                                 .fontWeight(.thin)
                                                 .font(.system(size: 15))
-                                                .frame(width: 150)
+                                                .frame(width: 250)
                                                 .foregroundColor(Color("homeBrew"))
                                             
                                             Button(action: {}, label: {
@@ -276,25 +280,25 @@ struct ChatViewTopMiddle: View {
                         VStack {
                             LazyHStack(spacing: 20) {
                             
-                                        LazyVStack {
-                                            // The hours text box that gets displayed based off if you click the plus icon
-                                            Text("HOURS:")
-                                                .scaleEffect(meditationTimeBoxAnimation ? 1 : 0)
-                                                .animation(.spring(response: 1, dampingFraction: 1), value: menuPopUp)
-
+                                LazyVStack {
+                                    // The hours text box that gets displayed based off if you click the plus icon
+                                    Text("HOURS:")
+                                        .scaleEffect(meditationTimeBoxAnimation ? 1 : 0)
+                                        .animation(.spring(response: 1, dampingFraction: 1), value: menuPopUp)
+                                    
+                                        .foregroundColor(Color("homeBrew"))
+                                        .padding(.top, 130)
+                                    Rectangle()
+                                        .foregroundColor(Color("offBlack"))
+                                        .frame(width: meditationTimeBoxAnimation ? 220 : 0, height: meditationTimeBoxAnimation ? 100 : 0)
+                                        .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                        .overlay(
+                                            
+                                            Text(viewModel.formatTotalDuration())
+                                                .scaleEffect(meditationTimeBoxAnimation ? 2 : 0)
+                                                .animation(.spring(response: 2, dampingFraction: 1), value: menuPopUp)
                                                 .foregroundColor(Color("homeBrew"))
-                                                .padding(.top, 130)
-                                            Rectangle()
-                                                .foregroundColor(Color("offBlack"))
-                                                .frame(width: meditationTimeBoxAnimation ? 220 : 0, height: meditationTimeBoxAnimation ? 100 : 0)
-                                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
-                                                .overlay(
-                                                    Text(viewModel.formatTotalDuration())
-                                                         .scaleEffect(meditationTimeBoxAnimation ? 2 : 0)
-                                                         .animation(.spring(response: 2, dampingFraction: 1), value: menuPopUp)
-
-                                                        .foregroundColor(Color("homeBrew"))
-                                                )
+                                )
                             }
                         }
                     })
@@ -575,12 +579,12 @@ struct logOutAndProfileButton: View {
                 viewModel.profileButtonPressed = true
             }, label: {
                 HStack {
-                    Text("Profile")
+                    Text("keys")
                         .fontWeight(.thin)
                         .underline(true)
                         .font(.system(size: 15))
                         .foregroundColor(Color("homeBrew"))
-                    Image(systemName: "person")
+                    Image(systemName: "key")
                         .foregroundColor(Color("homeBrew"))
                     
                 }
