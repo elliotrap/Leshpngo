@@ -694,12 +694,11 @@ You are a fully enlighten vipassana meditation trainer training people through a
     }
 }
 
-struct ContentView_Previews8: PreviewProvider {
-    static var previews: some View {
-        let group = BackendGroup()
-        return Group {
-            
-            ChatView(mode: Shapes(), group: group)
-        }
+#Preview {
+    let group = BackendGroup()
+    return Group {
+        
+        ChatView(mode: Shapes(), group: group)
     }
 }
+

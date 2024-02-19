@@ -14,14 +14,17 @@ import Foundation
 // MARK: - Chat View Top Middle
 struct ChatViewTopMiddle: View {
     @ObservedObject var mode: Shapes
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
 
     @ObservedRealmObject var group: BackendGroup
     
-
+    @State private var apiKey: String = APIManager.ConstantsUserAPIKey.openAIApiKey
    
+    @State private var apiKeyTwo: String = APIManager.ConstantsUserGoogleAPIKey.GoogleApiKey
+
+    
     @State var tenMinuetButton = true
     @State var twentyMinuetButton = false
     @State var thirtyMinuetButton = false
@@ -142,9 +145,8 @@ struct ChatViewTopMiddle: View {
                                 
 
                             } else if viewModel.profileButtonPressed {
-                                    // MARK: - Password Change
+                                    // MARK: - key Change
 
-                                    HStack {
                                         
                                         VStack {
                                             
@@ -157,28 +159,57 @@ struct ChatViewTopMiddle: View {
                                                 .frame(width: 150)
                                                 .foregroundColor(Color("homeBrew"))
                                             
-                                            Button(action: {}, label: {
-                                                Text("")
-                                            })
-                                            .frame(width: 200, height: 40)
-                                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                            ZStack {
+                                     
+                                                RoundedRectangle(cornerRadius: 100)
+                                                .frame(width: 300, height: 40)
+                                                .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                                
+                                                TextField("API Key", text: $apiKey, onEditingChanged: { isEditing in
+                                                    // Handle the editing state if needed
+                                              
+                                                }, onCommit: {
+                                                    
+                                                        // Called when the user presses return
+                                                    APIManager.ConstantsUserAPIKey.openAIApiKey = apiKey
+                                                    print("api key = \(apiKey)")
+                                                    
+                                                })
+                                                .padding(.leading, 15)
+                                                .padding(.top, 4)
+                                                .foregroundColor(Color("homeBrew"))
+                                                .frame(width: 250, height: 50)
+                                            }
                                             // if the profile button was clicked display the password
                                             Text("google cloud text-to-speech API key")
                                                 .fontWeight(.thin)
                                                 .font(.system(size: 15))
                                                 .frame(width: 250)
                                                 .foregroundColor(Color("homeBrew"))
-                                            
-                                            Button(action: {}, label: {
-                                                Text("")
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 100)
+                                                    .frame(width: 300, height: 40)
+                                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
                                                 
-                                            })
-                                            .frame(width: 200, height: 40)
-                                            .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                                TextField("API Key", text: $apiKeyTwo, onEditingChanged: { isEditing in
+                                                    // Handle the editing state if needed
+                                                    
+                                                }, onCommit: {
+                                                    
+                                                    // Called when the user presses return
+                                                    APIManager.ConstantsUserGoogleAPIKey.GoogleApiKey = apiKeyTwo
+                                                    print("api key = \(apiKeyTwo)")
+                                                    
+                                                })
+                                                .padding(.leading, 15)
+                                                .padding(.top, 4)
+                                                .foregroundColor(Color("homeBrew"))
+                                                .frame(width: 250, height: 50)
+                                            }
                                         }
                                    
                                         
-                                    }
+                                    
                                 } else if viewModel.durationButtonPressed {
                                     // MARK: - 10 min / 20 min
                                     ZStack {
@@ -196,7 +227,7 @@ struct ChatViewTopMiddle: View {
                                                 Button(action: {
                                                     tenMinuetButton = true
                                                 twentyMinuetButton = false
-                                                },
+                                                                                },
                                                        label: {
                                                     Text("10 min")
                                                         .fontWeight(.thin)
@@ -444,9 +475,11 @@ struct ChatViewTopMiddle: View {
 struct darkModeDurationButtons: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
-    
+    @StateObject var deleteVm = deleteAccount()
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
     @ObservedRealmObject var group: BackendGroup
 
     var body: some View {
@@ -479,6 +512,28 @@ struct darkModeDurationButtons: View {
                 Button(action: {
                     shapeVm.darkmode = false
                     mode.changeMode = false
+                    Task {
+                           do {
+                               // Assuming you're obtaining the userId from your view model or directly from your app's current user context
+                               guard let userId = app.currentUser?.id else {
+                                   alertMessage = "No user is currently logged in."
+                                   showingAlert = true
+                                   return
+                               }
+
+                               try await deleteVm.deleteUser(userId: userId)
+                               alertMessage = "Account deleted successfully."
+                               showingAlert = true
+                           } catch {
+                               // Handle the error and present an alert
+                               alertMessage = "Failed to delete account: \(error.localizedDescription)"
+                               showingAlert = true
+                           }
+                       }
+                   
+            
+                       
+
                 }, label: {
                     HStack {
                         Text("Lightmode")
@@ -535,9 +590,10 @@ struct darkModeDurationButtons: View {
 }
 
 struct logOutAndProfileButton: View {
+
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
 
     @ObservedRealmObject var group: BackendGroup
@@ -555,7 +611,9 @@ struct logOutAndProfileButton: View {
         HStack {
             // If the user clicks this button it logs them out calling the realm.logout function
             Button(action: {
-                realm.logout()
+                Task {
+                        await realm.logout()
+                }
             }, label: {
                 HStack {
                     Text("Logout")
@@ -598,13 +656,11 @@ struct logOutAndProfileButton: View {
         }
     }
 }
-struct ContentView_Previews6: PreviewProvider {
-    static var previews: some View {
-        let group = BackendGroup()
-        return Group {
-            
-            ChatView(mode: Shapes(), group: group)
-        }
+#Preview {
+    let group = BackendGroup()
+    return Group {
+        
+        ChatView(mode: Shapes(), group: group)
     }
 }
 

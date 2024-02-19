@@ -9,19 +9,22 @@
 import Foundation
 import RealmSwift
 
-final class Item: Object, ObjectKeyIdentifiable {
+final class Item: Object, Identifiable {
     
-    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted(primaryKey: true) var userId: String
     @Persisted var name = ""
     @Persisted var isFavorite = false
     @Persisted var _savedId: Int = 0
     @Persisted var startDate: Date
     @Persisted var duration: TimeInterval = 0
-    @objc dynamic var openAIApiKey: String?
+     @Persisted  var realmOpenAIApiKey: String?
+     @Persisted var realmGoogleApiKey: String?
+   // @Persisted  var realmOpenAIApiKey: List<String>
+ //   @Persisted var realmGoogleApiKey: List<String>
     @Persisted(originProperty: "items") var group: LinkingObjects<BackendGroup>
     
     override static func primaryKey() -> String? {
-        return "id"
+        return "userId"
     }
     
     @Published var latestAssistantMessage: String = "" {
@@ -42,4 +45,5 @@ final class Item: Object, ObjectKeyIdentifiable {
         self.latestAssistantMessage = name
         self.savedId = savedId
     }
+
 }

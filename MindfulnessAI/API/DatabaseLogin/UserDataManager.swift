@@ -13,6 +13,12 @@ class UserDataManager {
     private var userItem: Item?
 
     private init() {
+        
+            // Configure Realm (adjust configuration as needed)
+            let config = Realm.Configuration() // Simplified for demonstration; include your actual configuration
+            Realm.Configuration.defaultConfiguration = config
+            
+
         do {
             // Try to initialize Realm
             realm = try Realm()

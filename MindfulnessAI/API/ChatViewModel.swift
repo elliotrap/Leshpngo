@@ -11,7 +11,7 @@ import SwiftUI
 import AVFoundation
 import RealmSwift
 import Combine
-
+import CoreAudio
 class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate  {
 
 
@@ -19,23 +19,28 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AV
 
     override init() {
         super.init()
-
-        // Use the realm instance from RealmManager
-        guard let realm = RealmManager.shared.realm else {
-            fatalError("Failed to initialize Realm")
+        
+        do {
+            // Attempt to initialize Realm
+            let realm = try RealmManager.shared.getRealm() // Assuming `getRealm()` is a method that returns `Realm?`
+            
+            // Fetch data and set up Realm notifications
+            fetchData()
+            
+            let meditations = realm.objects(Item.self)
+            // Observe for changes
+            notificationToken = meditations.observe { [weak self] _ in
+                self?.updateSavedMeditationsStatus()
+            }
+            
+            updateSavedMeditationsStatus()
+        } catch {
+            // Handle initialization error
+            print("Realm initialization failed: \(error)")
+            // Consider more user-friendly error handling here, depending on your app's structure
         }
-
-        // Fetch data and set up Realm notifications
-        fetchData()
-
-        let meditations = realm.objects(Item.self)
-        // Observe for changes
-        notificationToken = meditations.observe { [weak self] _ in
-            self?.updateSavedMeditationsStatus()
-        }
-
-        updateSavedMeditationsStatus()
     }
+
 
 
         deinit {
@@ -62,6 +67,8 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, AV
     
     private var viewModelTwo = OpenAIService()
     
+    
+   
     @Published var startMeditationPrompt = true
 
     @Published var startLessonPrompt = true
@@ -158,7 +165,7 @@ You are vipassana meditation expert training people through an app. give me a no
             let systemMessageContent = systemContent ?? self.contentMessage
                 
         let userMessage = Message(id: UUID(), role: .user, content: userMessageContent, createAt: Date())
-         let systemMessage = Message(id: UUID(), role: .system, content: systemMessageContent, createAt: Date())
+         var systemMessage = Message(id: UUID(), role: .system, content: systemMessageContent, createAt: Date())
 
                 currentInput = ""
                 
@@ -183,9 +190,11 @@ You are vipassana meditation expert training people through an app. give me a no
             }
             
     func textToSpeech(ssmlText: String) {
-                    let apiKey = "AIzaSyDf2LDCrnMC1fnEaZN5-iNYh8f9EOMjH1I"
-                
-                    let url = URL(string: "https://texttospeech.googleapis.com/v1/text:synthesize?key=\(apiKey)")!
+       //let apiKey = "AIzaSyDf2LDCrnMC1fnEaZN5-iNYh8f9EOMjH1I"
+
+        let googleApiKey: String = APIManager.ConstantsUserGoogleAPIKey.GoogleApiKey
+
+        let url = URL(string: "https://texttospeech.googleapis.com/v1/text:synthesize?key=\(APIManager.ConstantsUserGoogleAPIKey.GoogleApiKey)")!
                     var request = URLRequest(url: url)
                     request.httpMethod = "POST"
                     request.addValue("application/json", forHTTPHeaderField: "Content-Type")

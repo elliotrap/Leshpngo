@@ -9,7 +9,7 @@ import Foundation
 struct ChatViewTop: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
 
@@ -97,6 +97,11 @@ struct ChatViewTop: View {
                             chiefButtonPressed = true
                             viewModel.databaseAccess = false
                             viewModel.windowCase = false
+                            let realm = try! Realm()
+                            try! realm.write {
+                                // Delete all objects from the Realm
+                                realm.deleteAll()
+                            }
 
                         }, label: {
                             // if the promptToggle is true show either the name of the meditation of the description of the mditaion
@@ -413,12 +418,10 @@ struct ChatViewTop: View {
     }
 }
 
-struct ContentView_Previews5: PreviewProvider {
-    static var previews: some View {
-        let group = BackendGroup()
-        return Group {
-            
-            ChatView(mode: Shapes(), group: group)
-        }
+#Preview {
+    let group = BackendGroup()
+    return Group {
+        
+        ChatView(mode: Shapes(), group: group)
     }
 }

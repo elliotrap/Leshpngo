@@ -23,7 +23,7 @@ struct ChatView: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
     
     @ObservedRealmObject var group: BackendGroup
@@ -117,7 +117,7 @@ struct ChatView: View {
         }
  
     }
-}
+} 
 
 
 
@@ -127,14 +127,13 @@ struct ChatView: View {
 
 
 
-struct ContentView_Previews3: PreviewProvider {
-    static var previews: some View {
-        let group = BackendGroup()
-        return Group {
-            
-            ChatView(mode: Shapes(), group: group)
-        }
+
+
+
+#Preview {
+    let group = BackendGroup()
+    return Group {
+        ChatView(mode: Shapes(), group: group)
     }
+    
 }
-
-

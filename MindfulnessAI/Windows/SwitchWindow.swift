@@ -10,6 +10,28 @@ import SwiftUI
 import RealmSwift
 
 
+//struct ContentView: View {
+//    @ObservedRealmObject var group: BackendGroup
+//    @StateObject var authViewModel = LoginLogout(app: app)
+//
+//    @EnvironmentObject var authManager: AuthManager
+//    var body: some View {
+//        
+//        Group {
+//            if authViewModel.isLoggedIn {
+//                ChatView(mode: Shapes(), group: group)
+//                    .environment(\.realmConfiguration, authViewModel.app.currentUser!.flexibleSyncConfiguration())
+//            } else {
+//                DatabaseLoginView(mode: Shapes())
+//            }
+//        }
+//        .onAppear {
+//            authViewModel.checkLoginState()
+//        }
+//    }
+//}
+
+
 struct ContentView: View {
     
     @ObservedObject var app: RealmSwift.App

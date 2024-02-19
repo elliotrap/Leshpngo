@@ -14,7 +14,7 @@ struct ChatViewBottom: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
     
     @ObservedRealmObject var group: BackendGroup
@@ -48,7 +48,7 @@ struct display: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
     
     @ObservedRealmObject var group: BackendGroup
@@ -182,7 +182,7 @@ struct playAndGenerateButtonsHome: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
     
     @ObservedRealmObject var group: BackendGroup
@@ -305,7 +305,7 @@ struct backAndForwardButtonsHome: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
     
     @ObservedRealmObject var group: BackendGroup
@@ -370,12 +370,11 @@ struct backAndForwardButtonsHome: View {
     }
     }
 }
-struct ContentView_Previews7: PreviewProvider {
-    static var previews: some View {
-        let group = BackendGroup()
-        return Group {
-            
-            ChatView(mode: Shapes(), group: group)
-        }
+#Preview {
+    let group = BackendGroup()
+    return Group {
+        
+        ChatView(mode: Shapes(), group: group)
     }
 }
+

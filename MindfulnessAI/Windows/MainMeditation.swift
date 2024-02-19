@@ -16,7 +16,7 @@ struct MainMeditation: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var vm = ViewModel()
     @ObservedObject var shapeVm = Shapes.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var viewModel = ChatViewModel.shared
     @ObservedRealmObject var group: BackendGroup
     @ObservedResults(Item.self) var items
@@ -129,10 +129,11 @@ struct MainMeditation: View {
                                         Spacer().frame(height: 65)
                                         
                                         if let unwrappedRealm = realm.realmConnect {
-                                            ForEach(unwrappedRealm.objects(Item.self).filter("isFavorite == false"), id: \._id) { item in
+                                            ForEach(unwrappedRealm.objects(Item.self).filter("isFavorite == false")) { item in
                                                 ItemRow(item: item, group: group, mode: mode)
                                             }
                                         }
+
                                     }
 
                                     
@@ -274,10 +275,9 @@ struct ItemRow: View {
     }
 }
 
-struct ContentView_Previews2: PreviewProvider {
-    static var previews: some View {
-        let group = BackendGroup()
-
+#Preview {
+    let group = BackendGroup()
+    return Group {
         MainMeditation(mode: Shapes(), group: group)
     }
 }

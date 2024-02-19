@@ -64,5 +64,143 @@
             endingLineNumber = "1736">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "LoginLogout"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - ee7204af45cbffa0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of MindfulnessAI.LoginLogout.mode : MindfulnessAI.Shapes"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - 7f1c14c1512da414"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MindfulnessAI.LoginLogout.mode.setter : MindfulnessAI.Shapes"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - 6c65bffb32e6f428"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MindfulnessAI.LoginLogout.mode.getter : MindfulnessAI.Shapes"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - d37d98e3ea4a3027"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MindfulnessAI.LoginLogout.mode.modify : MindfulnessAI.Shapes"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - 3d451dd1b5b8028b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MindfulnessAI.LoginLogout.mode.modify : MindfulnessAI.Shapes with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - 567b69b51bdbb1e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MindfulnessAI.LoginLogout.$mode.getter : SwiftUI.ObservedObject&lt;MindfulnessAI.Shapes&gt;.Wrapper"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - 9d5ada7e40c87074"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "one-time initialization function for shared"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "3FF1DA5A-7877-4D36-AB03-255E6ADC2F78 - 3c29a9de87b94858"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MindfulnessAI.LoginLogout.shared.unsafeMutableAddressor : MindfulnessAI.LoginLogout"
+                  moduleName = "MindfulnessAI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elliotrapp/Desktop/Leshpngo1.3/MindfulnessAI/API/DatabaseLogin/LoginLogout.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

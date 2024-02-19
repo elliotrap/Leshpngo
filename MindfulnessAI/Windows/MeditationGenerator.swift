@@ -13,7 +13,7 @@ struct MeditationGenerator: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedObject var helper = RealmHelper()
     @ObservedRealmObject var group: BackendGroup
     let realmConnect = try! Realm()
@@ -234,7 +234,7 @@ struct BackAndForwardButtons: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedRealmObject var group: BackendGroup
     @ObservedObject var helper = RealmHelper()
 
@@ -306,7 +306,7 @@ struct PlayAndGenerateButtons: View {
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes.shared
     @ObservedObject var viewModel = ChatViewModel.shared
-    @StateObject var realm = LoginLogout()
+    @StateObject var realm = LoginLogout.shared
     @ObservedRealmObject var group: BackendGroup
     @ObservedObject var helper = RealmHelper()
 
@@ -424,9 +424,10 @@ struct PlayAndGenerateButtons: View {
         .scaleEffect(0.9)
     }
 }
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        let group = BackendGroup() // Create an instance of your Group class
+
+#Preview {
+    let group = BackendGroup() // Create an instance of your Group class
+    return Group {
         MeditationGenerator(mode: Shapes(), group: group)
     }
 }

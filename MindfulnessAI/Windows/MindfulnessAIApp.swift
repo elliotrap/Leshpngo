@@ -8,19 +8,17 @@
 import SwiftUI
 import RealmSwift
 
-let app = App(id: "application-0-kibhk")
-
-
+let app = App(id: "application-0-yancq")
 
 @main
 struct RealmProjectApp: SwiftUI.App{
-    
-    @ObservedObject var shapeVm = Shapes()
-    
+
     var body: some Scene {
         WindowGroup {
+            
             ContentView(app: app)
-
+            
         }
     }
 }
+

@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adamrushy/OpenAISwift",
       "state" : {
-        "revision" : "aeb19b0d5739fd6e3f568ccdb93376827e3cde0e",
-        "version" : "1.2.0"
+        "revision" : "ca66fb720d6ebb657601db5a0852b830ae310a4c",
+        "version" : "1.4.1"
       }
     },
     {

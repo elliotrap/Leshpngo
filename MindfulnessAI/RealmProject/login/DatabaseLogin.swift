@@ -5,6 +5,7 @@
 //  Created by Elliot Rapp on 6/27/23.
 //
 
+import Combine
 import SwiftUI
 import RealmSwift
 import Foundation
@@ -12,15 +13,19 @@ import Foundation
 
 struct DatabaseLoginView: View {
     
+    @ObservedObject var viewModel = ChatViewModel()
     @ObservedObject var vm = ViewModel()
     @ObservedObject var mode: Shapes
     @ObservedObject var shapeVm = Shapes()
-    @ObservedObject var realm = LoginLogout()
+    @ObservedObject var realm = LoginLogout.shared
+    
+    @State private var apiKey: String = APIManager.ConstantsUserAPIKey.openAIApiKey
+
     
     @State var haveAnAccount = false
+    @State var apiKeyWindow = false
     
     @State var wrongPassword = false
-    
     @State var wrongEmail = false
     
     @State var showXIcon = false
@@ -89,7 +94,7 @@ struct DatabaseLoginView: View {
                                 )
                             Spacer()
                                 .frame(height: 15)
-                            if haveAnAccount == false {
+                            if haveAnAccount == false && apiKeyWindow == false {
                                 VStack {
                                     Text("Enter your Email")
                                         .fontWeight(.thin)
@@ -126,15 +131,15 @@ struct DatabaseLoginView: View {
                                                 .frame(width: 300, height: 50)
                                                 .foregroundColor(.clear)
                                                 .modifier(Shapes.NeumorphicClickedBox(mode: mode))
-                                           
-                                                SecureField( "password", text: $realm.password)
-                                                    .padding(.leading, 25)
-                                                    .padding(.top, 4)
-                                                    .foregroundColor(Color("homeBrew"))
-                                                    .frame(width: 300, height: 50)
-                                                    .onTapGesture {
-                                                        showXIcon = true
-                                                    }
+                                            
+                                            SecureField( "password", text: $realm.password)
+                                                .padding(.leading, 25)
+                                                .padding(.top, 4)
+                                                .foregroundColor(Color("homeBrew"))
+                                                .frame(width: 300, height: 50)
+                                                .onTapGesture {
+                                                    showXIcon = true
+                                                }
                                             if showXIcon {
                                                 HStack {
                                                     Spacer()
@@ -147,7 +152,8 @@ struct DatabaseLoginView: View {
                                                         }
                                                     
                                                 }
-                                            }                                        }
+                                            }
+                                        }
                                         
                                         Spacer()
                                             .frame(height: 15)
@@ -192,10 +198,16 @@ struct DatabaseLoginView: View {
                                             .frame(height: 30)
                                         ZStack {
                                         VStack(spacing: 25) {
-                                            Button(action: {
-                                                if realm.password == realm.reenterPassword {
-                                                    realm.signup()
-                                                    
+                                            Button(action:  {
+                                                Task {
+                                                    if realm.password == realm.reenterPassword {
+                                                      
+                                                           try await realm.signup()
+                                            
+                                                    } else {
+                                                        // Handle password mismatch, such as showing an alert to the user
+                                                        print("Passwords do not match. #1")
+                                                    }
                                                 }
                                                 if realm.password != realm.reenterPassword {
                                                     wrongPassword = true
@@ -252,7 +264,7 @@ struct DatabaseLoginView: View {
                                     }
                                 }
                                 }
-                            } else if haveAnAccount == true {
+                            } else if haveAnAccount == true && apiKeyWindow == false {
                                 VStack {
                                     Spacer()
                                         .frame(height: 5)
@@ -317,27 +329,39 @@ struct DatabaseLoginView: View {
                                             .frame(height: 30)
                                         ZStack {
                                             VStack(spacing: 25) {
-                                                NavigationLink(destination: APIKeyLogin(vm: vm, mode: Shapes())) {
-                                                    Button(action: {
+                                                Button(action: {
+                                                    Task {
+                                                       
+                                                             do {
+
+                                                                  await realm.login()
+                                                                 // Handle successful signup here
+                                                             } catch {
+                                                                 // Handle errors by showing an alert or updating the UI
+                                                                 print("Error during signup: \(error)")
+                                                             }
+                                                         
+                                                     }
+//                                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
+//                                                        apiKeyWindow = true
+//                                                    }
+                                                }, label: {
+                                                    HStack {
+                                                        Spacer()
+                                                            .frame(width: 40)
+                                                        Text("Sign in")
+                                                            .fontWeight(.thin)
+                                                            .underline(false)
+                                                        Spacer()
+                                                            .frame(width: 20)
+                                                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                                                            .fontWeight(.thin)
                                                         
-                                                        
-                                                    }, label: {
-                                                        HStack {
-                                                            Spacer()
-                                                                .frame(width: 40)
-                                                            Text("Sign in")
-                                                                .fontWeight(.thin)
-                                                                .underline(false)
-                                                            Spacer()
-                                                                .frame(width: 20)
-                                                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                                                                .fontWeight(.thin)
-                                                            
-                                                        }
-                                                        
-                                                    })
-                                     
-                                                }
+                                                    }
+                                                    
+                                                })
+                                            
+                                                
                                                 .buttonStyle(.borderless)
                                                 .foregroundColor(Color("homeBrew"))
                                                 .frame(width: 200, height: 70)
@@ -360,6 +384,148 @@ struct DatabaseLoginView: View {
                                                 .buttonStyle(.borderless)
                                                 .frame(width: 200, height: 70)
                                                 .modifier(Shapes.NeumorphicMenuPopedOutBox(mode: mode))
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if apiKeyWindow == true && haveAnAccount == true {
+                                VStack {
+                         
+                                    
+                                    
+                                
+                                    
+                                    VStack {
+                             
+                                        ZStack(alignment: .top) {
+                                            
+                                        
+                                            
+                                            VStack {
+                                        
+                                           
+                                                Spacer()
+                                                    .frame(height:25)
+                                          
+                                                    VStack {
+                                                        Text("Enter your ChatGPT API key")
+                                                            .fontWeight(.thin)
+                                                            .foregroundColor(Color("homeBrew"))
+                                                        
+                                                        Spacer()
+                                                            .frame(height: 10)
+                                                        
+                                                        ZStack {
+                                                    
+                                                            
+                                                        
+                                                                Rectangle()
+                                                                    .frame(width: 300, height: 50)
+                                                                    .foregroundColor(.clear)
+                                                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                                            TextField("API Key", text: $apiKey, onEditingChanged: { isEditing in
+                                                                // Handle the editing state if needed
+                                                          
+                                                            }, onCommit: {
+                                                                
+                                                                    // Called when the user presses return
+                                                                APIManager.ConstantsUserAPIKey.openAIApiKey = apiKey
+                                                                print("api key = \(apiKey)")
+                                                                
+                                                            })
+                                                            .padding(.leading, 25)
+                                                            .padding(.top, 4)
+                                                            .foregroundColor(Color("homeBrew"))
+                                                            .frame(width: 300, height: 50)
+                                                                    
+                                                            
+                                                           
+                                                            
+                                                            
+                                                        }
+                                                        Spacer()
+                                                            .frame(height: 35)
+                                                        Text("Enter your Google Cloud text-to-speech API key")
+                                                            .frame(width: 200)
+                                                            .fontWeight(.thin)
+                                                            .foregroundColor(Color("homeBrew"))
+                                                        VStack {
+                                                            Spacer()
+                                                                .frame(height: 10)
+                                                            
+                                                            ZStack {
+                                                                Rectangle()
+                                                                    .frame(width: 300, height: 50)
+                                                                    .foregroundColor(.clear)
+                                                                    .modifier(Shapes.NeumorphicClickedBox(mode: mode))
+                                                                
+                                                                SecureField( "Google Cloud tts API key", text: $realm.password)
+                                                                    .padding(.leading, 25)
+                                                                    .padding(.top, 4)
+                                                                    .foregroundColor(Color("homeBrew"))
+                                                                    .frame(width: 300, height: 50)
+                                                                    .onTapGesture {
+                                                                        showXIcon = true
+                                                                    }
+                                                                if showXIcon {
+                                                                    HStack {
+                                                                        Spacer()
+                                                                            .frame(width: 240)
+                                                                        Image(systemName: "x.circle.fill")
+                                                                            .foregroundColor(.red)
+                                                                            .onTapGesture {
+                                                                                realm.password = ""
+                                                                                showXIcon = false
+                                                                            }
+                                                                        
+                                                                    }
+                                                                }
+                                                            }
+                                                            
+                                                            Spacer()
+                                                                .frame(height: 5)
+                                                     
+                                                            
+                                                            Spacer()
+                                                                .frame(height: 10)
+                                            
+                                                            Spacer()
+                                                                .frame(height: 30)
+                                                            ZStack {
+                                                                VStack(spacing: 25) {
+                                                                    Button(action: {
+                                                                        APIManager.ConstantsUserAPIKey.openAIApiKey = apiKey
+                                                                        Task {
+                                                                                
+                                                                                       await realm.login()
+                                                                        
+                                                                     
+                                                                         }
+                                                                    }, label: {
+                                                                        HStack {
+                                                                            
+                                                                            Text("Enter API key")
+                                                                                .fontWeight(.thin)
+                                                                                .frame(width: 110)
+                                                                                .underline(false)
+                                                                            
+                                                                            Image(systemName: "key")
+                                                                        }
+                                                                    })
+                                                                    .buttonStyle(.borderless)
+                                                                    .foregroundColor(Color("homeBrew"))
+                                                                    .frame(width: 200, height: 70)
+                                                                    .modifier(Shapes.NeumorphicMenuPopedOutBox(mode: mode))
+                                                                    .zIndex(1)
+                                                                    
+                                                
+                                                                    
+                                                                    
+                                                                }
+                                                            
+                                                            }
+                                                        }
+                                                    }
                                             }
                                         }
                                     }

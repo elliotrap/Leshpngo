@@ -26,12 +26,11 @@ class RealmManager {
     private init() {
         // Configure Realm
         let config = Realm.Configuration(
-            schemaVersion: 7,
+            schemaVersion: 14,
             migrationBlock: { migration, oldSchemaVersion in
                 // Your migration logic here
             }
         )
-
         Realm.Configuration.defaultConfiguration = config
         
         // Initialize Realm
@@ -42,4 +41,13 @@ class RealmManager {
             realm = nil  // or handle the error in some other way
         }
     }
+    // Function to get a Realm instance
+      func getRealm() throws -> Realm {
+          do {
+              let realm = try Realm() // Attempt to initialize a Realm instance with default configuration
+              return realm
+          } catch {
+              throw error // Propagate any errors encountered during initialization
+          }
+      }
 }
